@@ -6,8 +6,6 @@ local beautiful = require("beautiful")
 local utils = require("utils")
 local dpi = beautiful.xresources.apply_dpi
 
-print("Hello from taglist")
-
 local taglist_buttons = gears.table.join(
 	awful.button({}, 1, function(t)
 		t:view_only()

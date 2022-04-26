@@ -75,7 +75,8 @@ theme.tooltip_font = "Inter 10"
 theme.tooltip_border_width = dpi(1)
 theme.tooltip_border_color = theme.border_normal
 
-theme.tasklist_bg_focus = theme.bg_normal
+theme.tasklist_bg_focus = theme.bg_focus
+theme.tasklist_bg_normal = theme.transparent
 
 -- Generate taglist squares:
 local taglist_square_size = dpi(0)
