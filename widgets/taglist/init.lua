@@ -1,12 +1,12 @@
 local awful = require("awful")
 local gears = require("gears")
-local modkey = require("configs.keys.mod").modkey
+local modkey = require("configs.mod").modkey
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local utils = require("utils")
 local dpi = beautiful.xresources.apply_dpi
 
-local M = {}
+print("Hello from taglist")
 
 local taglist_buttons = gears.table.join(
 	awful.button({}, 1, function(t)
@@ -63,7 +63,7 @@ local function widget_update_callback(self, t)
 	end
 end
 
-function M.initTagList(s)
+local function initTagList(s)
 	return awful.widget.taglist({
 		screen = s,
 		filter = awful.widget.taglist.filter.noempty,
@@ -110,4 +110,4 @@ function M.initTagList(s)
 	})
 end
 
-return M
+return initTagList

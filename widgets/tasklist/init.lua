@@ -6,8 +6,6 @@ local utils = require("utils")
 local beautiful = require("beautiful")
 local icons = require("icons")
 
-local M = {}
-
 local tasklist_buttons = gears.table.join(
 	awful.button({}, 1, function(c)
 		if c == client.focus then
@@ -72,7 +70,7 @@ local function widget_create_callback(self, c, index)
 	c.popup.offset = { x = 40 }
 end
 
-function M.initTaskList(s)
+local function initTaskList(s)
 	return awful.widget.tasklist({
 		screen = s,
 		filter = awful.widget.tasklist.filter.currenttags,
@@ -103,4 +101,4 @@ function M.initTaskList(s)
 	})
 end
 
-return M
+return initTaskList
