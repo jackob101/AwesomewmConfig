@@ -3,109 +3,129 @@ local gears = require("gears")
 local modkey = require("configs.mod").modkey
 local wibox = require("wibox")
 local beautiful = require("beautiful")
-local utils = require("utils")
 local dpi = beautiful.xresources.apply_dpi
 
-local taglist_buttons = gears.table.join(
-	awful.button({}, 1, function(t)
-		t:view_only()
-	end),
-	awful.button({ modkey }, 1, function(t)
-		if client.focus then
-			client.focus:move_to_tag(t)
-		end
-	end),
-	awful.button({}, 3, awful.tag.viewtoggle),
-	awful.button({ modkey }, 3, function(t)
-		if client.focus then
-			client.focus:toggle_tag(t)
-		end
-	end),
-	awful.button({}, 4, function(t)
-		awful.tag.viewnext(t.screen)
-	end),
-	awful.button({}, 5, function(t)
-		awful.tag.viewprev(t.screen)
-	end)
-)
+----------------------------------------
+-- Local configuration for taglist
+----------------------------------------
 
-local function widget_create_callback(self, t, index)
-	if t.icon_widget then
-		local icon
-		if t.selected then
-			icon = t.icon_widget(beautiful.bg_normal)
-		else
-			icon = t.icon_widget(beautiful.fg_normal)
-		end
+local config = {}
+config.tag_spacing = dpi(7)
+config.tag_rounded_corners = dpi(0)
 
-		if icon then
-			self:get_children_by_id("icon")[1]:add(icon)
-		end
+config.tasks_margins = dpi(6)
+config.tasks_spacing = dpi(7)
+config.tasks_right_margin = dpi(9) -- Optional fallback 'tasks_margins'
+--config.tasks_top_margin
+--config.tasks_bottom_margin
 
-		if t.only_icon then
-			self:get_children_by_id("text_role")[1].visible = false
-		end
-	end
-	utils.cursor_hover(self)
+config.label_forced_width = dpi(25)
+config.label_margins = dpi(5)
+
+----------------------------------------
+-- Mouse button binds for tags
+----------------------------------------
+
+local taglist_buttons = {
+    awful.button({}, 1, function(t)
+        t:view_only()
+    end),
+    awful.button({ modkey }, 1, function(t)
+        if client.focus then
+            client.focus:move_to_tag(t)
+        end
+    end),
+    awful.button({}, 3, awful.tag.viewtoggle),
+    awful.button({ modkey }, 3, function(t)
+        if client.focus then
+            client.focus:toggle_tag(t)
+        end
+    end),
+    awful.button({}, 4, function(t)
+        awful.tag.viewnext(t.screen)
+    end),
+    awful.button({}, 5, function(t)
+        awful.tag.viewprev(t.screen)
+    end)
+
+}
+
+----------------------------------------
+-- Responsible for creating preview of tasks on tag
+----------------------------------------
+local function create_task_list(clients)
+
+    local task_list = wibox.widget {
+        layout = wibox.layout.fixed.horizontal,
+        spacing = config.tasks_spacing,
+    }
+
+    for _, client in ipairs(clients) do
+        task_list:add(wibox.widget({
+            widget = wibox.widget.imagebox,
+            image = client.icon,
+        }))
+    end
+
+    return wibox.widget {
+        widget = wibox.container.margin,
+        top = config.tasks_top_margin or config.tasks_margins,
+        bottom = config.tasks_bottom_margin or config.tasks_margins,
+        right = config.tasks_right_margin or config.tasks_margins,
+        task_list
+    }
 end
 
-local function widget_update_callback(self, t)
-	if #self:get_children_by_id("icon")[1].children > 0 then
-		if (t.selected or t.urgent) and t.only_icon then
-			self:get_children_by_id("icon")[1].children[1].stylesheet = "*{fill: "
-				.. beautiful.taglist_fg_focus
-				.. " ;}"
-		else
-			self:get_children_by_id("icon")[1].children[1].stylesheet = "*{fill: " .. beautiful.fg_normal .. " ;}"
-		end
-	end
+----------------------------------------
+-- Requests updates to tasks in tag
+----------------------------------------
+local function update_callback(self, t)
+    local clients = t:clients()
+    local task_list = self:get_children_by_id("task_list")[1]
+    task_list:reset()
+    if #clients > 0 then
+        task_list:add(create_task_list(clients))
+    end
 end
 
-local function initTagList(s)
-	return awful.widget.taglist({
-		screen = s,
-		filter = awful.widget.taglist.filter.noempty,
-		widget_template = {
-			{
-				{
-					{
-						{
-							{
-								widget = wibox.widget.textbox,
-								id = "text_role",
-								align = "center",
-							},
-							layout = wibox.layout.flex.vertical,
-						},
-						{
-							{
-								{
-									id = "icon",
-									layout = wibox.layout.fixed.horizontal,
-								},
-								widget = wibox.container.place,
-								valign = "center",
-								halign = "center",
-							},
-							widget = wibox.container.margin,
-							margins = dpi(7),
-						},
-						layout = wibox.layout.stack,
-					},
-					layout = wibox.layout.flex.vertical,
-				},
-				widget = wibox.container.margin,
-				left = dpi(5),
-				right = dpi(5),
-			},
-			widget = wibox.container.background,
-			id = "background_role",
-			forced_width = beautiful.bar_height * 1.2,
-			create_callback = widget_create_callback,
-			update_callback = widget_update_callback,
-		},
-		buttons = taglist_buttons,
-	})
+local function create(s)
+    return awful.widget.taglist({
+        screen = s,
+        filter = awful.widget.taglist.filter.noempty,
+        style = {
+            shape =  function(cr, width, height)
+                return gears.shape.rounded_rect(cr, width, height, config.tag_rounded_corners)
+            end,
+        },
+        layout = {
+            spacing = config.tag_spacing,
+            layout = wibox.layout.fixed.horizontal,
+        },
+        widget_template = {
+            {
+                {
+                    widget = wibox.container.margin,
+                    margins = config.label_margins,
+                    {
+                        widget = wibox.widget.textbox,
+                        align = "center",
+                        id = "text_role",
+                        forced_width = config.label_forced_width,
+                    },
+                },
+                {
+                    id = "task_list",
+                    layout = wibox.layout.fixed.horizontal,
+                },
+                layout = wibox.layout.fixed.horizontal,
+            },
+            widget = wibox.container.background,
+            id = "background_role",
+            update_callback = update_callback,
+            create_callback = update_callback,
+        },
+        buttons = taglist_buttons,
+    })
 end
 
-return initTagList
+return create

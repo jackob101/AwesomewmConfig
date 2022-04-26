@@ -86,9 +86,10 @@ theme.taglist_fg_focus = theme.bg_normal
 theme.taglist_fg_urgent = theme.bg_normal
 theme.taglist_bg_focus = xrdb.color10
 theme.taglist_bg_urgent = xrdb.color9
+theme.taglist_bg_occupied = theme.bg_overlay_transparent
 -- theme.taglist_bg_occupied = xrdb.color12
 -- theme.taglist_fg_occupied = xrdb.background
-theme.taglist_font = "inter bold 12"
+theme.taglist_font = "inter bold 14"
 theme.taglist_only_icons = true
 
 theme.notification_icon_size = dpi(50)
