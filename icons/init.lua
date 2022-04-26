@@ -32,7 +32,6 @@ return {
 	macros = dir .. "macro.svg",
 	bell = dir .. "bell.svg",
 	bell_slash = dir .. "bell-slash.svg",
-	launcher = dir .. "launcher.svg",
 	calendar = prepare_icon("calendar.svg"),
 	volume_high = dir .. "volume-high.svg",
 	volume_medium = dir .. "volume-medium.svg",

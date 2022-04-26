@@ -37,7 +37,7 @@ theme.accent4 = xrdb.color13
 theme.accent5 = xrdb.color14
 theme.accent6 = xrdb.color15
 
-theme.bar_height = dpi(36)
+theme.bar_height = dpi(32)
 theme.bar_opacity = "CC"
 theme.bar_font = "Inter medium 10"
 theme.bar_icon_text_spacing = dpi(5)
@@ -89,7 +89,7 @@ theme.taglist_bg_urgent = xrdb.color9
 theme.taglist_bg_occupied = theme.bg_overlay_transparent
 -- theme.taglist_bg_occupied = xrdb.color12
 -- theme.taglist_fg_occupied = xrdb.background
-theme.taglist_font = "inter bold 14"
+theme.taglist_font = "inter bold 12"
 theme.taglist_only_icons = true
 
 theme.notification_icon_size = dpi(50)
