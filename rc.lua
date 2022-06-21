@@ -2,24 +2,27 @@
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
 require("awful.autofocus")
-require("beautiful").init(os.getenv("HOME") .. "/.config/awesome/theme.lua")
+local beautiful = require("beautiful")
+beautiful.init(os.getenv("HOME") .. "/.config/awesome/theme.lua")
+
+dpi = beautiful.xresources.apply_dpi
 
 local menubar = require("menubar")
 
 function load(path_to_folder, file_name)
-	require(path_to_folder .. "." .. file_name)
+    require(path_to_folder .. "." .. file_name)
 end
 
 function load_all(path_to_folder, file_names)
-	for i, v in ipairs(file_names) do
-		load(path_to_folder, v)
-	end
+    for i, v in ipairs(file_names) do
+        load(path_to_folder, v)
+    end
 end
 
 load_all("", {
-	"configs",
-	"layout",
-	"errors",
+    "configs",
+    "layout",
+    "errors",
 })
 
 require("modules.notifications.notificationConfig")
