@@ -20,6 +20,7 @@ theme.transparent = "#FFFFFF00"
 
 theme.groups_bg = xrdb.color2 .. "77"
 theme.useless_gap = dpi(5)
+theme.gap_single_client = false
 
 theme.color8 = xrdb.color8
 theme.color9 = xrdb.color9
@@ -38,7 +39,7 @@ theme.accent5 = xrdb.color14
 theme.accent6 = xrdb.color15
 
 theme.bar_height = dpi(32)
-theme.bar_opacity = "CC"
+theme.bar_opacity = "FF"
 theme.bar_font = "Inter medium 10"
 theme.bar_icon_text_spacing = dpi(5)
 theme.bar_icon_margin = dpi(2)
@@ -109,7 +110,7 @@ theme.dashboard_border_width = dpi(2)
 theme.dashboard_border_color = theme.bg_focus
 theme.dashboard_margin = dpi(20)
 
-theme.central_panel_max_width = dpi(800)
+theme.central_panel_max_width = dpi(400)
 theme.central_panel_max_height = dpi(700)
 
 theme.menu_icon_size = dpi(16)
@@ -128,9 +129,9 @@ theme.menu_width = dpi(100)
 -- beautiful.variable in your rc.lua
 --theme.bg_widget = "#cc0000"
 
-theme.titlebar_bg_normal = theme.bg_overlay
-theme.titlebar_bg = theme.bg_overlay
-theme.titlebar_bg_focus = theme.bg_focus
+theme.titlebar_bg_normal = theme.bg_normal
+theme.titlebar_bg = theme.bg_normal
+theme.titlebar_bg_focus = theme.bg_normal
 -- Define the image to load
 theme.titlebar_close_button_normal = themes_path .. "default/titlebar/close_normal.png"
 theme.titlebar_close_button_focus = themes_path .. "default/titlebar/close_focus.png"

@@ -3,6 +3,7 @@
 pcall(require, "luarocks.loader")
 require("awful.autofocus")
 require("beautiful").init(os.getenv("HOME") .. "/.config/awesome/theme.lua")
+
 local menubar = require("menubar")
 
 function load(path_to_folder, file_name)

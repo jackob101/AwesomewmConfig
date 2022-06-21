@@ -20,6 +20,7 @@ local right_widgets = {
     "widgets.volume",
     "widgets.time",
     "widgets.date",
+    "widgets.systray",
     "widgets.central_panel_toggle"
 }
 
@@ -82,7 +83,7 @@ awful.screen.connect_for_each_screen(function(s)
     local right = {
         widget = wibox.container.margin,
         margins = config.right_panel_margins,
-        init_widgets(right_widgets, s, right_parent_widget)
+        init_widgets(right_widgets, s, right_parent_widget),
     }
 
     -- Create the wibar
