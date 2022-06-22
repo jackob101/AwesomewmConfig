@@ -86,7 +86,8 @@ theme.tag = {
     tasks_spacing = dpi(7),
     tasks_right_margin = dpi(9),
 
-    underline_height = dpi(3)
+    underline_height = dpi(3),
+    hover_color = "#FFFFFF15"
 }
 
 theme.transparent = "#FFFFFF00"

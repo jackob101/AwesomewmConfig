@@ -1,6 +1,7 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
+local utils = require("utils")
 
 local config = beautiful.tag
 
@@ -56,6 +57,15 @@ local group_widget = {
 ------      Mouse hover effect
 
 local background_hover_widget = {
+    widget = wibox.container.background,
+    opacity = 0,
+    id = "hover_background",
+    bg = config.hover_color
+}
+
+------      Underline for tag showing selected tag and tags with urgent clients
+
+local underline_widget = {
     layout = wibox.layout.align.vertical,
     expand = "inside",
     nil,
@@ -65,15 +75,6 @@ local background_hover_widget = {
         forced_height = config.underline_height,
         id = "background_role",
     }
-}
-
-------      Underline for tag showing selected tag and tags with urgent clients
-
-local underline_widget = {
-    widget = wibox.container.background,
-    opacity = 0,
-    id = "hover_background",
-    bg = "#FFFFFF15"
 }
 
 
@@ -124,8 +125,8 @@ local function connect_hover_effect(widget)
     widget:connect_signal("mouse::leave", function()
         widget.opacity = 0
     end)
-
 end
+
 
 ----    Creates tag list for passed screen
 
@@ -143,7 +144,9 @@ local function create(s)
             widget = wibox.container.background,
             update_callback = update_callback,
             create_callback = function(self, t)
-                connect_hover_effect(self:get_children_by_id("hover_background")[1])
+                widget = self:get_children_by_id("hover_background")[1]
+                connect_hover_effect(widget)
+                utils.cursor_hover(widget)
                 update_callback(self, t)
             end,
         },
