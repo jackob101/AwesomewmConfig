@@ -1,26 +1,8 @@
 local awful = require("awful")
-local gears = require("gears")
-local modkey = require("configs.mod").modkey
 local wibox = require("wibox")
 local beautiful = require("beautiful")
-local dpi = beautiful.xresources.apply_dpi
 
-----------------------------------------
--- Local configuration for taglist
-----------------------------------------
-
-local config = {}
-config.tag_spacing = dpi(7)
-config.tag_rounded_corners = dpi(0)
-
-config.tasks_margins = dpi(6)
-config.tasks_spacing = dpi(7)
-config.tasks_right_margin = dpi(9) -- Optional fallback 'tasks_margins'
---config.tasks_top_margin
---config.tasks_bottom_margin
-
-config.label_forced_width = dpi(25)
-config.label_margins = dpi(5)
+local config = beautiful.tag
 
 ----------------------------------------
 -- Mouse button binds for tags
@@ -50,6 +32,51 @@ local taglist_buttons = {
 
 }
 
+----    Tag parts
+
+------      Group that contains index number and tasks
+local group_widget = {
+    {
+        widget = wibox.container.margin,
+        margins = config.label_margins,
+        {
+            widget = wibox.widget.textbox,
+            align = "center",
+            id = "text_role",
+            forced_width = config.label_forced_width,
+        },
+    },
+    {
+        id = "task_list",
+        layout = wibox.layout.fixed.horizontal,
+    },
+    layout = wibox.layout.fixed.horizontal,
+}
+
+------      Mouse hover effect
+
+local background_hover_widget = {
+    layout = wibox.layout.align.vertical,
+    expand = "inside",
+    nil,
+    nil,
+    {
+        widget = wibox.container.background,
+        forced_height = config.underline_height,
+        id = "background_role",
+    }
+}
+
+------      Underline for tag showing selected tag and tags with urgent clients
+
+local underline_widget = {
+    widget = wibox.container.background,
+    opacity = 0,
+    id = "hover_background",
+    bg = "#FFFFFF15"
+}
+
+
 ----------------------------------------
 -- Responsible for creating preview of tasks on tag
 ----------------------------------------
@@ -76,9 +103,8 @@ local function create_task_list(clients)
     }
 end
 
-----------------------------------------
--- Requests updates to tasks in tag
-----------------------------------------
+----    Updates the client list in group
+
 local function update_callback(self, t)
     local clients = t:clients()
     local task_list = self:get_children_by_id("task_list")[1]
@@ -88,41 +114,38 @@ local function update_callback(self, t)
     end
 end
 
+----    Apply the signal listener for hover effect
+
+local function connect_hover_effect(widget)
+    widget:connect_signal("mouse::enter", function()
+        widget.opacity = 1
+    end)
+
+    widget:connect_signal("mouse::leave", function()
+        widget.opacity = 0
+    end)
+
+end
+
+----    Creates tag list for passed screen
+
 local function create(s)
     return awful.widget.taglist({
         screen = s,
         filter = awful.widget.taglist.filter.noempty,
-        style = {
-            shape =  function(cr, width, height)
-                return gears.shape.rounded_rect(cr, width, height, config.tag_rounded_corners)
-            end,
-        },
-        layout = {
-            spacing = config.tag_spacing,
-            layout = wibox.layout.fixed.horizontal,
-        },
         widget_template = {
             {
-                {
-                    widget = wibox.container.margin,
-                    margins = config.label_margins,
-                    {
-                        widget = wibox.widget.textbox,
-                        align = "center",
-                        id = "text_role",
-                        forced_width = config.label_forced_width,
-                    },
-                },
-                {
-                    id = "task_list",
-                    layout = wibox.layout.fixed.horizontal,
-                },
-                layout = wibox.layout.fixed.horizontal,
+                background_hover_widget,
+                group_widget,
+                underline_widget,
+                layout = wibox.layout.stack,
             },
             widget = wibox.container.background,
-            id = "background_role",
             update_callback = update_callback,
-            create_callback = update_callback,
+            create_callback = function(self, t)
+                connect_hover_effect(self:get_children_by_id("hover_background")[1])
+                update_callback(self, t)
+            end,
         },
         buttons = taglist_buttons,
     })

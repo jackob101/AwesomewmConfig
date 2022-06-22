@@ -6,6 +6,7 @@ local beautiful = require("beautiful")
 beautiful.init(os.getenv("HOME") .. "/.config/awesome/theme.lua")
 
 dpi = beautiful.xresources.apply_dpi
+modkey = "Mod4"
 
 local menubar = require("menubar")
 

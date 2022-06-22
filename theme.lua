@@ -15,13 +15,11 @@ awesome.set_preferred_icon_size(128)
 
 local theme = {}
 
+--  Theme font
 theme.font = "inter medium 9"
-theme.transparent = "#FFFFFF00"
 
-theme.groups_bg = xrdb.color2 .. "77"
-theme.useless_gap = dpi(5)
-theme.gap_single_client = false
 
+-- General settings
 theme.color8 = xrdb.color8
 theme.color9 = xrdb.color9
 theme.color10 = xrdb.color10
@@ -38,11 +36,8 @@ theme.accent4 = xrdb.color13
 theme.accent5 = xrdb.color14
 theme.accent6 = xrdb.color15
 
-theme.bar_height = dpi(32)
-theme.bar_opacity = "FF"
-theme.bar_font = "Inter medium 10"
-theme.bar_icon_text_spacing = dpi(5)
-theme.bar_icon_margin = dpi(2)
+theme.useless_gap = dpi(5)
+theme.gap_single_client = false
 
 theme.bg_normal = xrdb.background or "#2E3440"
 theme.bg_overlay = xrdb.color1
@@ -58,6 +53,43 @@ theme.fg_normal = xrdb.foreground or "#8DEE9"
 theme.fg_focus = xrdb.foreground or "#ECEFF4"
 theme.fg_urgent = xrdb.color9 or "#D08770"
 theme.fg_minimize = xrdb.foreground or "#D8DEE9"
+
+
+-- Status bar
+theme.bar_height = dpi(32)
+theme.bar_opacity = "FF"
+theme.bar_icon_text_spacing = dpi(5)
+theme.bar_icon_margin = dpi(2)
+
+theme.groups_bg = xrdb.color2 .. "77"
+
+-- Generate taglist squares:
+theme.taglist_squares_sel = theme_assets.taglist_squares_sel(dpi(0), theme.fg_focus)
+theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(dpi(0), theme.fg_normal)
+theme.taglist_fg_focus = theme.fg_normal
+theme.taglist_fg_urgent = theme.bg_normal
+theme.taglist_bg_focus = xrdb.color10
+theme.taglist_bg_urgent = xrdb.color9
+theme.taglist_bg_occupied = theme.bg_overlay_transparent
+-- theme.taglist_bg_occupied = xrdb.color12
+-- theme.taglist_fg_occupied = xrdb.background
+theme.taglist_font = "inter bold 12"
+theme.taglist_only_icons = true
+
+----    Tag
+
+theme.tag = {
+    label_margins = dpi(5),
+    label_forced_width = dpi(25),
+
+    tasks_margins = dpi(6),
+    tasks_spacing = dpi(7),
+    tasks_right_margin = dpi(9),
+
+    underline_height = dpi(3)
+}
+
+theme.transparent = "#FFFFFF00"
 
 theme.border_width = dpi(1)
 theme.border_normal = xrdb.color6 or "#000000"
@@ -78,20 +110,6 @@ theme.tooltip_border_color = theme.border_normal
 
 theme.tasklist_bg_focus = theme.bg_focus
 theme.tasklist_bg_normal = theme.transparent
-
--- Generate taglist squares:
-local taglist_square_size = dpi(0)
-theme.taglist_squares_sel = theme_assets.taglist_squares_sel(taglist_square_size, theme.fg_focus)
-theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(taglist_square_size, theme.fg_normal)
-theme.taglist_fg_focus = theme.bg_normal
-theme.taglist_fg_urgent = theme.bg_normal
-theme.taglist_bg_focus = xrdb.color10
-theme.taglist_bg_urgent = xrdb.color9
-theme.taglist_bg_occupied = theme.bg_overlay_transparent
--- theme.taglist_bg_occupied = xrdb.color12
--- theme.taglist_fg_occupied = xrdb.background
-theme.taglist_font = "inter bold 12"
-theme.taglist_only_icons = true
 
 theme.notification_icon_size = dpi(50)
 theme.notification_max_width = dpi(400)
