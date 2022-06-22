@@ -2,7 +2,6 @@ local awful = require("awful")
 local gears = require("gears")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local modkey = require("configs.mod").modkey
-local volume_widget = require("widgets.volume-widget.volume")
 local client_mover = require("modules.client_mover")
 
 require("awful.hotkeys_popup.keys")
@@ -80,19 +79,6 @@ keys.globalkeys = gears.table.join(
 		end,
 		{ description = "Toggle notification panel", group = "awesome" }
 	),
-	-- awful.key(
-	-- 	{ modkey },
-	-- 	"x",
-	-- 	function()
-	-- 		awful.prompt.run({
-	-- 				prompt = "Run Lua code: ",
-	-- 				textbox = awful.screen.focused().mypromptbox.widget,
-	-- 				exe_callback = awful.util.eval,
-	-- 				history_path = awful.util.get_cache_dir() .. "/history_eval",
-	-- 		})
-	-- 	end,
-	-- 	{ description = "lua execute prompt", group = "awesome", }
-	-- ),
 
 	--  ██████╗██╗     ██╗███████╗███╗   ██╗████████╗
 	-- ██╔════╝██║     ██║██╔════╝████╗  ██║╚══██╔══╝
@@ -161,10 +147,6 @@ keys.globalkeys = gears.table.join(
 		{ description = "restore minimized", group = "client", }
 	),
 
-	-- awful.key(
-	-- 	{ modkey },
-	-- 	""
-	-- )
 
 	-- ██╗      █████╗ ██╗   ██╗███╗   ██╗ ██████╗██╗  ██╗███████╗██████╗ 
 	-- ██║     ██╔══██╗██║   ██║████╗  ██║██╔════╝██║  ██║██╔════╝██╔══██╗

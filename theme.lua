@@ -132,6 +132,13 @@ theme.menu_width = dpi(100)
 theme.titlebar_bg_normal = theme.bg_normal
 theme.titlebar_bg = theme.bg_normal
 theme.titlebar_bg_focus = theme.bg_normal
+theme.titlebar_controls_spacing = dpi(25)
+theme.titlebar_left_edge_padding = dpi(8)
+theme.titlebar_right_edge_padding = dpi(15)
+theme.titlebar_icon_padding = dpi(3)
+theme.titlebar_top_edge_padding = dpi(3)
+theme.titlebar_bottom_edge_padding = dpi(3)
+theme.titlebar_controls_hover_overlay = "#FFFFFF22"
 -- Define the image to load
 theme.titlebar_close_button_normal = themes_path .. "default/titlebar/close_normal.png"
 theme.titlebar_close_button_focus = themes_path .. "default/titlebar/close_focus.png"
