@@ -5,6 +5,8 @@ local beautiful = require("beautiful")
 local dpi = require("beautiful.xresources").apply_dpi
 local utils = require("utils")
 local icons = require("icons")
+local config = beautiful.titlebar
+----    Helper function to create title bar
 
 ---Creates new button for title bar of client
 ---@param action function Action that will be applied
@@ -15,7 +17,7 @@ local function create_button(color, action, tooltip, image)
 
     local widget = wibox.widget {
         widget = wibox.container.background,
-        forced_width = dpi(40),
+        forced_width = config.control_button_width,
         bg = "#ffffff00",
         {
             layout = wibox.layout.align.horizontal,
@@ -23,7 +25,7 @@ local function create_button(color, action, tooltip, image)
             nil,
             {
                 widget = wibox.container.margin,
-                margins = dpi(6),
+                margins = config.control_button_margins,
                 image.widget(color),
             },
         }
@@ -33,7 +35,7 @@ local function create_button(color, action, tooltip, image)
 
     widget:connect_signal("button::release", action)
     widget:connect_signal("mouse::enter", function()
-        widget.bg = beautiful.titlebar_controls_hover_overlay
+        widget.bg = config.control_button_hover_color
     end)
     widget:connect_signal("mouse::leave", function()
         widget.bg = "#FFFFFF00"
@@ -42,8 +44,105 @@ local function create_button(color, action, tooltip, image)
     return widget
 end
 
+-- Left side of the title bar
+
+local function create_left_part(c, buttons)
+
+    local floating_icon_widget = wibox.widget {
+        widget = wibox.widget.textbox,
+        opacity = 0,
+        text = config.floating_symbol,
+        font = config.floating_font,
+    }
+
+    local function set_opacity_when_floating(client)
+        if client.floating then
+            floating_icon_widget.opacity = 1
+        else
+            floating_icon_widget.opacity = 0
+        end
+    end
+
+    --  To Initialize opacity
+    set_opacity_when_floating(c)
+
+    c:connect_signal("property::floating", function(client)
+        set_opacity_when_floating(client)
+    end)
+
+    local application_icon_widget = wibox.widget {
+        widget = wibox.container.margin,
+        margins = config.icon_padding,
+        {
+            awful.titlebar.widget.iconwidget(c),
+            layout = wibox.layout.fixed.horizontal,
+        },
+        buttons = buttons,
+    }
+
+    return wibox.widget {
+        layout = wibox.layout.fixed.horizontal,
+        spacing = config.left_components_spacing,
+        application_icon_widget,
+        floating_icon_widget
+    }
+end
+
+--  Middle part of the title bar
+
+local function create_middle_part(c, buttons)
+    return wibox.widget {
+        {
+            align = "center",
+            widget = awful.titlebar.widget.titlewidget(c),
+        },
+        layout = wibox.layout.flex.horizontal,
+        buttons = buttons
+    }
+end
+
+--  Right part of the title bar
+
+
+local function create_right_part(c)
+
+    local minimize_button = create_button(config.minimize_color,
+            function()
+                c.minimized = not c.minimized
+            end,
+            "Minimize",
+            icons.window_minimize)
+
+    local maximize_button = create_button(config.maximize_color,
+            function()
+                c.maximized = not c.maximized
+                c:raise()
+            end,
+            "Maximize",
+            icons.window_maximize)
+
+    local close_button = create_button(config.close_color,
+            function()
+                c:kill()
+            end,
+            "Close application",
+            icons.window_close)
+
+    return wibox.widget {
+        minimize_button,
+        maximize_button,
+        close_button,
+        layout = wibox.layout.fixed.horizontal,
+    }
+end
+
+
+----    Create title bar for each client
+
 client.connect_signal("request::titlebars", function(c)
+
     -- buttons for the titlebar
+
     local buttons = gears.table.join(
             awful.button({}, 1, function()
                 c:emit_signal("request::activate", "titlebar", { raise = true })
@@ -56,42 +155,9 @@ client.connect_signal("request::titlebars", function(c)
     )
 
     awful.titlebar(c):setup({
-        layout = wibox.layout.flex.horizontal,
-        {
-            widget = wibox.container.margin,
-            margins = beautiful.titlebar_icon_padding,
-            {
-                awful.titlebar.widget.iconwidget(c),
-                buttons = buttons,
-                layout = wibox.layout.fixed.horizontal,
-            }
-        },
-        { -- Middle
-            { -- Title
-                align = "center",
-                widget = awful.titlebar.widget.titlewidget(c),
-            },
-            buttons = buttons,
-            layout = wibox.layout.flex.horizontal,
-        },
-        { -- Right
-            create_button(beautiful.color11, function()
-                c.minimized = not c.minimized
-            end,
-                    "Minimize", icons.window_minimize),
-            create_button(beautiful.color10, function()
-                c.maximized = not c.maximized
-            end,
-                    "Maximize", icons.window_maximize),
-            create_button(beautiful.color9, function()
-                c:kill()
-            end,
-                    "Kill application", icons.window_close),
-            layout = wibox.layout.fixed.horizontal,
-            spacing = dpi(1)
-        },
+        create_left_part(c, buttons),
+        create_middle_part(c, buttons),
+        create_right_part(c),
         layout = wibox.layout.align.horizontal,
-        spacing = dpi(10)
-
     })
 end)

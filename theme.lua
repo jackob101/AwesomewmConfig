@@ -90,6 +90,23 @@ theme.tag = {
     hover_color = "#FFFFFF15"
 }
 
+theme.titlebar = {
+    control_button_width = dpi(40),
+    control_button_margins = dpi(6),
+    control_button_hover_color = "#FFFFFF22",
+
+    floating_symbol = "✈",
+    floating_font = "inter medium 11",
+
+    icon_padding = dpi(3),
+
+    left_components_spacing = dpi(5),
+
+    close_color = theme.color9,
+    maximize_color = theme.color10,
+    minimize_color = theme.color11,
+}
+
 theme.transparent = "#FFFFFF00"
 
 theme.border_width = dpi(1)
