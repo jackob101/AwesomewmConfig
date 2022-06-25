@@ -38,7 +38,7 @@ return {
 	volume_low = dir .. "volume-low.svg",
 	volume_mute = dir .. "volume-mute.svg",
 	window_minimize = prepare_icon("window-minimize.svg"),
-	window_maximize = prepare_icon("window_maximize.svg"),
+	window_maximize = prepare_icon("window-maximize.svg"),
 	window_expand = dir .. "expand.svg",
 	window_fullscreen = dir .. "fullscreen.svg",
 	window_close = prepare_icon("close.svg"),
