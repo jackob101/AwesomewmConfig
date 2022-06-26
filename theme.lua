@@ -107,6 +107,15 @@ theme.titlebar = {
     minimize_color = theme.color11,
 }
 
+theme.task = {
+    task_spacing = dpi(5),
+
+    top_margin = dpi(4),
+    bottom_margin = dpi(4),
+    left_margin = dpi(8),
+    right_margin = dpi(8),
+}
+
 theme.transparent = "#FFFFFF00"
 
 theme.border_width = dpi(1)
@@ -128,6 +137,8 @@ theme.tooltip_border_color = theme.border_normal
 
 theme.tasklist_bg_focus = theme.bg_focus
 theme.tasklist_bg_normal = theme.transparent
+theme.tasklist_disable_task_name = false
+theme.tasklist_plain_task_name = true
 
 theme.notification_icon_size = dpi(50)
 theme.notification_max_width = dpi(400)

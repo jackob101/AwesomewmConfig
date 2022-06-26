@@ -5,14 +5,7 @@ local dpi = require("beautiful").xresources.apply_dpi
 local utils = require("utils")
 local beautiful = require("beautiful")
 local icons = require("icons")
-
-----------------------------------------
--- Configuration for tasklist
-----------------------------------------
-
-local config = {}
-config.task_spacing = dpi(5)
-config.task_width = beautiful.bar_height * 1.5
+local config = beautiful.task
 
 
 ----------------------------------------
@@ -101,7 +94,10 @@ local function create(s)
                         scaling_quality = "good",
                     },
                     widget = wibox.container.margin,
-                    margins = dpi(5),
+                    top = config.top_margin,
+                    bottom = config.bottom_margin,
+                    left = config.left_margin,
+                    right = config.right_margin,
                 },
                 layout = wibox.layout.align.horizontal,
                 expand = "outside",
@@ -109,7 +105,6 @@ local function create(s)
             id = "background_role",
             widget = wibox.container.background,
             create_callback = widget_create_callback,
-            forced_width = config.task_width,
         },
         buttons = tasklist_buttons,
     })
