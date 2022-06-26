@@ -8,6 +8,7 @@ local icons = require("icons")
 local config = beautiful.task
 
 
+
 ----------------------------------------
 -- Events that happens when clicking on task
 ----------------------------------------
@@ -74,7 +75,8 @@ local function widget_create_callback(self, c, index)
     }
     c.popup = require("widgets.menu")(menu_items)
     c.popup.offset = { x = 40 }
-end
+
+    end
 
 local function create(s)
     return awful.widget.tasklist({

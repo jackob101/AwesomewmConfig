@@ -5,6 +5,8 @@ require("awful.autofocus")
 local beautiful = require("beautiful")
 beautiful.init(os.getenv("HOME") .. "/.config/awesome/theme.lua")
 
+-- Load libraries
+
 dpi = beautiful.xresources.apply_dpi
 modkey = "Mod4"
 

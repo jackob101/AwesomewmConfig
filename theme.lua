@@ -116,6 +116,11 @@ theme.task = {
     right_margin = dpi(8),
 }
 
+
+-- Bling configs
+theme.flash_focus_start_opacity = 0.7
+theme.flash_focus_step = 0.02
+
 theme.transparent = "#FFFFFF00"
 
 theme.border_width = dpi(1)
