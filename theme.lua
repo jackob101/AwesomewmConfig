@@ -116,6 +116,10 @@ theme.task = {
     right_margin = dpi(8),
 }
 
+theme.dashboard = {
+
+}
+
 
 -- Bling configs
 theme.flash_focus_start_opacity = 0.7

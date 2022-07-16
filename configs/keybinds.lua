@@ -195,12 +195,16 @@ keys.globalkeys = gears.table.join(
 		{ description = "Spawn emacs", group = "launcher" }
 	),
 	awful.key(
-		{ modkey, "Shift" },
-		"d",
-		function() awesome.emit_signal("dashboard::toggle") end,
-		{ description = "Display dashboard", group = "launcher" }
+			{ modkey, "Ctrl"},
+			"d",
+			function()
+				awesome.emit_signal("dashboard::toggle")
+			end,
+			{
+				description = "Open dashboard",
+				group = "launcher"
+			}
 	),
-
 	-- ██╗      █████╗ ██╗   ██╗ ██████╗ ██╗   ██╗████████╗
 	-- ██║     ██╔══██╗╚██╗ ██╔╝██╔═══██╗██║   ██║╚══██╔══╝
 	-- ██║     ███████║ ╚████╔╝ ██║   ██║██║   ██║   ██║

@@ -34,9 +34,9 @@ require("modules.bar")
 require("modules.exit-screen")
 require("modules.volume.volume-popup")
 require("modules.notifications.posture-check")
-require("modules.dashboard")
 require("modules.notification-center")
 require("modules.do-not-disturb-mode")
+require("modules.dashboard")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"

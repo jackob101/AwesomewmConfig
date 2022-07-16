@@ -114,8 +114,15 @@ local function create_right_part(c)
 
     local maximize_button = create_button(config.maximize_color,
             function()
-                c.maximized = not c.maximized
-                c:raise()
+                --c.maximized = not c.maximized
+                --c:raise()
+--[[
+               c.x = 0
+                c.y = 0
+                c.width = 1920
+                c.height = 1080 - beautiful.bar_height
+]]
+                c:maximize()
             end,
             "Maximize",
             icons.window_maximize)
@@ -154,7 +161,8 @@ client.connect_signal("request::titlebars", function(c)
     )
 
     awful.titlebar(c):setup({
-        create_left_part(c, buttons),
+        --create_left_part(c, buttons),
+        nil,
         create_middle_part(c, buttons),
         create_right_part(c),
         layout = wibox.layout.align.horizontal,

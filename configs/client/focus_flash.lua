@@ -1,15 +1,32 @@
+local gears = require("gears")
+local beautiful = require("beautiful")
 
-local rubato = require("lib.rubato")
+local op = beautiful.flash_focus_start_opacity or 0.6
+local stp = beautiful.flash_focus_step or 0.01
 
-client.connect_signal("focus", function(c)
-    local timed = rubato.timed {
-        intro = 0.1,
-        duration = 0.3,
-        pos = 0.7,
-        subscribed = function(pos)
-            c.opacity = pos
-        end
-    }
-    timed.target = 1
+local flashfocus = function(c)
+    if c and #c.screen.clients > 1 then
+        c.opacity = op
+        local q = op
+        local g = gears.timer({
+            timeout = stp,
+            call_now = false,
+            autostart = true,
+        })
 
-end)
+        g:connect_signal("timeout", function()
+            if not c.valid then
+                return
+            end
+            if q >= 1 then
+                c.opacity = 1
+                g:stop()
+            else
+                c.opacity = q
+                q = q + stp
+            end
+        end)
+    end
+end
+
+client.connect_signal("focus", flashfocus)
