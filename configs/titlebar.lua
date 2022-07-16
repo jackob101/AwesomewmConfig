@@ -123,6 +123,7 @@ local function create_right_part(c)
                 c.height = 1080 - beautiful.bar_height
 ]]
                 c:maximize()
+
             end,
             "Maximize",
             icons.window_maximize)
