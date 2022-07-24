@@ -515,8 +515,9 @@ keys.clientkeys = gears.table.join(
 		{ modkey },
 		"m",
 		function(c)
-			c.maximized = not c.maximized
-			c:raise()
+			--c.maximized = not c.maximized
+			--c:raise()
+			c:maximize()
 		end,
 		{ description = "(un)maximize", group = "client", }
 	)

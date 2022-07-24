@@ -8,7 +8,6 @@ local awful = require("awful")
 
 client.connect_signal("request::manage", function(c)
     function c:maximize()
-        print("self")
         local sc = awful.screen.focused()
         if sc ~= nil then
             self.x = sc.geometry.x

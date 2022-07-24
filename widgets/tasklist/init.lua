@@ -54,7 +54,7 @@ local function widget_create_callback(self, c, index)
         {
             name = "Maximize",
             onclick = function()
-                c.maximized = not c.maximized
+                c.maximize()
             end,
             icon = icons.window_maximize,
         },
