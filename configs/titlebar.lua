@@ -114,16 +114,7 @@ local function create_right_part(c)
 
     local maximize_button = create_button(config.maximize_color,
             function()
-                --c.maximized = not c.maximized
-                --c:raise()
---[[
-               c.x = 0
-                c.y = 0
-                c.width = 1920
-                c.height = 1080 - beautiful.bar_height
-]]
                 c:maximize()
-
             end,
             "Maximize",
             icons.window_maximize)
