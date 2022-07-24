@@ -258,7 +258,6 @@ keys.globalkeys = gears.table.join(
 		{ modkey },
 		"space",
 		function() 
-			gears.debug.dump(awful.layout)
 			awful.layout.inc(1) end,
 		{ description = "select next", group = "layout", }
 	),

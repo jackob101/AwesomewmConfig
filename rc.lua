@@ -2,6 +2,7 @@
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
 require("awful.autofocus")
+require("utils")
 local beautiful = require("beautiful")
 beautiful.init(os.getenv("HOME") .. "/.config/awesome/theme.lua")
 

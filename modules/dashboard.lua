@@ -24,6 +24,5 @@ local dashboard = awful.popup{
 }
 
 awesome.connect_signal("dashboard::toggle", function()
-    print("Hello there")
     dashboard.visible = not dashboard.visible
 end)

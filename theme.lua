@@ -120,6 +120,14 @@ theme.dashboard = {
 
 }
 
+theme.tiling_status = {
+    bg = theme.color10,
+    left_margin = dpi(8),
+    right_margin = dpi(8),
+    fg = theme.bg_normal,
+    font = "inter medium 10",
+}
+
 
 -- Bling configs
 theme.flash_focus_start_opacity = 0.7

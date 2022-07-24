@@ -3,11 +3,14 @@ local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
 local wibox = require("wibox")
 
+local tiling_status = require("widgets.tiling_status")
+
 ----------------------------------------
 -- What widgets are present on bar
 ----------------------------------------
 
 local left_widgets = {
+    --"widgets.tiling_status",
     "widgets.taglist",
 }
 
@@ -68,6 +71,7 @@ end
 ----------------------------------------
 awful.screen.connect_for_each_screen(function(s)
 
+
     local right_parent_widget = wibox.widget({
         layout = wibox.layout.fixed.horizontal,
         spacing = config.right_panel_child_spacing
@@ -77,7 +81,9 @@ awful.screen.connect_for_each_screen(function(s)
     local left = {
         widget = wibox.container.margin,
         margins = config.left_panel_margins,
-        init_widgets(left_widgets, s)
+        layout = wibox.layout.fixed.horizontal,
+        tiling_status(s),
+        init_widgets(left_widgets, s),
     }
     local middle = init_widgets(middle_widgets, s)
     local right = {
