@@ -42,7 +42,6 @@ awful.rules.rules = {
                 "veromix",
                 "xtightvncviewer",
                 --"awakened-poe-trade",
-                "Pavucontrol",
                 "Thunar",
                 "Xsane",
             },
@@ -57,6 +56,19 @@ awful.rules.rules = {
             },
         },
         properties = { floating = true, placement = awful.placement.centered },
+    },
+    {
+        rule_any = {
+            class ={
+                "Pavucontrol",
+            }
+        },
+        properties = {
+            floating = true,
+            width = 960,
+            height = 740,
+            placement = awful.placement.centered,
+        }
     },
     {
         rule = {
