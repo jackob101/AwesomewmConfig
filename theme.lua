@@ -128,6 +128,15 @@ theme.tiling_status = {
     font = "inter medium 10",
 }
 
+theme.notification = {
+    bg = theme.bg_overlay .. "99",
+    width = dpi(320),
+    box_padding = dpi(10),
+    border_normal = theme.bg_hover,
+    border_urgent = theme.bg_urgent,
+    message_height = dpi(40),
+}
+
 
 -- Bling configs
 theme.flash_focus_start_opacity = 0.7
@@ -158,10 +167,10 @@ theme.tasklist_disable_task_name = false
 theme.tasklist_plain_task_name = true
 
 theme.notification_icon_size = dpi(50)
-theme.notification_max_width = dpi(400)
+--theme.notification_max_width = dpi(400)
 -- theme.notification_height = 150
-theme.notification_spacing = 5
-theme.notification_box_margin = 10
+theme.notification_spacing = dpi(20)
+--theme.notification_box_margin = 10
 theme.notification_title_font = "inter medium 11"
 
 theme.systray_icon_spacing = 5
