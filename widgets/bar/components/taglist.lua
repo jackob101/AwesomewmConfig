@@ -83,6 +83,9 @@ local underline_widget = {
     }
 }
 
+
+
+
 ----    Updates the client list in group
 function TaglistWidget:_update_callback(t)
     local clients = t:clients()
@@ -156,7 +159,7 @@ function TaglistWidget.new(s)
                 local widget = self:get_children_by_id("hover_background")[1]
                 TaglistWidget._connect_hover_effect(widget)
                 utils.cursor_hover(widget)
-                newTaglistWidget.update_callback(self, t)
+                newTaglistWidget._update_callback(self, t)
             end,
         },
         buttons = taglist_buttons,
@@ -164,4 +167,3 @@ function TaglistWidget.new(s)
 
     return newTaglistWidget
 end
-

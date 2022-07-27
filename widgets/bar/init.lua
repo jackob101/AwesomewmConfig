@@ -1,8 +1,19 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
-local dpi = beautiful.xresources.apply_dpi
 local wibox = require("wibox")
+local theme = Beautiful.bar
 
+-- Load widget classes into scope
+load_all("widgets.bar.components", {
+    "volume",
+    "central_panel_toggle",
+    "date",
+    "systray",
+    "taglist",
+    "tasklist",
+    "tiling_status",
+    "time"
+})
 
 ----------------------------------------
 -- What widgets are present on bar
@@ -29,11 +40,6 @@ local right_widgets = {
 -- Wibar configuration
 ----------------------------------------
 
-local config = {}
-config.bar_height = beautiful.bar_height
-config.right_panel_margins = (config.bar_height - (config.bar_height * 0.5)) / 2
-config.right_panel_child_spacing = dpi(15)
-config.left_panel_margins = (config.bar_height - (config.bar_height * 1)) / 2
 
 ----------------------------------------
 -- helper function to initialize widgets
@@ -64,20 +70,20 @@ awful.screen.connect_for_each_screen(function(s)
 
     local right_parent_widget = wibox.widget({
         layout = wibox.layout.fixed.horizontal,
-        spacing = config.right_panel_child_spacing
+        spacing = theme.rightPanelChildSpacing
     })
 
 
     local left = {
         widget = wibox.container.margin,
-        margins = config.left_panel_margins,
+        margins = theme.leftPanelMargins,
         layout = wibox.layout.fixed.horizontal,
         init_widgets(left_widgets, s),
     }
     local middle = init_widgets(middle_widgets, s)
     local right = {
         widget = wibox.container.margin,
-        margins = config.right_panel_margins,
+        margins = theme.rightPanelMargins,
         init_widgets(right_widgets, s, right_parent_widget),
     }
 
@@ -85,7 +91,7 @@ awful.screen.connect_for_each_screen(function(s)
     s.mywibox = awful.wibar({
         position = "bottom",
         screen = s,
-        height = beautiful.bar_height,
+        height = theme.barHeight,
         bg = beautiful.black .. beautiful.bar_opacity,
     })
 

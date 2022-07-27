@@ -2,13 +2,22 @@
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
 require("awful.autofocus")
-local beautiful = require("beautiful")
-beautiful.init(os.getenv("HOME") .. "/.config/awesome/theme.lua")
+Beautiful = require("beautiful")
+Beautiful.init(os.getenv("HOME") .. "/.config/awesome/theme.lua")
 require("utils")
+
+--- @class Gears
+Gears = require("gears")
+
+--- @class Wibox
+Wibox = require("wibox")
+
+--- @class Awful
+Awful = require("awful")
 
 -- Load libraries
 
-dpi = beautiful.xresources.apply_dpi
+dpi = Beautiful.xresources.apply_dpi
 modkey = "Mod4"
 
 local menubar = require("menubar")
@@ -29,16 +38,7 @@ load_all("", {
     "errors",
 })
 
-load_all("widgets.bar.components", {
-    "volume",
-    "central_panel_toggle",
-    "date",
-    "systray",
-    "taglist",
-    "tasklist",
-    "tiling_status",
-    "time"
-})
+
 
 require("modules.notifications.notificationConfig")
 require("modules.volume")
