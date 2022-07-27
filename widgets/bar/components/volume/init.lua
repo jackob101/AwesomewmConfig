@@ -5,8 +5,16 @@ local icons = require("icons")
 local dpi = beautiful.xresources.apply_dpi
 local utils = require("utils")
 
--- Widget declarationlocal icon_widget = wibox.widget({
-local function create_widget()
+--- @class VolumeBarWidget : BaseWidget
+VolumeBarWidget = {}
+VolumeBarWidget.__index = VolumeBarWidget
+
+--- @return VolumeBarWidget
+function VolumeBarWidget.new()
+    --- @type VolumeBarWidget
+    local newVolumeBarWidget = {}
+    setmetatable(newVolumeBarWidget, VolumeBarWidget)
+
     local icon_widget = wibox.widget({
         resize = true,
         image = icons.volume_high,
@@ -105,7 +113,7 @@ local function create_widget()
         end
     end)
 
-    return widget
-end
+    newVolumeBarWidget.widget = widget
 
-return create_widget
+    return newVolumeBarWidget
+end

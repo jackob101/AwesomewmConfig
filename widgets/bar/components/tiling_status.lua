@@ -5,6 +5,10 @@ local layout = require("awful.layout")
 
 local widgets = nil
 
+--- @class TilingStatusWidget : BaseWidget
+TilingStatusWidget = {}
+TilingStatusWidget.__index = TilingStatusWidget
+
 local function update_from_tag(t)
     local s = t.screen
     local w = widgets[s.index]
@@ -29,7 +33,12 @@ local function update_from_client()
     end
 end
 
-local function create(s)
+--- @return TilingStatusWidget
+function TilingStatusWidget.new(s)
+    --- @type TilingStatusWidget
+    local newTilingStatusWidget = {}
+    setmetatable(newTilingStatusWidget, TilingStatusWidget)
+
 
     tag.connect_signal("property::selected", update_from_tag)
     tag.connect_signal("property::layout", update_from_tag)
@@ -66,14 +75,14 @@ local function create(s)
     }
 
     if widgets == nil then
-        widgets = setmetatable({}, {__mode = "kv"})
+        widgets = setmetatable({}, { __mode = "kv" })
     end
 
     widgets[s.index] = widget
 
     update_from_tag(s.selected_tag)
 
-    return widget
-end
+    newTilingStatusWidget.widget = widget
 
-return create
+    return newTilingStatusWidget
+end

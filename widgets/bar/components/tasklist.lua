@@ -7,6 +7,9 @@ local beautiful = require("beautiful")
 local icons = require("icons")
 local theme = beautiful.task
 
+--- @class TaskListWidget : BaseWidget
+TaskListWidget = {}
+TaskListWidget.__index = TaskListWidget
 
 
 ----------------------------------------
@@ -76,10 +79,15 @@ local function widget_create_callback(self, c, index)
     c.popup = require("widgets.menu")(menu_items)
     c.popup.offset = { x = 40 }
 
-    end
+end
 
-local function create(s)
-    return awful.widget.tasklist({
+--- @return TaskListWidget
+function TaskListWidget.new(s)
+    --- @type TaskListWidget
+    local newTaskListWidget = {}
+    setmetatable(newTaskListWidget, TaskListWidget)
+
+    newTaskListWidget.widget = awful.widget.tasklist({
         screen = s,
         filter = awful.widget.tasklist.filter.currenttags,
         layout = {
@@ -110,6 +118,7 @@ local function create(s)
         },
         buttons = tasklist_buttons,
     })
+
+    return newTaskListWidget
 end
 
-return create

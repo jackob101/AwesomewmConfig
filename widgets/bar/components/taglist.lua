@@ -5,6 +5,11 @@ local utils = require("utils")
 
 local config = beautiful.tag
 
+--- @class TaglistWidget : BaseWidget
+TaglistWidget = {}
+TaglistWidget.__index = TaglistWidget
+
+
 ----------------------------------------
 -- Mouse button binds for tags
 ----------------------------------------
@@ -130,8 +135,12 @@ end
 
 ----    Creates tag list for passed screen
 
-local function create(s)
-    return awful.widget.taglist({
+--- @return TaglistWidget
+function TaglistWidget.new(s)
+    local newTaglistWidget = {}
+    setmetatable(newTaglistWidget, TaglistWidget)
+
+    newTaglistWidget.widget = awful.widget.taglist({
         screen = s,
         filter = awful.widget.taglist.filter.noempty,
         widget_template = {
@@ -152,6 +161,7 @@ local function create(s)
         },
         buttons = taglist_buttons,
     })
+
+    return newTaglistWidget
 end
 
-return create

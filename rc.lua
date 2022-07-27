@@ -29,6 +29,17 @@ load_all("", {
     "errors",
 })
 
+load_all("widgets.bar.components", {
+    "volume",
+    "central_panel_toggle",
+    "date",
+    "systray",
+    "taglist",
+    "tasklist",
+    "tiling_status",
+    "time"
+})
+
 require("modules.notifications.notificationConfig")
 require("modules.volume")
 require("widgets.bar")
@@ -47,3 +58,18 @@ editor_cmd = terminal .. " -e " .. editor
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 
 require("modules.autorun.init")
+
+--- @class Widget
+local wid = {}
+
+--- @class Screen
+local sc = {}
+
+--- @field public widget Widget
+--- @class BaseWidget
+local base = {}
+
+--- @param s Screen
+function base.new(s)
+end
+

@@ -5,26 +5,35 @@ local beautiful = require("beautiful")
 local gears = require("gears")
 local awful = require("awful")
 
-local function create()
-	local stylesheet = "*{fill:" .. beautiful.fg_normal .. ";}"
+--- @class  CentralPanelToggle : BaseWidget
+CentralPanelToggle = {}
+CentralPanelToggle.__index = CentralPanelToggle
 
-	local button = wibox.widget({
-		widget = wibox.container.background,
-		{
-			stylesheet = stylesheet,
-			widget = wibox.widget.imagebox,
-			image = icons.bell,
-			resize = true,
-		},
-	})
-	utils.cursor_hover(button)
-	utils.generate_tooltip(button, "Toggle notification center")
+--- @return  CentralPanelToggle
+function CentralPanelToggle.new()
+    local newCentralPanelToggle = {}
+    setmetatable(newCentralPanelToggle, CentralPanelToggle)
 
-	button:buttons(gears.table.join(awful.button({}, 1, function()
-		awful.screen.focused().central_panel:toggle()
-	end)))
+    local stylesheet = "*{fill:" .. beautiful.fg_normal .. ";}"
 
-	return button
+    local button = wibox.widget({
+        widget = wibox.container.background,
+        {
+            stylesheet = stylesheet,
+            widget = wibox.widget.imagebox,
+            image = icons.bell,
+            resize = true,
+        },
+    })
+    utils.cursor_hover(button)
+    utils.generate_tooltip(button, "Toggle notification center")
+
+    button:buttons(gears.table.join(awful.button({}, 1, function()
+        awful.screen.focused().central_panel:toggle()
+    end)
+    ))
+
+    newCentralPanelToggle.widget = button
+
+    return newCentralPanelToggle
 end
-
-return create

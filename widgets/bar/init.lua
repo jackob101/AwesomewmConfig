@@ -3,25 +3,26 @@ local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
 local wibox = require("wibox")
 
+
 ----------------------------------------
 -- What widgets are present on bar
 ----------------------------------------
 
 local left_widgets = {
-    "widgets.bar.components.tiling_status",
-    "widgets.bar.components.taglist",
+    TilingStatusWidget,
+    TaglistWidget,
 }
 
 local middle_widgets = {
-    "widgets.bar.components.tasklist"
+    TaskListWidget,
 }
 
 local right_widgets = {
-    "widgets.bar.components.volume",
-    "widgets.bar.components.time",
-    "widgets.bar.components.date",
-    "widgets.bar.components.systray",
-    "widgets.bar.components.central_panel_toggle"
+    VolumeBarWidget,
+    TimeBarWidget,
+    DateBarWidget,
+    Systray,
+    CentralPanelToggle,
 }
 
 ----------------------------------------
@@ -38,6 +39,7 @@ config.left_panel_margins = (config.bar_height - (config.bar_height * 1)) / 2
 -- helper function to initialize widgets
 ----------------------------------------
 
+--- @param list_of_widgets BaseWidget[]
 local function init_widgets(list_of_widgets, s, parent_widget)
 
     if parent_widget == nil then
@@ -48,16 +50,7 @@ local function init_widgets(list_of_widgets, s, parent_widget)
     end
 
     for _, entry in ipairs(list_of_widgets) do
-
-        local status, initialized = pcall(require, entry)
-
-        if status then
-            if type(initialized) == "function" then
-                initialized = initialized(s)
-            end
-            parent_widget:add(initialized)
-        end
-
+        parent_widget:add(entry.new(s).widget)
     end
 
     return parent_widget

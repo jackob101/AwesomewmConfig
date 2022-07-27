@@ -1,10 +1,18 @@
 local wibox = require("wibox")
 
-function create(s)
-    return wibox.widget({
+--- @class Systray : BaseWidget
+Systray = {}
+Systray.__index = Systray
+
+--- @return Systray
+function Systray.new(s)
+    local newSystray = {}
+    setmetatable(newSystray, Systray)
+
+    newSystray.widget = wibox.widget({
         widget = wibox.widget.systray,
         screen = "primary",
     })
-end
 
-return create
+    return newSystray
+end
