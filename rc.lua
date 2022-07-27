@@ -13,6 +13,7 @@ Gears = require("gears")
 Wibox = require("wibox")
 
 --- @class Awful
+--- @field screen Screen
 Awful = require("awful")
 
 -- Load libraries
@@ -42,13 +43,13 @@ load_all("", {
 
 require("modules.notifications.notificationConfig")
 require("modules.volume")
-require("widgets.bar")
 require("modules.exit-screen")
 require("modules.volume.volume-popup")
 require("modules.notifications.posture-check")
 require("modules.notification-center")
 require("modules.do-not-disturb-mode")
 require("modules.dashboard")
+require("widgets")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
@@ -64,6 +65,7 @@ local wid = {}
 
 --- @class Screen
 local sc = {}
+
 
 --- @field public widget Widget
 --- @class BaseWidget

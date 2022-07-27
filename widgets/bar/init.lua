@@ -19,6 +19,10 @@ load_all("widgets.bar.components", {
 -- What widgets are present on bar
 ----------------------------------------
 
+--- @class Wibar : BaseWidget
+Wibar = {}
+Wibar.__index = Wibar
+
 local left_widgets = {
     TilingStatusWidget,
     TaglistWidget,
@@ -65,14 +69,16 @@ end
 ----------------------------------------
 -- Initialize the bar
 ----------------------------------------
-awful.screen.connect_for_each_screen(function(s)
-
+--- @return Wibar
+function Wibar.new(s)
+    --- @type Wibar
+    local newWibar = {}
+    setmetatable(newWibar, Wibar)
 
     local right_parent_widget = wibox.widget({
         layout = wibox.layout.fixed.horizontal,
         spacing = theme.rightPanelChildSpacing
     })
-
 
     local left = {
         widget = wibox.container.margin,
@@ -80,7 +86,9 @@ awful.screen.connect_for_each_screen(function(s)
         layout = wibox.layout.fixed.horizontal,
         init_widgets(left_widgets, s),
     }
+
     local middle = init_widgets(middle_widgets, s)
+
     local right = {
         widget = wibox.container.margin,
         margins = theme.rightPanelMargins,
@@ -88,7 +96,7 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create the wibar
-    s.mywibox = awful.wibar({
+    newWibar.widget = awful.wibar({
         position = "bottom",
         screen = s,
         height = theme.barHeight,
@@ -97,7 +105,7 @@ awful.screen.connect_for_each_screen(function(s)
 
 
     -- Add widgets to the wibox
-    s.mywibox:setup({
+    newWibar.widget:setup({
         layout = wibox.layout.stack,
         {
             layout = wibox.layout.align.horizontal,
@@ -118,4 +126,6 @@ awful.screen.connect_for_each_screen(function(s)
             middle,
         }
     })
-end)
+
+    return newWibar
+end
