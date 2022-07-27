@@ -38,6 +38,7 @@ local taglist_buttons = {
 
 }
 
+
 ----    Tag parts
 
 ------      Group that contains index number and tasks
@@ -82,11 +83,20 @@ local underline_widget = {
     }
 }
 
+----    Updates the client list in group
+function TaglistWidget:_update_callback(t)
+    local clients = t:clients()
+    local task_list = self:get_children_by_id("task_list")[1]
+    task_list:reset()
+    if #clients > 0 then
+        task_list:add(TaglistWidget._create_task_list(clients))
+    end
+end
 
 ----------------------------------------
 -- Responsible for creating preview of tasks on tag
 ----------------------------------------
-local function create_task_list(clients)
+function TaglistWidget._create_task_list(clients)
 
     local task_list = wibox.widget {
         layout = wibox.layout.fixed.horizontal,
@@ -109,20 +119,9 @@ local function create_task_list(clients)
     }
 end
 
-----    Updates the client list in group
-
-local function update_callback(self, t)
-    local clients = t:clients()
-    local task_list = self:get_children_by_id("task_list")[1]
-    task_list:reset()
-    if #clients > 0 then
-        task_list:add(create_task_list(clients))
-    end
-end
-
 ----    Apply the signal listener for hover effect
-
-local function connect_hover_effect(widget)
+--- @param widget Widget
+function TaglistWidget._connect_hover_effect(widget)
     widget:connect_signal("mouse::enter", function()
         widget.opacity = 1
     end)
@@ -131,6 +130,7 @@ local function connect_hover_effect(widget)
         widget.opacity = 0
     end)
 end
+
 
 
 ----    Creates tag list for passed screen
@@ -151,12 +151,12 @@ function TaglistWidget.new(s)
                 layout = wibox.layout.stack,
             },
             widget = wibox.container.background,
-            update_callback = update_callback,
+            update_callback = newTaglistWidget.update_callback,
             create_callback = function(self, t)
-                widget = self:get_children_by_id("hover_background")[1]
-                connect_hover_effect(widget)
+                local widget = self:get_children_by_id("hover_background")[1]
+                TaglistWidget._connect_hover_effect(widget)
                 utils.cursor_hover(widget)
-                update_callback(self, t)
+                newTaglistWidget.update_callback(self, t)
             end,
         },
         buttons = taglist_buttons,

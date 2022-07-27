@@ -11,6 +11,7 @@ CentralPanelToggle.__index = CentralPanelToggle
 
 --- @return  CentralPanelToggle
 function CentralPanelToggle.new()
+    --- @type TaskListWidget
     local newCentralPanelToggle = {}
     setmetatable(newCentralPanelToggle, CentralPanelToggle)
 
