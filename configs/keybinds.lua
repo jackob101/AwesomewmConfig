@@ -2,7 +2,7 @@ local awful = require("awful")
 local gears = require("gears")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local modkey = require("configs.mod").modkey
-local client_mover = require("modules.client_mover")
+--local client_mover = require("modules.client_mover")
 
 require("awful.hotkeys_popup.keys")
 
@@ -495,7 +495,9 @@ keys.clientkeys = gears.table.join(
 		{ modkey },
 		"o",
 		function (c)
-			client_mover(c)
+			if ClientMover then
+				ClientMover:start(c)
+			end
 		end
 	),
 	awful.key(

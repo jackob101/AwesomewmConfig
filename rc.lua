@@ -60,11 +60,13 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 
 require("modules.autorun.init")
 
+--- @class Client
+
 --- @class Widget
 local wid = {}
 
 --- @class Screen
-local sc = {}
+local screen = {}
 
 
 --- @field public widget Widget

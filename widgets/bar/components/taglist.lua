@@ -83,13 +83,10 @@ local underline_widget = {
     }
 }
 
-
-
-
 ----    Updates the client list in group
-function TagListWidget:_update_callback(t)
+function TagListWidget._update_callback(widget, t)
     local clients = t:clients()
-    local task_list = self:get_children_by_id("task_list")[1]
+    local task_list = widget:get_children_by_id("task_list")[1]
     task_list:reset()
     if #clients > 0 then
         task_list:add(TagListWidget._create_task_list(clients))
@@ -154,12 +151,12 @@ function TagListWidget.new(s)
                 layout = wibox.layout.stack,
             },
             widget = wibox.container.background,
-            update_callback = newTaglistWidget.update_callback,
+            update_callback = TagListWidget._update_callback,
             create_callback = function(self, t)
                 local widget = self:get_children_by_id("hover_background")[1]
                 TagListWidget._connect_hover_effect(widget)
                 utils.cursor_hover(widget)
-                newTaglistWidget._update_callback(self, t)
+                TagListWidget._update_callback(self, t)
             end,
         },
         buttons = taglist_buttons,
