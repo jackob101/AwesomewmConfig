@@ -5,9 +5,9 @@ local utils = require("utils")
 
 local config = beautiful.tag
 
---- @class TaglistWidget : BaseWidget
-TaglistWidget = {}
-TaglistWidget.__index = TaglistWidget
+--- @class TagListWidget : BaseWidget
+TagListWidget = {}
+TagListWidget.__index = TagListWidget
 
 
 ----------------------------------------
@@ -18,13 +18,13 @@ local taglist_buttons = {
     awful.button({}, 1, function(t)
         t:view_only()
     end),
-    awful.button({ modkey }, 1, function(t)
+    awful.button({ ModKey }, 1, function(t)
         if client.focus then
             client.focus:move_to_tag(t)
         end
     end),
     awful.button({}, 3, awful.tag.viewtoggle),
-    awful.button({ modkey }, 3, function(t)
+    awful.button({ ModKey }, 3, function(t)
         if client.focus then
             client.focus:toggle_tag(t)
         end
@@ -87,19 +87,19 @@ local underline_widget = {
 
 
 ----    Updates the client list in group
-function TaglistWidget:_update_callback(t)
+function TagListWidget:_update_callback(t)
     local clients = t:clients()
     local task_list = self:get_children_by_id("task_list")[1]
     task_list:reset()
     if #clients > 0 then
-        task_list:add(TaglistWidget._create_task_list(clients))
+        task_list:add(TagListWidget._create_task_list(clients))
     end
 end
 
 ----------------------------------------
 -- Responsible for creating preview of tasks on tag
 ----------------------------------------
-function TaglistWidget._create_task_list(clients)
+function TagListWidget._create_task_list(clients)
 
     local task_list = wibox.widget {
         layout = wibox.layout.fixed.horizontal,
@@ -124,7 +124,7 @@ end
 
 ----    Apply the signal listener for hover effect
 --- @param widget Widget
-function TaglistWidget._connect_hover_effect(widget)
+function TagListWidget._connect_hover_effect(widget)
     widget:connect_signal("mouse::enter", function()
         widget.opacity = 1
     end)
@@ -138,10 +138,10 @@ end
 
 ----    Creates tag list for passed screen
 
---- @return TaglistWidget
-function TaglistWidget.new(s)
+--- @return TagListWidget
+function TagListWidget.new(s)
     local newTaglistWidget = {}
-    setmetatable(newTaglistWidget, TaglistWidget)
+    setmetatable(newTaglistWidget, TagListWidget)
 
     newTaglistWidget.widget = awful.widget.taglist({
         screen = s,
@@ -157,7 +157,7 @@ function TaglistWidget.new(s)
             update_callback = newTaglistWidget.update_callback,
             create_callback = function(self, t)
                 local widget = self:get_children_by_id("hover_background")[1]
-                TaglistWidget._connect_hover_effect(widget)
+                TagListWidget._connect_hover_effect(widget)
                 utils.cursor_hover(widget)
                 newTaglistWidget._update_callback(self, t)
             end,

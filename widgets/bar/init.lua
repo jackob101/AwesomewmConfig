@@ -19,13 +19,13 @@ load_all("widgets.bar.components", {
 -- What widgets are present on bar
 ----------------------------------------
 
---- @class Wibar : BaseWidget
-Wibar = {}
-Wibar.__index = Wibar
+--- @class StatusBar : BaseWidget
+StatusBar = {}
+StatusBar.__index = StatusBar
 
 local left_widgets = {
     TilingStatusWidget,
-    TaglistWidget,
+    TagListWidget,
 }
 
 local middle_widgets = {
@@ -69,11 +69,11 @@ end
 ----------------------------------------
 -- Initialize the bar
 ----------------------------------------
---- @return Wibar
-function Wibar.new(s)
-    --- @type Wibar
-    local newWibar = {}
-    setmetatable(newWibar, Wibar)
+--- @return StatusBar
+function StatusBar.new(s)
+    --- @type StatusBar
+    local newStatusBar = {}
+    setmetatable(newStatusBar, StatusBar)
 
     local right_parent_widget = wibox.widget({
         layout = wibox.layout.fixed.horizontal,
@@ -96,7 +96,7 @@ function Wibar.new(s)
     }
 
     -- Create the wibar
-    newWibar.widget = awful.wibar({
+    newStatusBar.widget = awful.wibar({
         position = "bottom",
         screen = s,
         height = theme.barHeight,
@@ -105,7 +105,7 @@ function Wibar.new(s)
 
 
     -- Add widgets to the wibox
-    newWibar.widget:setup({
+    newStatusBar.widget:setup({
         layout = wibox.layout.stack,
         {
             layout = wibox.layout.align.horizontal,
@@ -127,5 +127,5 @@ function Wibar.new(s)
         }
     })
 
-    return newWibar
+    return newStatusBar
 end

@@ -18,8 +18,8 @@ Awful = require("awful")
 
 -- Load libraries
 
-dpi = Beautiful.xresources.apply_dpi
-modkey = "Mod4"
+Dpi = Beautiful.xresources.apply_dpi
+ModKey = "Mod4"
 
 local menubar = require("menubar")
 
