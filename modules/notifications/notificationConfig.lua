@@ -50,6 +50,7 @@ naughty.connect_signal("request::icon", function(n, context, hints)
     end
 end)
 
+
 awesome.connect_signal("modules::dnd:changed", function(new)
     is_dnd_on = new
 end)

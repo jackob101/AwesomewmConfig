@@ -8,20 +8,20 @@ local wibox = require("wibox")
 ----------------------------------------
 
 local left_widgets = {
-    "modules.bar.components.tiling_status",
-    "modules.bar.components.taglist",
+    "widgets.bar.components.tiling_status",
+    "widgets.bar.components.taglist",
 }
 
 local middle_widgets = {
-    "modules.bar.components.tasklist"
+    "widgets.bar.components.tasklist"
 }
 
 local right_widgets = {
-    "modules.bar.components.volume",
-    "modules.bar.components.time",
-    "modules.bar.components.date",
-    "modules.bar.components.systray",
-    "modules.bar.components.central_panel_toggle"
+    "widgets.bar.components.volume",
+    "widgets.bar.components.time",
+    "widgets.bar.components.date",
+    "widgets.bar.components.systray",
+    "widgets.bar.components.central_panel_toggle"
 }
 
 ----------------------------------------
