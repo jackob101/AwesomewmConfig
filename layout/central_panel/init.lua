@@ -8,8 +8,6 @@ local theme = beautiful.notification_center
 
 local function create(s)
 	s.notif_center = notif_center(s)
-	s.profile = require("widgets.user-profile")
-	s.calendar = require("widgets.notif-calendar")
 
 	local panel = awful.popup({
 		screen = s,
