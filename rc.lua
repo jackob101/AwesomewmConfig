@@ -44,7 +44,6 @@ load_all("", {
 
 
 
-require("modules.notifications.notificationConfig")
 require("modules.volume")
 require("modules.volume.volume-popup")
 require("modules.do-not-disturb-mode")

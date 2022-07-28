@@ -10,7 +10,8 @@ load_all("widgets", {
     "autorun",
     "utils",
     "ExitScreen",
-    "PostureCheckNotificator"
+    "PostureCheckNotificator",
+    "NotificationConfig"
 })
 
 Awful.screen.connect_for_each_screen(function(s)
