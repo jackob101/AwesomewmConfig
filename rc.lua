@@ -58,7 +58,7 @@ editor_cmd = terminal .. " -e " .. editor
 
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 
-require("modules.autorun.init")
+--require("modules.autorun.init")
 
 --- @class Client
 
