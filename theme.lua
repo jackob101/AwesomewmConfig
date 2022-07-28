@@ -16,6 +16,7 @@ awesome.set_preferred_icon_size(128)
 --- @class Beautiful
 --- @field bar BarTheme
 --- @field tag TagTheme
+--- @field clickableContainer ClickableContainerTheme
 local theme = {}
 
 --  Theme font
@@ -101,6 +102,14 @@ theme.bar = {
     rightPanelMargins = (theme.bar_height - (theme.bar_height * 0.5)) / 2,
     rightPanelChildSpacing = dpi(15),
     leftPanelMargins = (theme.bar_height - (theme.bar_height * 1)) / 2
+}
+
+--- @class ClickableContainerTheme
+theme.clickableContainer = {
+    bg = theme.gray,
+    hoverBg = theme.green,
+    pressBg = theme.green .. "77",
+
 }
 
 theme.exit_screen = {

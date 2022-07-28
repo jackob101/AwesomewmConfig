@@ -43,7 +43,6 @@ load_all("", {
 
 require("modules.notifications.notificationConfig")
 require("modules.volume")
-require("modules.exit-screen")
 require("modules.volume.volume-popup")
 require("modules.notifications.posture-check")
 require("modules.notification-center")

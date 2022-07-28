@@ -4,11 +4,10 @@ local wibox = require("wibox")
 local icons = require("icons")
 local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
-local clickable_container = require("modules.exit-screen.clickable-container")
 local naughty = require("naughty")
 local theme = beautiful.exit_screen
 
-local greeter_message = wibox.widget {
+local greeter_message = {
   markup = 'Choose wisely!',
   font = 'Inter UltraLight 48',
   align = 'center',
@@ -16,7 +15,7 @@ local greeter_message = wibox.widget {
   widget = wibox.widget.textbox
 }
 
-local profile_name = wibox.widget {
+local profile_name = {
   markup = 'Jackob',
   font = 'Inter Bold 12',
   align = 'center',
@@ -24,7 +23,7 @@ local profile_name = wibox.widget {
   widget = wibox.widget.textbox
 }
 
-local profile_imagebox = wibox.widget {
+local profile_imagebox =  {
   image = icons.default,
   resize = true,
   forced_height = dpi(140),
@@ -60,7 +59,7 @@ local build_power_button = function(name, icon, callback)
       shape = gears.shape.rounded_rect,
       forced_height = dpi(120),
       forced_width = dpi(120),
-      widget = clickable_container,
+      widget = ClickableContainer.new(self, callback).widget,
     },
     left = dpi(24),
     right = dpi(24),
@@ -74,12 +73,6 @@ local build_power_button = function(name, icon, callback)
     power_button_label
   }
 
-  exit_screen_item:connect_signal(
-    'button::release',
-    function()
-      callback()
-    end
-  )
   return exit_screen_item
 
 end
