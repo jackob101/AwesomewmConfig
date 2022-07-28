@@ -4,6 +4,15 @@ require("widgets.autorun")
 require("widgets.utils")
 require("widgets.ExitScreen")
 
+load_all("widgets", {
+    "bar",
+    "client_mover",
+    "autorun",
+    "utils",
+    "ExitScreen",
+    "PostureCheckNotificator"
+})
+
 Awful.screen.connect_for_each_screen(function(s)
 
     s.wibar = StatusBar.new(s)
@@ -11,3 +20,4 @@ Awful.screen.connect_for_each_screen(function(s)
 end)
 
 ClientMover.new()
+PostureCheckNotificator.new()

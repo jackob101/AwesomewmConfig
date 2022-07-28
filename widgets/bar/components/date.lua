@@ -24,6 +24,5 @@ function DateBarWidget.new()
         spacing = beautiful.bar_icon_text_spacing,
     })
 
-    print("What")
     return newDateWidget
 end

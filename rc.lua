@@ -16,6 +16,9 @@ Wibox = require("wibox")
 --- @field screen Screen
 Awful = require("awful")
 
+-- @class Naughty
+Naughty = require("naughty")
+
 -- Load libraries
 
 Dpi = Beautiful.xresources.apply_dpi
@@ -44,8 +47,6 @@ load_all("", {
 require("modules.notifications.notificationConfig")
 require("modules.volume")
 require("modules.volume.volume-popup")
-require("modules.notifications.posture-check")
-require("modules.notification-center")
 require("modules.do-not-disturb-mode")
 require("modules.dashboard")
 require("widgets")
