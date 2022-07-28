@@ -101,7 +101,19 @@ theme.bar = {
     barHeight = theme.bar_height,
     rightPanelMargins = (theme.bar_height - (theme.bar_height * 0.5)) / 2,
     rightPanelChildSpacing = dpi(15),
-    leftPanelMargins = (theme.bar_height - (theme.bar_height * 1)) / 2
+    leftPanelMargins = (theme.bar_height - (theme.bar_height * 1)) / 2,
+    barIconTextSpacing = dpi(5),
+    barIconMargin = dpi(2),
+}
+
+--- @class VolumeBarWidgetTheme
+theme.volumeBarWidget = {
+    highFg = theme.fg_normal,
+    mediumFg = theme.fg_normal,
+    lowFg = theme.fg_normal,
+    mutedFg = theme.fg_normal,
+    barIconTextSpacing = theme.bar.barIconTextSpacing,
+    barIconMargin = theme.bar.barIconMargin,
 }
 
 --- @class ClickableContainerTheme

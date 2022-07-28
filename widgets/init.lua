@@ -11,7 +11,8 @@ load_all("widgets", {
     "utils",
     "ExitScreen",
     "PostureCheckNotificator",
-    "NotificationConfig"
+    "NotificationConfig",
+    "Volume"
 })
 
 Awful.screen.connect_for_each_screen(function(s)
@@ -22,3 +23,4 @@ end)
 
 ClientMover.new()
 PostureCheckNotificator.new()
+Volume.new()

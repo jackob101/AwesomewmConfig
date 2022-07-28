@@ -42,9 +42,7 @@ load_all("", {
     "errors",
 })
 
-
-
-require("modules.volume")
+-- require("modules.volume")
 require("modules.volume.volume-popup")
 require("modules.do-not-disturb-mode")
 require("modules.dashboard")
@@ -67,7 +65,6 @@ local wid = {}
 --- @class Screen
 local screen = {}
 
-
 --- @field public widget Widget
 --- @class BaseWidget
 local base = {}
@@ -76,3 +73,4 @@ local base = {}
 function base.new(s)
 end
 
+Volume.update()
