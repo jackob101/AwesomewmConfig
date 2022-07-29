@@ -1,0 +1,40 @@
+--- @class Gears
+---
+---
+--- @class Wibox
+---
+---
+--- @class Awful
+--- @field screen Screen
+---
+---
+--- @class Naughty
+---
+---
+--- @class Ruled
+---
+---
+--- @class Menubar
+---
+---
+--- @class Notification
+---
+---
+--- @class Client
+---
+---
+--- @class Widget
+---
+---
+--- @class Screen
+---
+---
+--- @class BaseWidget
+--- @field new fun(s: Screen)
+---
+--- @class Dpi
+
+
+--- @class Initializable
+--- @field isInitialized boolean
+--- @field init fun()

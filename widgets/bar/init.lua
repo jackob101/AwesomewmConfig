@@ -69,6 +69,7 @@ end
 ----------------------------------------
 -- Initialize the bar
 ----------------------------------------
+--- @type Screen
 --- @return StatusBar
 function StatusBar.new(s)
     --- @type StatusBar

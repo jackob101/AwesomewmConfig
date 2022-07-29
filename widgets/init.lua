@@ -1,9 +1,3 @@
-require("widgets.bar")
-require("widgets.client_mover")
-require("widgets.autorun")
-require("widgets.utils")
-require("widgets.ExitScreen")
-
 load_all("widgets", {
     "bar",
     "client_mover",
@@ -11,20 +5,30 @@ load_all("widgets", {
     "utils",
     "ExitScreen",
     "PostureCheckNotificator",
-    "NotificationService",
-    "DoNotDisturbService",
-    "VolumeService",
 })
 
+--- @type BaseWidget[]
+local widgetsForEachScreen = {
+    StatusBar,
+}
+
+--- @type BaseWidget[]
+local widget = {
+    ClientMover,
+    PostureCheckNotificator,
+}
+
 Awful.screen.connect_for_each_screen(function(s)
-
-    s.wibar = StatusBar.new(s)
-
+    for _, service in pairs(widgetsForEachScreen) do
+        if service then
+            service.new(s)
+        end
+    end
 end)
 
-ClientMover.new()
-PostureCheckNotificator.new()
-VolumeService.new()
+for _, service in pairs(widget) do
+    if service then
+        service.new()
+    end
+end
 
-DoNotDisturbService.init()
-NotificationService.init()

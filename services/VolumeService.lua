@@ -7,7 +7,7 @@ local UPDATE_SIGNAL = "module::volume::widgets:update"
 --- @field update fun(newVolume: number, isMute:boolean)
 
 
---- @class VolumeService This class is a singletoon responsible for all things about handling Volume
+--- @class VolumeService : Initializable This class is a singletoon responsible for all things about handling Volume
 --- @field toUpdate VolumeUpdatableWidget[]
 VolumeService = {
     isInitialized = false,
@@ -16,15 +16,11 @@ VolumeService = {
 VolumeService.__index = VolumeService
 
 --- @return VolumeService
-function VolumeService.new()
+function VolumeService.init()
 
     if VolumeService.isInitialized then
-        return VolumeService
+        return
     end
-
-    --- @type VolumeService
-    local newVolume = {}
-    setmetatable(newVolume, VolumeService)
 
     Gears.timer {
         timeout = 5,
@@ -33,8 +29,7 @@ function VolumeService.new()
         callback = VolumeService.update
     }
 
-    newVolume.isInitialized = true
-    return newVolume
+    VolumeService.isInitialized = true
 end
 
 function VolumeService.update()
