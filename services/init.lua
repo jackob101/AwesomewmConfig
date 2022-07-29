@@ -12,7 +12,8 @@ local services = {
     DoNotDisturbService,
     NotificationService,
     VolumeService,
-    ClientMover
+    ClientMover,
+    PostureCheckNotificator
 }
 
 for i, service in pairs(services) do

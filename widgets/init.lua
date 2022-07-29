@@ -13,7 +13,6 @@ local widgetsForEachScreen = {
 
 --- @type BaseWidget[]
 local widget = {
-    PostureCheckNotificator,
 }
 
 Awful.screen.connect_for_each_screen(function(s)
