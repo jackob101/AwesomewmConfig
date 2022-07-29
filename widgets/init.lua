@@ -1,6 +1,5 @@
 load_all("widgets", {
     "bar",
-    "client_mover",
     "autorun",
     "utils",
     "ExitScreen",
@@ -14,7 +13,6 @@ local widgetsForEachScreen = {
 
 --- @type BaseWidget[]
 local widget = {
-    ClientMover,
     PostureCheckNotificator,
 }
 
