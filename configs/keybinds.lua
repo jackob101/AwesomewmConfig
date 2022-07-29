@@ -194,17 +194,6 @@ keys.globalkeys = gears.table.join(
 		function() awful.spawn("emacsclient -c -a 'emacs'") end,
 		{ description = "Spawn emacs", group = "launcher" }
 	),
-	awful.key(
-			{ modkey, "Ctrl"},
-			"d",
-			function()
-				awesome.emit_signal("dashboard::toggle")
-			end,
-			{
-				description = "Open dashboard",
-				group = "launcher"
-			}
-	),
 	-- ██╗      █████╗ ██╗   ██╗ ██████╗ ██╗   ██╗████████╗
 	-- ██║     ██╔══██╗╚██╗ ██╔╝██╔═══██╗██║   ██║╚══██╔══╝
 	-- ██║     ███████║ ╚████╔╝ ██║   ██║██║   ██║   ██║
@@ -335,7 +324,7 @@ keys.globalkeys = gears.table.join(
 		{  },
 		"XF86AudioRaiseVolume",
 		function()
-			awesome.emit_signal('module::volume:up', true)
+			VolumeService.increase(true)
 		end,
 		{description="Increase volume", group = "audio"}
 	),
@@ -344,7 +333,7 @@ keys.globalkeys = gears.table.join(
 		{  },
 		"XF86AudioLowerVolume",
 		function()
-			awesome.emit_signal('module::volume:down', true)
+			VolumeService.decrease(true)
 		end,
 		{description = "Descrease volume", group = "audio"}
 	),

@@ -116,6 +116,28 @@ theme.volumeBarWidget = {
     barIconMargin = theme.bar.barIconMargin,
 }
 
+theme.volumePopupWidget = {
+    font = "Ubuntu 12",
+    bg = theme.gray .. "AA",
+    height = Dpi(120),
+    width = Dpi(300),
+    shape = Gears.shape.rect,
+    sliderBarHeight = Dpi(4),
+    sliderBarColor = theme.black .. "AA",
+    sliderBarActiveColor = theme.green,
+    sliderHandleColor = theme.green,
+    sliderHandleWidth = Dpi(20),
+    sliderHandleBorderColor = "#00000012",
+    sliderHandleBorderWidth = dpi(1),
+    leftBorderMargin = Dpi(24),
+    rightBorderMargin = Dpi(24),
+    topBorderMargin = Dpi(24),
+    bottomBorderMargin = Dpi(0),
+    spaceAround = dpi(20),
+    boxBorderWidth = dpi(2),
+    boxBorderColor = theme.light_gray
+}
+
 --- @class ClickableContainerTheme
 theme.clickableContainer = {
     bg = theme.gray,

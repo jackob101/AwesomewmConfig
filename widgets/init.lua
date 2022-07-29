@@ -3,12 +3,13 @@ load_all("widgets", {
     "autorun",
     "utils",
     "ExitScreen",
-    "PostureCheckNotificator",
+    "VolumePopupWidget"
 })
 
 --- @type BaseWidget[]
 local widgetsForEachScreen = {
     StatusBar,
+    VolumePopupWidget
 }
 
 --- @type BaseWidget[]

@@ -17,9 +17,6 @@ require("services")
 
 require("widgets")
 
-require("modules.volume.volume-popup")
-require("modules.dashboard")
-
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
 editor = os.getenv("EDITOR") or "nvim"
