@@ -16,13 +16,19 @@ Wibox = require("wibox")
 --- @field screen Screen
 Awful = require("awful")
 
--- @class Naughty
+--- @class Naughty
 Naughty = require("naughty")
+
+--- @class Ruled
+Ruled = require("ruled")
 
 -- Load libraries
 
 Dpi = Beautiful.xresources.apply_dpi
 ModKey = "Mod4"
+
+--- @class Menubar
+Menubar = require("menubar")
 
 local menubar = require("menubar")
 
@@ -44,7 +50,6 @@ load_all("", {
 
 -- require("modules.volume")
 require("modules.volume.volume-popup")
-require("modules.do-not-disturb-mode")
 require("modules.dashboard")
 require("widgets")
 
@@ -55,22 +60,20 @@ editor_cmd = terminal .. " -e " .. editor
 
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 
---require("modules.autorun.init")
 
+--- @class Notification
+---
 --- @class Client
-
+---
 --- @class Widget
-local wid = {}
-
+---
 --- @class Screen
-local screen = {}
-
---- @field public widget Widget
+---
 --- @class BaseWidget
-local base = {}
+--- @field new fun(s: Screen)
 
---- @param s Screen
-function base.new(s)
-end
+--- @class Initializable
+--- @field isInitialized boolean
+--- @field init fun()
 
-Volume.update()
+VolumeService.update()

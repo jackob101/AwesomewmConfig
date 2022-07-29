@@ -43,13 +43,13 @@ function VolumeBarWidget.new()
 
     newVolumeBarWidget.widget:connect_signal("button::press", function(_, _, _, b)
         if b == 1 then
-            Volume.toggle()
+            VolumeService.toggle()
         elseif b == 3 then
             Awful.spawn("pavucontrol")
         elseif b == 4 then
-            Volume.increase()
+            VolumeService.increase()
         elseif b == 5 then
-            Volume.decrease()
+            VolumeService.decrease()
         end
     end)
 
@@ -67,7 +67,7 @@ function VolumeBarWidget.new()
         end
     end)
 
-    Volume.connect(newVolumeBarWidget)
+    VolumeService.connect(newVolumeBarWidget)
     return newVolumeBarWidget
 end
 

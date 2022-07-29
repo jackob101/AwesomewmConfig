@@ -183,11 +183,16 @@ theme.tiling_status = {
 
 theme.notification = {
     bg = theme.gray .. "99",
+    position = "top_right",
     width = dpi(320),
-    box_padding = dpi(10),
-    border_normal = theme.light_gray,
-    border_urgent = theme.red,
-    message_height = dpi(40),
+    borderPadding = dpi(10),
+    borderWidth = dpi(2),
+    borderNormal = theme.light_gray,
+    borderUrgent = theme.red,
+    iconRightMargin = dpi(10),
+    messageHeight = dpi(40),
+    titleHeight = dpi(20),
+    titleFont = "inter medium 11",
 }
 
 theme.tooltip = {
@@ -239,6 +244,7 @@ theme.notification_icon_size = dpi(50)
 -- theme.notification_height = 150
 theme.notification_spacing = dpi(20)
 --theme.notification_box_margin = 10
+
 theme.notification_title_font = "inter medium 11"
 
 theme.systray_icon_spacing = 5
