@@ -484,8 +484,8 @@ keys.clientkeys = gears.table.join(
 		{ modkey },
 		"o",
 		function (c)
-			if ClientMover then
-				ClientMover.start(c)
+			if ClientMoverService then
+				ClientMoverService.start(c)
 			end
 		end
 	),

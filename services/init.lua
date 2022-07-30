@@ -3,6 +3,7 @@ load_all("services", {
     "DoNotDisturbService",
     "NotificationService",
     "VolumeService",
+    "ClientMoverService",
 })
 
 
@@ -12,7 +13,7 @@ local services = {
     DoNotDisturbService,
     NotificationService,
     VolumeService,
-    ClientMover,
+    ClientMoverService,
     PostureCheckNotificator
 }
 

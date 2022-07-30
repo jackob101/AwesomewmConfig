@@ -1,27 +1,26 @@
 local awful = require("awful")
 local wibox = require("wibox")
 
---- @class ClientMover : Initializable
+--- @class ClientMoverService : Initializable
 --- @field isInitialized boolean Shows if ClientMover is initialized or new instance must be created
-ClientMover = {
+ClientMoverService = {
     isInitialized = false
 }
-ClientMover.__index = ClientMover
+ClientMoverService.__index = ClientMoverService
 
---- @return ClientMover
-function ClientMover.new()
+function ClientMoverService.init()
 
-    if ClientMover.isInitialized then
+    if ClientMoverService.isInitialized then
         return
     end
 
-    ClientMover._textBox = wibox.widget({
+    ClientMoverService._textBox = wibox.widget({
         widget = wibox.widget.textbox,
         align = "center",
         font = "Inter bold 36",
     })
 
-    ClientMover._backdrop = awful.popup({
+    ClientMoverService._backdrop = awful.popup({
         visible = false,
         ontop = true,
         type = "dock",
@@ -31,26 +30,26 @@ function ClientMover.new()
             widget = Wibox.container.place,
             valign = "center",
             halign = "center",
-            ClientMover._textBox,
+            ClientMoverService._textBox,
         },
     })
 
     if screen:count() == 2 then
-        ClientMover._textBox.text = "Select tag [0-9]"
+        ClientMoverService._textBox.text = "Select tag [0-9]"
     end
 
-    ClientMover.isInitialized = true
+    ClientMoverService.isInitialized = true
 
 end
 
 
 --
 --- @param c Client
-function ClientMover.start(c)
-    ClientMover._backdrop.width = c.screen.geometry.width
-    ClientMover._backdrop.height = c.screen.geometry.height
-    ClientMover._backdrop.minimum_width = c.screen.geometry.width
-    ClientMover._backdrop.minimum_height = c.screen.geometry.height
+function ClientMoverService.start(c)
+    ClientMoverService._backdrop.width = c.screen.geometry.width
+    ClientMoverService._backdrop.height = c.screen.geometry.height
+    ClientMoverService._backdrop.minimum_width = c.screen.geometry.width
+    ClientMoverService._backdrop.minimum_height = c.screen.geometry.height
 
     --- @type number
     local tagIndex
@@ -64,11 +63,11 @@ function ClientMover.start(c)
 
     local keyGrabber = Awful.keygrabber{
         start_callback = function()
-            ClientMover._backdrop.visible = true
+            ClientMoverService._backdrop.visible = true
         end,
         stop_callback = function()
-            ClientMover._backdrop.visible = false
-            ClientMover.move(tagIndex, screenIndex, c)
+            ClientMoverService._backdrop.visible = false
+            ClientMoverService.move(tagIndex, screenIndex, c)
         end,
         keypressed_callback = function(grabber, mod, key)
             if key == "Escape" then
@@ -80,7 +79,7 @@ function ClientMover.start(c)
                 -- Check if number is in range from 1 to screen amount
                 if number and number > 0 and number <= screen:count() then
                     screenIndex = number
-                    ClientMover._textBox.text = "Select tag [0-9]"
+                    ClientMoverService._textBox.text = "Select tag [0-9]"
                 else
                     -- TODO Implement some error hanndling
                     grabber:stop()
@@ -102,7 +101,7 @@ end
 --- @param tagIndex number Tag number to which move passed client
 --- @param screenIndex number Screen index
 --- @param c Client
-function ClientMover.move(tagIndex, screenIndex, c)
+function ClientMoverService.move(tagIndex, screenIndex, c)
     if tagIndex and screenIndex then
         local s = screen[screenIndex]
         c:move_to_screen(s)
