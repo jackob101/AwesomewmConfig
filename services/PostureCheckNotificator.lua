@@ -1,6 +1,6 @@
 local icons = require("icons")
 
---- @class PostureCheckNotificator
+--- @class PostureCheckNotificator : Initializable
 PostureCheckNotificator = {
     isInitialized = false,
     isOn = false,
@@ -8,7 +8,7 @@ PostureCheckNotificator = {
 PostureCheckNotificator.__index = PostureCheckNotificator
 
 --- @return PostureCheckNotificator
-function PostureCheckNotificator.new()
+function PostureCheckNotificator.init()
 
     if PostureCheckNotificator.isInitialized then
         return PostureCheckNotificator
