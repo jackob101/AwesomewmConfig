@@ -6,7 +6,6 @@ local wibox = require("wibox")
 ClientMoverService = {
     isInitialized = false
 }
-ClientMoverService.__index = ClientMoverService
 
 function ClientMoverService.init()
 
@@ -38,6 +37,8 @@ function ClientMoverService.init()
         ClientMoverService._textBox.text = "Select tag [0-9]"
     end
 
+    ClientMoverService._initKeybinds()
+
     ClientMoverService.isInitialized = true
 
 end
@@ -61,7 +62,7 @@ function ClientMoverService.start(c)
         screenIndex = (Awful.screen.focused().index % 2) + 1
     end
 
-    local keyGrabber = Awful.keygrabber{
+    local keyGrabber = Awful.keygrabber {
         start_callback = function()
             ClientMoverService._backdrop.visible = true
         end,
@@ -114,5 +115,19 @@ function ClientMoverService.move(tagIndex, screenIndex, c)
         c:move_to_tag(tag)
         tag.selected = true
     end
+end
+
+function ClientMoverService._initKeybinds()
+    Keybinds.connectForClient(Gears.table.join(
+            Awful.key(
+                    { ModKey },
+                    "o",
+                    function(c)
+                        ClientMoverService.start(c)
+                    end,
+                    { description = "Move client", group = "client" }
+            )
+    ))
+
 end
 

@@ -7,13 +7,18 @@ require("preInit")
 
 require("utils")
 
+require("configs.keybindings")
+Keybinds.init()
+
 load_all("", {
     "configs",
     "layout",
     "errors",
 })
 
+
 require("services")
+
 
 require("widgets")
 

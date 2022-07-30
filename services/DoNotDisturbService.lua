@@ -8,27 +8,29 @@ local icons = require("icons")
 --- @field toUpdate DNDUpdatable[]
 DoNotDisturbService = {
     isDNDOn = false,
-	toUpdate = {}
+    toUpdate = {}
 }
-DoNotDisturbService.__index = DoNotDisturbService
 
 --- @return DoNotDisturbService
 function DoNotDisturbService.init()
     if DoNotDisturbService.isInitialized then
         return
     end
+
+    DoNotDisturbService._initKeybinds()
+
     DoNotDisturbService.isInitialized = true
 end
 
 --- @param widget DNDUpdatable
 function DoNotDisturbService.connect(widget)
-	table.insert(DoNotDisturbService.toUpdate, widget)
+    table.insert(DoNotDisturbService.toUpdate, widget)
 end
 
 function DoNotDisturbService.update()
-	for _, v in  ipairs(DoNotDisturbService.toUpdate) do
-		v.update(DoNotDisturbService.isDNDOn)
-	end
+    for _, v in ipairs(DoNotDisturbService.toUpdate) do
+        v.update(DoNotDisturbService.isDNDOn)
+    end
 end
 
 function DoNotDisturbService.toggle()
@@ -51,5 +53,20 @@ function DoNotDisturbService.toggle()
 
     DoNotDisturbService.isDNDOn = not DoNotDisturbService.isDNDOn
 
-	DoNotDisturbService.update()
+    DoNotDisturbService.update()
+end
+
+function DoNotDisturbService._initKeybinds()
+
+    Keybinds.connectForGlobal(Gears.table.join(
+            Awful.key(
+                    { ModKey, "Shift" },
+                    "t",
+                    function()
+                        DoNotDisturbService.toggle()
+                    end,
+                    { description = "Toggle DND mode", group = "DND" }
+            )
+    ))
+
 end

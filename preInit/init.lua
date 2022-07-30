@@ -1,3 +1,3 @@
 require("preInit.classDefinitions")
-require("preInit.awesomeModules")
+require("preInit.GlobalDefinitions")
 require("preInit.globalFunctions")

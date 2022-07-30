@@ -5,7 +5,6 @@ PostureCheckNotificator = {
     isInitialized = false,
     isOn = false,
 }
-PostureCheckNotificator.__index = PostureCheckNotificator
 
 --- @return PostureCheckNotificator
 function PostureCheckNotificator.init()

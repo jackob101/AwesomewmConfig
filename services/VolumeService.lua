@@ -15,7 +15,6 @@ VolumeService = {
     toUpdate = {},
     canServe = true,
 }
-VolumeService.__index = VolumeService
 
 --- @return VolumeService
 function VolumeService.init()
@@ -33,6 +32,8 @@ function VolumeService.init()
         end
 
     }
+
+    VolumeService._initKeybinds()
 
     VolumeService.isInitialized = true
 end
@@ -106,4 +107,34 @@ function VolumeService.set(amount, shouldDisplay)
     return false
 end
 
+function VolumeService._initKeybinds()
+    Keybinds.connectForGlobal(Gears.table.join(
+            Awful.key(
+                    {  },
+                    "XF86AudioRaiseVolume",
+                    function()
+                        VolumeService.increase(true)
+                    end,
+                    { description = "Increase volume", group = "audio" }
+            ),
+
+            Awful.key(
+                    {  },
+                    "XF86AudioLowerVolume",
+                    function()
+                        VolumeService.decrease(true)
+                    end,
+                    { description = "Decrease volume", group = "audio" }
+            ),
+
+            Awful.key(
+                    {  },
+                    "XF86AudioMute",
+                    function()
+                        VolumeService.toggle(false)
+                    end,
+                    { description = "Mute audio", group = "audio" }
+            )
+    ))
+end
 

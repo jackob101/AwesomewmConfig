@@ -1,3 +1,10 @@
+-- Global variables
+
+ModKey = "Mod4"
+
+
+-- Global Modules
+
 --- @type Beautiful
 Beautiful = require("beautiful")
 
@@ -16,11 +23,8 @@ Naughty = require("naughty")
 --- @type Ruled
 Ruled = require("ruled")
 
-
 --- @type Menubar
 Menubar = require("menubar")
-
-ModKey = "Mod4"
 
 --- @type Dpi
 Dpi = Beautiful.xresources.apply_dpi

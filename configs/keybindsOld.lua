@@ -5,6 +5,7 @@ local modkey = require("configs.mod").modkey
 
 require("awful.hotkeys_popup.keys")
 
+print("Hello ?")
 local function press_button(button)
 	root.fake_input("key_press", button)
 	root.fake_input("key_release", button)
