@@ -35,8 +35,8 @@
 ---
 --- @class Dpi
 ---
---- @class MacroUpdatable
---- @field update fun(isOn:boolean)
+--- @class MacroUpdatable : BaseWidget
+--- @field update fun(self: MacroUpdatable, isOn:boolean)
 
 --- @class KeybindingsInit
 --- @field init fun(keybinds)

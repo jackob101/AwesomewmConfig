@@ -46,11 +46,13 @@ function MacroService.toggle()
             store = false,
         })
     end
+
+    MacroService.update()
 end
 
 function MacroService.update()
     for _, v in ipairs(MacroService.toUpdate) do
-        v.update(MacroService.isOn)
+        v:update(MacroService.isOn)
     end
 end
 
