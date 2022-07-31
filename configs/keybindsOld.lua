@@ -5,7 +5,6 @@ local modkey = require("configs.mod").modkey
 
 require("awful.hotkeys_popup.keys")
 
-print("Hello ?")
 local function press_button(button)
 	root.fake_input("key_press", button)
 	root.fake_input("key_release", button)
@@ -64,12 +63,12 @@ keys.globalkeys = gears.table.join(
 		{ description = "toggle Do not disturb mode", group = "awesome" }
 	),
 	awful.key(
-		{modkey, "Shift", "Control"},
+		{modkey, "shift", "control"},
 		"m",
 		function ()
 			awesome.emit_signal("macros::toggle")
 		end,
-		{ description = "Toggle macros", group = "awesome" }
+		{ description = "toggle macros", group = "awesome" }
 	),
 
 	awful.key(
@@ -516,38 +515,7 @@ keys.clientkeys = gears.table.join(
 
 )
 keys.macro_keybinds = gears.table.join(
-		awful.key(
-				{},
-				"F1",
-				function ()
-					mouse_button_press(1)
-				end,
-				{ description = "Spam click LMB", group = "Macros" }
-		),
-		awful.key(
-				{"Shift"},
-				"F1",
-				function ()
-					root.fake_input("key_press", "Shift_L")
-					mouse_button_press(1)
-				end,
-				function ()
-					root.fake_input("key_release", "Shift_L")
-				end,
-				{ description = "Spam click Shift + LMB", group = "Macros" }
-		),
-		awful.key(
-				{"Ctrl"},
-				"F1",
-				function ()
-					root.fake_input("key_press", "Control_L")
-					mouse_button_press(1)
-				end,
-				function ()
-					root.fake_input("key_release", "Control_L")
-				end,
-				{ description = "Spam click Control + LMB", group = "Macros" }
-		)
+
 )
 -- Stylua:ignore end
 

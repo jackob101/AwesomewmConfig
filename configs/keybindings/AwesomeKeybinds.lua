@@ -25,14 +25,6 @@ return function()
             ),
 
             Awful.key(
-                    { ModKey, "Shift", "Control" },
-                    "m",
-                    function()
-                        awesome.emit_signal("macros::toggle")
-                    end,
-                    { description = "Toggle macros", group = "awesome" }
-            ),
-            Awful.key(
                     { ModKey },
                     "c",
                     function()

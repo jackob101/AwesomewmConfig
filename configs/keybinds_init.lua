@@ -7,7 +7,6 @@ local configured = false
 local are_macros_on = false
 local macros_and_keybinds = gears.table.join(keybinds.macro_keybinds, keybinds.globalkeys)
 
-print("What")
 
 local function refresh_keybinds()
     if configured then

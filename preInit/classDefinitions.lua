@@ -34,6 +34,9 @@
 --- @field new fun(s: Screen)
 ---
 --- @class Dpi
+---
+--- @class MacroUpdatable
+--- @field update fun(isOn:boolean)
 
 --- @class KeybindingsInit
 --- @field init fun(keybinds)
@@ -42,5 +45,6 @@
 --- @class Initializable
 --- @field isInitialized boolean
 --- @field init fun()
+
 
 --- @class Key
