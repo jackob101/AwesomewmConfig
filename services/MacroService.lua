@@ -36,12 +36,14 @@ function MacroService.toggle()
             title = "Macros",
             message = "Turned ON!",
             icon = icons.macros,
+            store = false,
         })
     else
         Naughty.notify({
             title = "Macros",
             message = "Turned OFF!",
             icon = icons.macros,
+            store = false,
         })
     end
 end

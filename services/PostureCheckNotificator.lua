@@ -13,21 +13,15 @@ function PostureCheckNotificator.init()
         return PostureCheckNotificator
     end
 
-    --- @type PostureCheckNotificator
-    local newPostureCheckNotificator = {}
-    setmetatable(newPostureCheckNotificator, PostureCheckNotificator)
-
-    newPostureCheckNotificator.timer = Gears.timer {
+    PostureCheckNotificator.timer = Gears.timer {
         timeout = 1800,
         autostart = true,
         call_now = false,
-        callback = newPostureCheckNotificator.createNotification,
+        callback = PostureCheckNotificator.createNotification,
     }
 
-    PostureCheckNotificator = newPostureCheckNotificator
     PostureCheckNotificator.isInitialized = true
     PostureCheckNotificator.isOn = true
-    return newPostureCheckNotificator
 end
 
 function PostureCheckNotificator.createNotification()

@@ -40,14 +40,16 @@ function DoNotDisturbService.toggle()
             title = "Do not disturb",
             message = "Do not disturb has been turned on",
             icon = icons.bell_slash,
-            force_display = true
+            force_display = true,
+            store = false,
         })
     else
         Naughty.notification({
             title = "Do not disturb",
             message = "Do not disturb has been turned off",
             icon = icons.bell,
-            force_display = true
+            force_display = true,
+            store = false,
         })
     end
 
