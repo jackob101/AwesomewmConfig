@@ -1,3 +1,12 @@
+local function createDesc(text, index)
+    if index == 1 then
+        return {
+            description = text,
+            group = "tag",
+        }
+    end
+end
+
 return function()
 
     local newKeys = Gears.table.join(
@@ -33,10 +42,7 @@ return function()
                     if tag then
                         tag:view_only()
                     end
-                end, {
-                    description = "view tag #" .. i,
-                    group = "tag",
-                }),
+                end, createDesc("View tag with number 1-10", i)),
         -- Toggle tag display.
                 Awful.key({ ModKey, "Control" }, "#" .. i + 9, function()
                     local screen = Awful.screen.focused()
@@ -44,10 +50,7 @@ return function()
                     if tag then
                         Awful.tag.viewtoggle(tag)
                     end
-                end, {
-                    description = "toggle tag #" .. i,
-                    group = "tag",
-                }),
+                end, createDesc("Toggle tag with number 1-10", i)),
         -- Move client to tag.
                 Awful.key({ ModKey, "Shift" }, "#" .. i + 9, function()
                     if client.focus then
@@ -56,10 +59,7 @@ return function()
                             client.focus:move_to_tag(tag)
                         end
                     end
-                end, {
-                    description = "move focused client to tag #" .. i,
-                    group = "tag",
-                }),
+                end, createDesc("Move focused client to tag 1-10", i)),
         -- Toggle tag on focused client.
                 Awful.key({ ModKey, "Control", "Shift" }, "#" .. i + 9, function()
                     if client.focus then
@@ -68,12 +68,9 @@ return function()
                             client.focus:toggle_tag(tag)
                         end
                     end
-                end, {
-                    description = "toggle focused client on tag #" .. i,
-                    group = "tag",
-                })
+                end, createDesc("Toggle focused client on tag 1-10", i))
         )
     end
 
- Keybinds.connectForGlobal(newKeys)
+    Keybinds.connectForGlobal(newKeys)
 end
