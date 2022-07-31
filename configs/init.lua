@@ -6,4 +6,4 @@ load_all("configs", { "layouts", "tags", "wallpaper", "client"})
 
 -- Initialize keybinds
 ----------------------------------------
-require("awful.hotkeys_popup.keys")
+--require("awful.hotkeys_popup.keys")

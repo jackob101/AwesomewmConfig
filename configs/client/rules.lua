@@ -1,6 +1,5 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
---local clientkeys = require("configs.keybinds").clientkeys
 local clientkeys = Keybinds.client
 local clientbuttons = require("configs.client.buttons")
 
@@ -14,7 +13,7 @@ awful.rules.rules = {
             border_color = beautiful.border_normal,
             focus = awful.client.focus.filter,
             raise = true,
-            keys = clientkeys,
+            keys = Keybinds.client,
             buttons = clientbuttons,
             titlebars_enabled = false,
             screen = awful.screen.preferred,
