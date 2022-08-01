@@ -1,6 +1,3 @@
-local beautiful = require("beautiful")
-local icons = require("icons")
-local utils = require("utils")
 
 --- @class VolumeBarWidget : VolumeUpdatableWidget
 VolumeBarWidget = {}
@@ -36,7 +33,7 @@ function VolumeBarWidget.new()
         widget = Wibox.container.background,
     })
 
-    newVolumeBarWidget.tooltip = utils.generate_tooltip(newVolumeBarWidget.widget, "Click to mute")
+    newVolumeBarWidget.tooltip = Utils.generate_tooltip(newVolumeBarWidget.widget, "Click to mute")
 
     newVolumeBarWidget.widget:connect_signal("button::press", function(_, _, _, b)
         if b == 1 then
