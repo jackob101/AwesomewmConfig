@@ -9,7 +9,7 @@ local profile_imagebox = wibox.widget({
 	id = "icon",
 	forced_height = dpi(60),
 	forced_width = dpi(60),
-	image = icons.default,
+	image = IconsHandler.icons.default.path,
 	widget = wibox.widget.imagebox,
 	resize = true,
 })

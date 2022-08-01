@@ -1,7 +1,3 @@
-local awful = require("awful")
-local beautiful = require("beautiful")
-local wibox = require("wibox")
-local theme = Beautiful.bar
 
 -- Load widget classes into scope
 load_all("widgets.bar.components", {

@@ -30,3 +30,4 @@ Menubar = require("menubar")
 Dpi = Beautiful.xresources.apply_dpi
 
 Beautiful.init(os.getenv("HOME") .. "/.config/awesome/theme.lua")
+

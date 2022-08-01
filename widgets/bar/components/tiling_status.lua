@@ -1,4 +1,3 @@
-local awful = require("awful")
 local theme = require("beautiful").tiling_status
 local wibox = require("wibox")
 local layout = require("awful.layout")

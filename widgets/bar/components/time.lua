@@ -1,27 +1,24 @@
-local wibox = require("wibox")
-local beautiful = require("beautiful")
-local icons = require("icons")
-
 --- @class TimeBarWidget : BaseWidget
 TimeBarWidget = {}
 TimeBarWidget.__index = TimeBarWidget
+
 
 --- @return TimeBarWidget
 function TimeBarWidget.new()
     local newBarTimeWidget = {}
     setmetatable(newBarTimeWidget, TimeBarWidget)
 
-    local clock = wibox.widget({
-        widget = wibox.widget.textclock,
+    local clock = Wibox.widget({
+        widget = Wibox.widget.textclock,
         format = "%H:%M",
-        font = beautiful.bar_font,
+        font = Beautiful.bar_font,
     })
 
-    newBarTimeWidget.widget = wibox.widget({
-        icons.clock.widget(),
+    newBarTimeWidget.widget = Wibox.widget({
+         IconsHandler.icons.clock.widget("#FFFFFF"),
         clock,
-        layout = wibox.layout.fixed.horizontal,
-        spacing = beautiful.bar_icon_text_spacing,
+        layout = Wibox.layout.fixed.horizontal,
+        spacing = Beautiful.bar_icon_text_spacing,
     })
 
     return newBarTimeWidget

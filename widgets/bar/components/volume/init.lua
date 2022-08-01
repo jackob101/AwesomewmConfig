@@ -1,8 +1,5 @@
-local wibox = require("wibox")
 local beautiful = require("beautiful")
-local awful = require("awful")
 local icons = require("icons")
-local dpi = beautiful.xresources.apply_dpi
 local utils = require("utils")
 
 --- @class VolumeBarWidget : VolumeUpdatableWidget
@@ -80,16 +77,16 @@ end
 
 function VolumeBarWidget:update(newVolume, isMute)
     if isMute then
-        self:setNewStyle(icons.volume_mute, Beautiful.volumeBarWidget.mutedFg)
+        self:setNewStyle(IconsHandler.icons.volume_mute.path, Beautiful.volumeBarWidget.mutedFg)
         self.tooltip.text = "Click to unmute"
         self.text_widget.text = "Muted"
     else
         if newVolume >= 75 then
-            self:setNewStyle(icons.volume_high, Beautiful.volumeBarWidget.highFg)
+            self:setNewStyle(IconsHandler.icons.volume_high.path, Beautiful.volumeBarWidget.highFg)
         elseif newVolume < 75 and newVolume >= 35 then
-            self:setNewStyle(icons.volume_medium, Beautiful.volumeBarWidget.highFg)
+            self:setNewStyle(IconsHandler.icons.volume_medium.path, Beautiful.volumeBarWidget.highFg)
         else
-            self:setNewStyle(icons.volume_low, Beautiful.volumeBarWidget.highFg)
+            self:setNewStyle(IconsHandler.icons.volume_low.path, Beautiful.volumeBarWidget.highFg)
         end
         self.tooltip.text = "Click to mute"
         self.text_widget.text = newVolume .. "%"

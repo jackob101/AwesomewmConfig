@@ -1,7 +1,6 @@
 local awful = require("awful")
 local gears = require("gears")
 local wibox = require("wibox")
-local icons = require("icons")
 local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
 local naughty = require("naughty")
@@ -24,7 +23,7 @@ local profile_name = {
 }
 
 local profile_imagebox =  {
-  image = icons.default,
+  image = IconsHandler.icons.default.path,
   resize = true,
   forced_height = dpi(140),
   clip_shape = gears.shape.circle,
@@ -101,11 +100,11 @@ local reboot_command = function()
   awesome.emit_signal('module::exit_screen:hide')
 end
 
-local poweroff = build_power_button('Shutdown(p)', icons.power, poweroff_command)
-local reboot = build_power_button('Restart(r)', icons.restart, reboot_command)
-local suspend = build_power_button('Sleep(s)', icons.sleep, suspend_command)
-local logout = build_power_button('Logout(e)', icons.logout, logout_command)
-local lock = build_power_button('Lock', icons.lock, lock_command)
+local poweroff = build_power_button('Shutdown(p)', IconsHandler.icons.power.path, poweroff_command)
+local reboot = build_power_button('Restart(r)', IconsHandler.icons.restart.path, reboot_command)
+local suspend = build_power_button('Sleep(s)', IconsHandler.icons.sleep.path, suspend_command)
+local logout = build_power_button('Logout(e)', IconsHandler.icons.logout.path, logout_command)
+local lock = build_power_button('Lock', IconsHandler.icons.lock.path, lock_command)
 
 
 local create_exit_screen = function(s)

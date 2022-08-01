@@ -1,5 +1,4 @@
 local wibox = require("wibox")
-local icons = require("icons")
 local utils = require("utils")
 local beautiful = require("beautiful")
 local gears = require("gears")
@@ -22,7 +21,7 @@ function CentralPanelToggle.new()
         {
             stylesheet = stylesheet,
             widget = wibox.widget.imagebox,
-            image = icons.bell,
+            image = IconsHandler.icons.bell.path,
             resize = true,
         },
     })

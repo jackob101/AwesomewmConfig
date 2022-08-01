@@ -37,6 +37,12 @@
 ---
 --- @class MacroUpdatable : BaseWidget
 --- @field update fun(self: MacroUpdatable, isOn:boolean)
+---
+---
+--- @class Icon
+--- @field widget fun(color: string):Widget A field that contains prepared widget
+--- @field path string path to the icon
+---
 
 --- @class KeybindingsInit
 --- @field init fun(keybinds)

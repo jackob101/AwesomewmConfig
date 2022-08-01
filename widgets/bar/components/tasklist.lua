@@ -1,10 +1,7 @@
 local awful = require("awful")
-local gears = require("gears")
 local wibox = require("wibox")
-local dpi = require("beautiful").xresources.apply_dpi
 local utils = require("utils")
 local beautiful = require("beautiful")
-local icons = require("icons")
 local theme = beautiful.task
 
 --- @class TaskListWidget : BaseWidget
@@ -52,28 +49,28 @@ local function widget_create_callback(self, c, index)
             onclick = function()
                 c.minimized = not c.minimized
             end,
-            icon = icons.window_minimize,
+            icon = IconsHandler.icons.window_minimize.path,
         },
         {
             name = "Maximize",
             onclick = function()
                 c.maximize()
             end,
-            icon = icons.window_maximize,
+            icon = IconsHandler.icons.window_maximize.path,
         },
         {
             name = "Fullscreen",
             onclick = function()
                 c.fullscreen = not c.fullscreen
             end,
-            icon = icons.window_fullscreen,
+            icon = IconsHandler.icons.window_fullscreen.path,
         },
         {
             name = "Kill client",
             onclick = function()
                 c:kill()
             end,
-            icon = icons.window_close,
+            icon = IconsHandler.icons.window_close.path,
         },
     }
     c.popup = require("widgets.menu")(menu_items)

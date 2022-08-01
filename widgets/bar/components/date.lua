@@ -1,6 +1,5 @@
 local wibox = require("wibox")
 local beautiful = require("beautiful")
-local icons = require("icons")
 
 --- @class DateBarWidget
 DateBarWidget = {}
@@ -18,7 +17,7 @@ function DateBarWidget.new()
     })
 
     newDateWidget.widget = wibox.widget({
-        icons.calendar.widget(),
+        IconsHandler.icons.calendar.widget(),
         calendar,
         layout = wibox.layout.fixed.horizontal,
         spacing = beautiful.bar_icon_text_spacing,

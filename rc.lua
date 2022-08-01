@@ -10,6 +10,9 @@ require("utils")
 require("configs.keybindings")
 Keybinds.init()
 
+require("icons")
+IconsHandler.init()
+
 load_all("", {
     "configs",
     "layout",
