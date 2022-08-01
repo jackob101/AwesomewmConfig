@@ -21,7 +21,6 @@ end
 
 
 function MacroBarIndicator:update(isOn)
-    print("Updating")
     if isOn then
         self.widget.visible = true
     else

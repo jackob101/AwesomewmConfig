@@ -1,14 +1,14 @@
 
 -- Load widget classes into scope
 load_all("widgets.bar.components", {
-    "volume",
-    "central_panel_toggle",
-    "date",
+    "Volume",
+    "NotificationBoxToggle",
+    "DateBarWidget",
     "systray",
     "taglist",
     "tasklist",
-    "tiling_status",
-    "time",
+    "TilingStatus",
+    "TimeBarWidget",
     "MacroBarIndicatorWidget"
 })
 
@@ -42,13 +42,10 @@ function StatusBar.new(s)
         TimeBarWidget,
         DateBarWidget,
         Systray,
-        CentralPanelToggle,
+        NotificationBoxToggle,
     }
 
-    local right_parent_widget = Wibox.widget({
-        layout = Wibox.layout.fixed.horizontal,
-        --spacing = Beautiful.bar.rightPanelChildSpacing
-    })
+
 
     -- Create the wibar
     newInstance.widget = Awful.wibar({
@@ -103,7 +100,7 @@ function StatusBar._initRightWidgets(listOfWidgets, s)
         forced_width = Beautiful.bar.rightPanelChildSpacing,
     })
 
-    for i, v in ipairs(listOfWidgets) do
+    for _, v in ipairs(listOfWidgets) do
         container:add(spacing)
         container:add(v.new(s).widget)
     end

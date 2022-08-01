@@ -6,7 +6,6 @@ local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
 local xrdb = xresources.get_current_theme()
 local dpi = xresources.apply_dpi
-local gears = require("gears")
 
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
@@ -98,6 +97,7 @@ theme.taglist_only_icons = true
 --- @field rightPanelChildSpacing number
 --- @field leftPanelMargins number
 theme.bar = {
+    font = theme.font,
     barHeight = theme.bar_height,
     rightPanelMargins = (theme.bar_height - (theme.bar_height * 0.5)) / 2,
     rightPanelChildSpacing = dpi(15),
@@ -195,10 +195,10 @@ theme.dashboard = {
 
 }
 
-theme.tiling_status = {
+theme.tilingStatus = {
     bg = theme.color10,
-    left_margin = dpi(8),
-    right_margin = dpi(8),
+    leftMargin = dpi(8),
+    rightMargin = dpi(8),
     fg = theme.black,
     font = "inter medium 10",
 }
