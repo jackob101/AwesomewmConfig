@@ -1,5 +1,3 @@
-local icons = require("icons")
-
 --- @class MacroService : Initializable
 --- @field isON boolean Tells if macros are turned on or not
 --- @field toUpdate MacroUpdatable[] list of callback for update
@@ -35,14 +33,14 @@ function MacroService.toggle()
         Naughty.notify({
             title = "Macros",
             message = "Turned ON!",
-            icon = icons.macros,
+            icon = IconsHandler.icons.macros.path,
             store = false,
         })
     else
         Naughty.notify({
             title = "Macros",
             message = "Turned OFF!",
-            icon = icons.macros,
+            icon = IconsHandler.icons.macros.path,
             store = false,
         })
     end
