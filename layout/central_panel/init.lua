@@ -31,13 +31,6 @@ local function create(s)
 				widget = wibox.container.background,
 				layout = wibox.layout.flex.horizontal,
 				expand = "none",
-				--{
-				--	layout = wibox.layout.fixed.vertical,
-				--	spacing = dpi(7),
-				--	s.profile,
-				--	s.calendar,
-				--},
-				--nil,
 				s.notif_center,
 			},
 		},
