@@ -28,7 +28,7 @@ function PostureCheckNotificator.createNotification()
     Naughty.notification({
         title = "Posture check",
         message = "Are you sitting properly?",
-        icon = icons.posture,
+        icon = IconsHandler.icons.posture.path,
         urgency = "normal",
         store = false,
     })

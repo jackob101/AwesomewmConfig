@@ -1,15 +1,16 @@
 load_all("widgets", {
     "bar",
-    "autorun",
     "utils",
     "ExitScreen",
-    "VolumePopupWidget"
+    "VolumePopupWidget",
+    "notificationCenter",
 })
 
 --- @type BaseWidget[]
 local widgetsForEachScreen = {
     StatusBar,
-    VolumePopupWidget
+    VolumePopupWidget,
+    NotificationCenter,
 }
 
 --- @type BaseWidget[]

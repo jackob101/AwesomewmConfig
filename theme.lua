@@ -232,6 +232,8 @@ theme.notification_center = {
     border_color = theme.gray,
     notification_bg = theme.gray .. "44",
     notification_bg_hover = theme.gray .. "AA",
+    bottomMargin = Dpi(10),
+    rightMargin = Dpi(10),
 }
 
 

@@ -1,5 +1,3 @@
-local menubar = require("menubar")
-
 --- @class NotificationService : Initializable
 --- @field dndCheck fun(n: Notification) This function checks if dnd is on when DNDService is present else always return true
 NotificationService = {}

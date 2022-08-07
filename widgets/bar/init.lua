@@ -1,4 +1,3 @@
-
 -- Load widget classes into scope
 load_all("widgets.bar.components", {
     "Volume",
@@ -96,13 +95,16 @@ function StatusBar._initRightWidgets(listOfWidgets, s)
     })
 
     local spacing = Wibox.widget({
-        widget=Wibox.container.background,
+        widget = Wibox.container.background,
         forced_width = Beautiful.bar.rightPanelChildSpacing,
     })
 
     for _, v in ipairs(listOfWidgets) do
-        container:add(spacing)
-        container:add(v.new(s).widget)
+        local nextWidget = v.new(s)
+        if nextWidget and nextWidget.widget then
+            container:add(spacing)
+            container:add(nextWidget.widget)
+        end
     end
 
     return container
