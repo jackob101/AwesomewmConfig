@@ -48,20 +48,20 @@ local function add_notification(n)
 	notif_core.notiflist_layout:insert(1, new_notif)
 end
 
-local notifbox_add_expired = function(n)
-	n:connect_signal("destroyed", function(_, reason)
-		if reason == 1 then
-			add_notification(n)
-			notif_core.update()
-		end
-	end)
-end
+-- local notifbox_add_expired = function(n)
+-- 	n:connect_signal("destroyed", function(_, reason)
+-- 		if reason == 1 then
+-- 			add_notification(n)
+-- 			notif_core.update()
+-- 		end
+-- 	end)
+-- end
 
-naughty.connect_signal("request::display", function(n)
-	if n._private.args.store == nil or n._private.args.store then
-		notifbox_add_expired(n)
-	end
-end)
+-- naughty.connect_signal("request::display", function(n)
+-- 	if n._private.args.store == nil or n._private.args.store then
+-- 		notifbox_add_expired(n)
+-- 	end
+-- end)
 
 notif_core.connect_count = function(counter)
 	notif_core.counter = counter

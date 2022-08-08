@@ -28,6 +28,7 @@ function NotificationService._setUpDND()
     end
 end
 
+
 function NotificationService._setUpRules()
     Ruled.notification.connect_signal("request::rules", function()
         Ruled.notification.append_rule({

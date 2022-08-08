@@ -27,21 +27,21 @@ function StatusBar.new(s)
     setmetatable(newInstance, StatusBar)
 
     local left_widgets = {
-        TilingStatusWidget,
-        TagListWidget,
+        TilingStatusWidget.new(s),
+        TagListWidget.new(s),
     }
 
     local middle_widgets = {
-        TaskListWidget,
+        TaskListWidget.new(s),
     }
 
     local right_widgets = {
-        MacroBarIndicator,
-        VolumeBarWidget,
-        TimeBarWidget,
-        DateBarWidget,
-        Systray,
-        NotificationBoxToggle,
+        MacroBarIndicator.new(),
+        VolumeBarWidget.new(),
+        TimeBarWidget.new(),
+        DateBarWidget.new(),
+        Systray.new(s),
+        NotificationCenter.create_toggle_popup_widget(s)
     }
 
 
@@ -99,11 +99,10 @@ function StatusBar._initRightWidgets(listOfWidgets, s)
         forced_width = Beautiful.bar.rightPanelChildSpacing,
     })
 
-    for _, v in ipairs(listOfWidgets) do
-        local nextWidget = v.new(s)
-        if nextWidget and nextWidget.widget then
+    for _, v in pairs(listOfWidgets) do
+        if v and v.widget then
             container:add(spacing)
-            container:add(nextWidget.widget)
+            container:add(v.widget)
         end
     end
 
@@ -121,7 +120,7 @@ function StatusBar._initWidgets(list_of_widgets, s, parent_widget)
     end
 
     for _, entry in ipairs(list_of_widgets) do
-        parent_widget:add(entry.new(s).widget)
+        parent_widget:add(entry.widget)
     end
 
     return parent_widget

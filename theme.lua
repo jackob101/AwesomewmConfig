@@ -89,6 +89,8 @@ theme.taglist_bg_occupied = theme.bg_overlay_transparent
 theme.taglist_font = "inter bold 12"
 theme.taglist_only_icons = true
 
+theme.calendar_font = "inter semi-bold 13"
+
 ----    Tag
 
 --- @class BarTheme
@@ -226,14 +228,20 @@ theme.tooltip = {
 }
 
 theme.notification_center = {
-    bg = theme.black .. "AA",
-    width = dpi(350),
-    border_width = dpi(3),
+    bg = theme.gray,
+    panel_bg = theme.black .. "CC",
+    panel_margin = dpi(5),
+    width = Dpi(400),
+    border_width = Dpi(3),
     border_color = theme.gray,
     notification_bg = theme.gray .. "44",
     notification_bg_hover = theme.gray .. "AA",
     bottomMargin = Dpi(10),
     rightMargin = Dpi(10),
+    calendar_current_day_fg = theme.green,
+    calendar_weekend_day_color = theme.light,
+    calendar_normal_day = theme.light,
+    calendar_weekday_header_fg = theme.light .. "AA",
 }
 
 

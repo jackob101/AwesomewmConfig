@@ -8,9 +8,9 @@ load_all("widgets", {
 
 --- @type BaseWidget[]
 local widgetsForEachScreen = {
+    NotificationCenter,
     StatusBar,
     VolumePopupWidget,
-    NotificationCenter,
 }
 
 --- @type BaseWidget[]
