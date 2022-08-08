@@ -58,7 +58,7 @@ notification_list_layout:buttons(gears.table.join(
 
 local body_template = wibox.widget {
     widget = wibox.container.background,
-    bg = beautiful.black,
+    bg = beautiful.notification_center.panel_bg,
     {
         widget = wibox.container.margin,
         margins = dpi(20),
