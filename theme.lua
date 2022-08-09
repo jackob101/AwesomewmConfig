@@ -228,9 +228,9 @@ theme.tooltip = {
 }
 
 theme.notification_center = {
-    bg = theme.gray,
-    panel_bg = theme.black .. "CC",
-    panel_margin = dpi(5),
+    bg = theme.black,
+    panel_bg = theme.gray .. "99",
+    panel_margin = dpi(20),
     width = Dpi(400),
     border_width = Dpi(3),
     border_color = theme.gray,
@@ -240,8 +240,9 @@ theme.notification_center = {
     rightMargin = Dpi(10),
     calendar_current_day_fg = theme.green,
     calendar_weekend_day_color = theme.light,
-    calendar_normal_day = theme.light,
-    calendar_weekday_header_fg = theme.light .. "AA",
+    calendar_normal_day = theme.light .. "CC",
+    calendar_weekday_header_fg = theme.light ,
+    calendar_header_fg = theme.orange,
 }
 
 

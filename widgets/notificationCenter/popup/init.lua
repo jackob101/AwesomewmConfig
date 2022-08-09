@@ -22,8 +22,8 @@ local panels = wibox.widget {
     require("widgets.notificationCenter.popup.notification").get_widget(),
 }
 
-panels:set_ratio(1, 0.25)
-panels:set_ratio(2, 0.75)
+panels:set_ratio(1, 0.3)
+panels:set_ratio(2, 0.7)
 
 
 
@@ -38,7 +38,7 @@ function NotificationPopupWidget.new(s)
     newInstance.panel = Awful.popup({
         widget = {
             widget = wibox.container.background,
-            bg = beautiful.gray,
+            bg = beautiful.notification_center.bg,
             {
                 widget = wibox.container.margin,
                 margins = dpi(beautiful.notification_center.panel_margin),
