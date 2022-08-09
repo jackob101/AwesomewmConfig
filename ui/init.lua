@@ -1,4 +1,4 @@
-load_all("widgets", {
+load_all("ui", {
     "bar",
     "utils",
     "ExitScreen",

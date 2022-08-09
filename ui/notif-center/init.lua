@@ -3,10 +3,10 @@ local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
 
 local function create(s)
-	local core = require("widgets.notif-center.notif-list")
+	local core = require("ui.notif-center.notif-list")
 	s.notiflist_layout = core.notiflist_layout
-	s.clear_all = require("widgets.notif-center.clear-all")
-	s.header = require("widgets.notif-center.header")
+	s.clear_all = require("ui.notif-center.clear-all")
+	s.header = require("ui.notif-center.header")
 	core.connect_count(s.header.counter)
 
 	return wibox.widget({

@@ -18,8 +18,8 @@ NotificationPopupWidget.__index = NotificationPopupWidget
 local panels = wibox.widget {
     layout = Wibox.layout.ratio.vertical,
     spacing = dpi(beautiful.notification_center.panel_margin),
-    require("widgets.notificationCenter.popup.calendar"),
-    require("widgets.notificationCenter.popup.notification").get_widget(),
+    require("ui.notificationCenter.popup.calendar"),
+    require("ui.notificationCenter.popup.notification").get_widget(),
 }
 
 panels:set_ratio(1, 0.3)

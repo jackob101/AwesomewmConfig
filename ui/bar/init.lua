@@ -1,5 +1,5 @@
 -- Load widget classes into scope
-load_all("widgets.bar.components", {
+load_all("ui.bar.components", {
     "Volume",
     "NotificationBoxToggle",
     "DateBarWidget",

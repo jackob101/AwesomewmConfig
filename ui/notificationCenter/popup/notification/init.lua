@@ -21,13 +21,13 @@ local api = {
     is_list_empty = true
 }
 
-local notification_creator = require 'widgets.notificationCenter.popup.notification.notification_creator' (api)
+local notification_creator = require 'ui.notificationCenter.popup.notification.notification_creator' (api)
 
 --- @type Widget
-local empty_notification_list_widget = require("widgets.notificationCenter.popup.notification.empty_notification_list_widget")
+local empty_notification_list_widget = require("ui.notificationCenter.popup.notification.empty_notification_list_widget")
 
 --- @type Header
-local header = require'widgets.notificationCenter.popup.notification.header'
+local header = require'ui.notificationCenter.popup.notification.header'
 
 
 local notification_list_layout = wibox.widget {

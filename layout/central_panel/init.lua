@@ -2,7 +2,7 @@ local wibox = require("wibox")
 local awful = require("awful")
 local gears = require("gears")
 local beautiful = require("beautiful")
-local notif_center = require("widgets.notif-center")
+local notif_center = require("ui.notif-center")
 local dpi = beautiful.xresources.apply_dpi
 local theme = beautiful.notification_center
 

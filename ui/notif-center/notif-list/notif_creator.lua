@@ -8,7 +8,7 @@ local utils = require("utils")
 local naughty = require("naughty")
 local theme = beautiful.notification_center
 
-local notif_core = require("widgets.notif-center.notif-list")
+local notif_core = require("ui.notif-center.notif-list")
 
 local function create_actions(n)
 	local actions_template = wibox.widget({
