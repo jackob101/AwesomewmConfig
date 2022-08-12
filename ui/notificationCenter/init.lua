@@ -27,8 +27,7 @@ end
 --- @param s Screen
 --- @return NotificationToggle
 function NotificationCenter.create_toggle_popup_widget(s)
-    local popup_panel = NotificationCenter.popups[s.index]
-    return NotificationToggle.new(popup_panel)
+    return NotificationToggle.new()
 end
 
 function NotificationCenter.toggle_popup()

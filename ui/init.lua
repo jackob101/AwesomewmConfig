@@ -6,6 +6,7 @@ load_all("ui", {
     "notificationCenter",
 })
 
+
 --- @type BaseWidget[]
 local widgetsForEachScreen = {
     NotificationCenter,

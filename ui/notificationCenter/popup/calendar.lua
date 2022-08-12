@@ -16,19 +16,22 @@ local gears = require 'gears'
 --- @type Awful
 local awful = require 'awful'
 
+--- @type Widgets
+local widgets = require 'widgets'
+
 local calendar = { mt = {} }
 
 local function day_name_widget(name)
-    return wibox.widget({
-        widget = wibox.container.background,
-        forced_width = dpi(30),
-        forced_height = dpi(30),
-        {
-            widget = wibox.widget.textbox,
-            align = "center",
-            text = name
-        },
-    })
+	return wibox.widget({
+		widget = wibox.container.background,
+		forced_width = dpi(30),
+		forced_height = dpi(30),
+		{
+			widget = wibox.widget.textbox,
+			align = "center",
+			text = name
+		},
+	})
 end
 
 local function date_widget(date, is_current, is_another_month)
@@ -44,15 +47,14 @@ local function date_widget(date, is_current, is_another_month)
 		forced_width = dpi(10),
 		forced_height = dpi(10),
 		bg = is_current and beautiful.accent,
-        {
-            widget = wibox.widget.textbox,
-            text = date,
-            color = text_color,
-            align = "center",
-        }
+		{
+			widget = wibox.widget.textbox,
+			text = date,
+			color = text_color,
+			align = "center",
+		}
 	})
 end
-
 
 function calendar:set_date(date)
 	self.date = date
@@ -94,7 +96,6 @@ function calendar:set_date(date)
 	end
 end
 
-
 function calendar:set_date_current()
 	self:set_date(os.date("*t"))
 end
@@ -113,45 +114,54 @@ local function new()
 	local ret = gears.object({})
 	gears.table.crush(ret, calendar, true)
 
-    ret.month = wibox.widget ({
-        widget = wibox.widget.textbox,
-        text = os.date("%B %Y")
-    })
-
-	-- ret.month = widgets.button.text.normal({
-	-- 	animate_size = false,
-	-- 	text = os.date("%B %Y"),
-	-- 	size = 16,
-	-- 	bold = true,
-	-- 	text_normal_bg = beautiful.accent,
-	-- 	normal_bg = beautiful.widget_bg,
-	-- 	on_release = function()
-	-- 		ret:set_date_current()
-	-- 	end,
-	-- })
+	ret.month = widgets.button({
+		text = "Test",
+		color = beautiful.light,
+		bg = beautiful.transparent,
+		border_color = beautiful.transparent,
+		apply_hover = true,
+		fg_hover = beautiful.green,
+		bg_hover = beautiful.transparent,
+		on_click = function ()
+			ret:set_date_current()
+		end
+	})
 
 	local month = wibox.widget({
 		layout = wibox.layout.align.horizontal,
-		wibox.widget({
-            widget = wibox.widget.textbox,
-			font = "Material Icons Round ",
-			fg= beautiful.light,
-			-- normal_bg = beautiful.g,
-			text = "",
-			-- on_release = function()
-			-- 	ret:decrease_date()
-			-- end,
+		widgets.button({
+			font = "Material Icons Sharp",
+			text = "",
+			font_size = 25,
+			width = dpi(33),
+			bg = beautiful.transparent,
+			border_color = beautiful.transparent,
+			apply_hover = true,
+			fg_hover = beautiful.green,
+			bg_hover = beautiful.transparent,
+			on_click = function ()
+				ret:decrease_date()
+			end
 		}),
-		ret.month,
-		wibox.widget({
-            widget = wibox.widget.textbox,
-			font = "Material Icons Round ",
-			fg= beautiful.light,
-			-- normal_bg = beautiful.g,
-			text = "",
-			-- on_release = function()
-			-- 	ret:decrease_date()
-			-- end,
+		{
+			widget = wibox.container.place,
+			valign = "center",
+			halign = "center",
+			ret.month,
+		},
+		widgets.button({
+			font = "Material Icons Sharp",
+			text = "",
+			font_size = 25,
+			width = dpi(33),
+			bg = beautiful.transparent,
+			border_color = beautiful.transparent,
+			apply_hover = true,
+			fg_hover = beautiful.green,
+			bg_hover = beautiful.transparent,
+			on_click = function ()
+				ret:increase_date()
+			end
 		}),
 	})
 
@@ -166,6 +176,7 @@ local function new()
 	local widget = wibox.widget({
 		layout = wibox.layout.fixed.vertical,
 		spacing = dpi(15),
+		widget = wibox.container.background,
 		month,
 		ret.days,
 	})
@@ -180,83 +191,4 @@ function calendar.mt:__call(...)
 	return new(...)
 end
 
-return setmetatable(calendar, calendar.mt)
-
-
--- local styles = {}
-
--- styles.month = {
---     -- padding = 10,
---     padding = 0,
---     fg_color = beautiful.notification_center.calendar_header_fg
--- }
-
--- styles.normal = {
---     padding = 0,
--- }
-
--- styles.focus = {
---     padding = 0,
---     fg_color = beautiful.notification_center.calendar_current_day_fg,
--- }
-
--- styles.header = {
---     padding = dpi(2),
---     fg_color = beautiful.notification_center.calendar_header_fg
--- }
-
--- styles.weekday = {
---     padding = 0;
---     fg_color = beautiful.notification_center.calendar_weekday_header_fg
--- }
-
--- local function decorate_cell(widget, flag, date)
---     if flag == "monthheader" and not styles.monthheader then
---         flag = "header"
---     end
---     local props = styles[flag] or {}
---     print("Padding : " .. (props.padding or 0) .. " Part: " .. flag)
---     if props.markup and widget.get_text and widget.set_markup then
---         widget:set_markup(props.markup(widget:get_text()))
---     end
---     -- Change bg color for weekends
---     local d = { year = date.year, month = (date.month or 1), day = (date.day or 1) }
---     local weekday = tonumber(os.date("%w", os.time(d)))
---     local default_fg = (weekday == 0 or weekday == 6) and beautiful.notification_center.calendar_weekend_day_color or
---         beautiful.notification_center.calendar_normal_day
---     local ret = wibox.widget {
---         {
---             widget,
---             margins = (props.padding or 2) + (props.border_width or 0),
---             widget  = wibox.container.margin
---         },
---         fg     = props.fg_color or default_fg,
---         bg     = props.bg_color,
---         widget = wibox.container.background
---     }
---     return ret
--- end
-
--- local calendar = Wibox.widget {
---     widget = wibox.container.background,
---     bg = beautiful.notification_center.panel_bg,
---     {
---         layout = wibox.container.place,
---         valign = "center",
---         halign = "center",
---         {
---             widget = wibox.container.margin,
---             margins = Dpi(10),
---             layout = wibox.layout.fixed.vertical,
---             {
---                 widget = wibox.widget.calendar.month,
---                 date = os.date("*t"),
---                 long_weekdays = true,
---                 fn_embed = decorate_cell
---             }
---         }
---     }
--- }
-
-
--- return calendar
+return new

@@ -4,7 +4,7 @@ NotificationBoxToggle.__index = NotificationBoxToggle
 
 --- @param popup NotificationPopupWidget
 --- @return NotificationToggle 
-function NotificationBoxToggle.new(popup)
+function NotificationBoxToggle.new()
     --- @type NotificationToggle 
     local newInstance = {}
     setmetatable(newInstance, NotificationBoxToggle)

@@ -19,7 +19,9 @@ awesome.set_preferred_icon_size(128)
 local theme = {}
 
 --  Theme font
-theme.font = "inter medium 9"
+theme.font_name = "inter medium"
+theme.font_size = 9
+theme.font = theme.font_name .. " " .. theme.font_size
 
 theme.green = "#9ece6a"
 theme.red = "#f7768e"
@@ -47,6 +49,16 @@ theme.accent3 = xrdb.color12
 theme.accent4 = xrdb.color13
 theme.accent5 = xrdb.color14
 theme.accent6 = xrdb.color15
+
+-- Default values for button widgets
+theme.button_bg = theme.gray
+theme.button_fg = theme.light
+theme.button_border_width = dpi(1)
+theme.button_border_color = theme.light_gray
+theme.button_width = dpi(20)
+theme.button_height = dpi(20)
+theme.button_hover_fg = theme.black
+theme.button_hover_bg = theme.green
 
 theme.useless_gap = dpi(5)
 theme.gap_single_client = false
