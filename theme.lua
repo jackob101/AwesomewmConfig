@@ -19,9 +19,10 @@ awesome.set_preferred_icon_size(128)
 local theme = {}
 
 --  Theme font
-theme.font_name = "inter medium"
-theme.font_size = 9
+theme.font_name = "Ubuntu semi-bold "
+theme.font_size = 10 
 theme.font = theme.font_name .. " " .. theme.font_size
+
 
 theme.green = "#9ece6a"
 theme.red = "#f7768e"
@@ -98,10 +99,10 @@ theme.taglist_bg_urgent = xrdb.color9
 theme.taglist_bg_occupied = theme.bg_overlay_transparent
 -- theme.taglist_bg_occupied = xrdb.color12
 -- theme.taglist_fg_occupied = xrdb.background
-theme.taglist_font = "inter bold 12"
+theme.taglist_font = theme.font_name .. "14"
 theme.taglist_only_icons = true
 
-theme.calendar_font = "inter semi-bold 13"
+theme.calendar_font = theme.font_name .. theme.font_size 
 
 ----    Tag
 
@@ -131,7 +132,7 @@ theme.volumeBarWidget = {
 }
 
 theme.volumePopupWidget = {
-    font = "Ubuntu 12",
+    font = theme.font_name .. "14",
     bg = theme.gray .. "AA",
     height = Dpi(120),
     width = Dpi(300),
@@ -265,8 +266,8 @@ theme.flash_focus_step = 0.02
 theme.transparent = "#FFFFFF00"
 
 theme.border_width = dpi(1)
-theme.border_normal = xrdb.color6 or "#000000"
-theme.border_focus = xrdb.color5 or "#535d6c"
+theme.border_normal = theme.gray or "#000000"
+theme.border_focus =  theme.green or "#535d6c"
 theme.border_marked = xrdb.color10 or "#91231c"
 
 theme.hotkeys_font = "Ubuntu 10"

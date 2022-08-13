@@ -11,7 +11,6 @@ DoNotDisturbService = {
     toUpdate = {}
 }
 
---- @return DoNotDisturbService
 function DoNotDisturbService.init()
     if DoNotDisturbService.isInitialized then
         return
@@ -39,7 +38,7 @@ function DoNotDisturbService.toggle()
         Naughty.notification({
             title = "Do not disturb",
             message = "Do not disturb has been turned on",
-            icon = icons.bell_slash,
+            icon = IconsHandler.icons.bell_slash.path,
             force_display = true,
             store = false,
         })
@@ -47,7 +46,7 @@ function DoNotDisturbService.toggle()
         Naughty.notification({
             title = "Do not disturb",
             message = "Do not disturb has been turned off",
-            icon = icons.bell,
+            icon = IconsHandler.icons.bell.path,
             force_display = true,
             store = false,
         })
