@@ -1,3 +1,6 @@
+-- Big % of this code was taken from https://github.com/rxyhn/yoru
+
+
 --- @type Wibox
 local wibox = require 'wibox'
 
@@ -26,20 +29,21 @@ local function day_name_widget(name)
 		widget = wibox.container.background,
 		forced_width = dpi(30),
 		forced_height = dpi(30),
-		{
-			widget = wibox.widget.textbox,
-			align = "center",
-			text = name
+		widgets.text {
+			halign = "center",
+			size = 12,
+			text = name,
+			bold = true,
 		},
 	})
 end
 
 local function date_widget(date, is_current, is_another_month)
-	local text_color = beautiful.light
+	local text_color = beautiful.light .. "CC"
 	if is_current == true then
-		text_color = beautiful.green
+		text_color = beautiful.black
 	elseif is_another_month == true then
-		text_color = beautiful.light .. "00"
+		text_color = beautiful.light .. "33"
 	end
 
 	return wibox.widget({
@@ -47,12 +51,14 @@ local function date_widget(date, is_current, is_another_month)
 		forced_width = dpi(10),
 		forced_height = dpi(10),
 		bg = is_current and beautiful.accent,
-		{
-			widget = wibox.widget.textbox,
+		shape = gears.shape.circle,
+		widgets.text({
 			text = date,
 			color = text_color,
-			align = "center",
-		}
+			halign = "center",
+			size = 12,
+			bold = is_current,
+		})
 	})
 end
 
@@ -63,15 +69,15 @@ function calendar:set_date(date)
 
 	local current_date = os.date("*t")
 
-	self.days:add(day_name_widget("Sun"))
 	self.days:add(day_name_widget("Mon"))
 	self.days:add(day_name_widget("Tue"))
 	self.days:add(day_name_widget("Wen"))
 	self.days:add(day_name_widget("Thu"))
 	self.days:add(day_name_widget("Fri"))
 	self.days:add(day_name_widget("Sat"))
+	self.days:add(day_name_widget("Sun"))
 
-	local first_day = os.date("*t", os.time({ year = date.year, month = date.month, day = 1 }))
+	local first_day = os.date("*t", os.time({ year = date.year, month = date.month, day = 0 }))
 	local last_day = os.date("*t", os.time({ year = date.year, month = date.month + 1, day = 0 }))
 	local month_days = last_day.day
 
@@ -115,14 +121,13 @@ local function new()
 	gears.table.crush(ret, calendar, true)
 
 	ret.month = widgets.button({
-		text = "Test",
 		color = beautiful.light,
 		bg = beautiful.transparent,
 		border_color = beautiful.transparent,
 		apply_hover = true,
-		fg_hover = beautiful.green,
+		fg_hover = beautiful.accent,
 		bg_hover = beautiful.transparent,
-		on_click = function ()
+		on_click = function()
 			ret:set_date_current()
 		end
 	})
@@ -130,16 +135,16 @@ local function new()
 	local month = wibox.widget({
 		layout = wibox.layout.align.horizontal,
 		widgets.button({
-			font = "Material Icons Sharp",
+			font = "Material Icons",
 			text = "",
 			font_size = 25,
 			width = dpi(33),
 			bg = beautiful.transparent,
 			border_color = beautiful.transparent,
 			apply_hover = true,
-			fg_hover = beautiful.green,
+			fg_hover = beautiful.accent,
 			bg_hover = beautiful.transparent,
-			on_click = function ()
+			on_click = function()
 				ret:decrease_date()
 			end
 		}),
@@ -150,16 +155,16 @@ local function new()
 			ret.month,
 		},
 		widgets.button({
-			font = "Material Icons Sharp",
+			font = "Material Icons",
 			text = "",
 			font_size = 25,
 			width = dpi(33),
 			bg = beautiful.transparent,
 			border_color = beautiful.transparent,
 			apply_hover = true,
-			fg_hover = beautiful.green,
+			fg_hover = beautiful.accent,
 			bg_hover = beautiful.transparent,
-			on_click = function ()
+			on_click = function()
 				ret:increase_date()
 			end
 		}),
@@ -174,11 +179,22 @@ local function new()
 	})
 
 	local widget = wibox.widget({
-		layout = wibox.layout.fixed.vertical,
-		spacing = dpi(15),
 		widget = wibox.container.background,
-		month,
-		ret.days,
+		bg = beautiful.notification_center.panel_bg,
+		shape = function (cr, width, height)
+			return gears.shape.rounded_rect(cr, width, height, beautiful.corner_radius)
+		end,
+		{
+			widget = wibox.container.margin,
+			margins = dpi(15),
+			{
+				layout = wibox.layout.fixed.vertical,
+				spacing = dpi(20),
+				month,
+				ret.days,
+			}
+		}
+
 	})
 
 	ret:set_date(os.date("*t"))

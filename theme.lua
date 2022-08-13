@@ -19,9 +19,11 @@ awesome.set_preferred_icon_size(128)
 local theme = {}
 
 --  Theme font
-theme.font_name = "Ubuntu semi-bold "
+theme.font_name = "Ubuntu "
 theme.font_size = 10 
 theme.font = theme.font_name .. " " .. theme.font_size
+
+theme.corner_radius = 10
 
 
 theme.green = "#9ece6a"
@@ -33,6 +35,8 @@ theme.black = "#24283b"
 theme.gray = "#414868"
 theme.light_gray = "#565f89"
 theme.light = "#a9b1d6"
+
+theme.accent = theme.green
 
 -- General settings
 theme.color8 = xrdb.color8
@@ -59,7 +63,7 @@ theme.button_border_color = theme.light_gray
 theme.button_width = dpi(20)
 theme.button_height = dpi(20)
 theme.button_hover_fg = theme.black
-theme.button_hover_bg = theme.green
+theme.button_hover_bg = theme.accent
 
 theme.useless_gap = dpi(5)
 theme.gap_single_client = false
@@ -139,8 +143,8 @@ theme.volumePopupWidget = {
     shape = Gears.shape.rect,
     sliderBarHeight = Dpi(4),
     sliderBarColor = theme.black .. "AA",
-    sliderBarActiveColor = theme.green,
-    sliderHandleColor = theme.green,
+    sliderBarActiveColor = theme.accent,
+    sliderHandleColor = theme.accent,
     sliderHandleWidth = Dpi(20),
     sliderHandleBorderColor = "#00000012",
     sliderHandleBorderWidth = dpi(1),
@@ -156,8 +160,8 @@ theme.volumePopupWidget = {
 --- @class ClickableContainerTheme
 theme.clickableContainer = {
     bg = theme.gray,
-    hoverBg = theme.green,
-    pressBg = theme.green .. "77",
+    hoverBg = theme.accent,
+    pressBg = theme.accent .. "77",
 
 }
 
@@ -251,7 +255,7 @@ theme.notification_center = {
     notification_bg_hover = theme.gray .. "AA",
     bottomMargin = Dpi(10),
     rightMargin = Dpi(10),
-    calendar_current_day_fg = theme.green,
+    calendar_current_day_fg = theme.accent,
     calendar_weekend_day_color = theme.light,
     calendar_normal_day = theme.light .. "CC",
     calendar_weekday_header_fg = theme.light ,
@@ -267,7 +271,7 @@ theme.transparent = "#FFFFFF00"
 
 theme.border_width = dpi(1)
 theme.border_normal = theme.gray or "#000000"
-theme.border_focus =  theme.green or "#535d6c"
+theme.border_focus =  theme.accent or "#535d6c"
 theme.border_marked = xrdb.color10 or "#91231c"
 
 theme.hotkeys_font = "Ubuntu 10"

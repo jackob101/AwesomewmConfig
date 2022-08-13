@@ -22,8 +22,8 @@ local panels = wibox.widget {
     require("ui.notificationCenter.popup.notification").get_widget(),
 }
 
-panels:set_ratio(1, 0.3)
-panels:set_ratio(2, 0.7)
+panels:set_ratio(1, 0.35)
+panels:set_ratio(2, 0.65)
 
 
 
