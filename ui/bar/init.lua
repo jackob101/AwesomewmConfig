@@ -1,3 +1,7 @@
+--- @type Wibox
+local wibox = require('wibox')
+
+local notification_toggle = require("ui.notificationCenter")
 -- Load widget classes into scope
 load_all("ui.bar.components", {
     "Volume",
@@ -18,6 +22,26 @@ load_all("ui.bar.components", {
 --- @class StatusBar : BaseWidget
 StatusBar = {}
 StatusBar.__index = StatusBar
+
+--- @param widget  Widget
+local function withSpacing(widget)
+
+    if not widget then
+       return 
+    end
+
+    local spacing = Wibox.widget({
+        widget = Wibox.container.background,
+        forced_width = Beautiful.bar.rightPanelChildSpacing,
+    })
+
+
+    return {
+        layout = wibox.layout.fixed.horizontal,
+        spacing,
+        widget
+    }
+end
 
 --- @type Screen
 --- @return StatusBar
@@ -41,7 +65,7 @@ function StatusBar.new(s)
         TimeBarWidget.new(),
         DateBarWidget.new(),
         Systray.new(s),
-        NotificationCenter.create_toggle_popup_widget(s)
+        notification_toggle()
     }
 
 
@@ -53,7 +77,7 @@ function StatusBar.new(s)
         height = Beautiful.bar.barHeight,
         bg = Beautiful.black .. Beautiful.bar_opacity,
     })
-
+local systray = Systray.new(s)
     -- Add widgets to the wibox
     newInstance.widget:setup({
         layout = Wibox.layout.stack,
@@ -74,7 +98,17 @@ function StatusBar.new(s)
                 {
                     widget = Wibox.container.margin,
                     margins = Beautiful.bar.rightPanelMargins,
-                    StatusBar._initRightWidgets(right_widgets, s),
+                    {
+                        layout = Wibox.layout.fixed.horizontal,
+                        -- statusbar._initrightwidgets(right_widgets, s),
+                        MacroBarIndicator.new(),
+                        withSpacing(VolumeBarWidget.new().widget),
+                        withSpacing(TimeBarWidget.new().widget),
+                        withSpacing(DateBarWidget.new().widget),
+                        withSpacing(systray and systray.widget),
+                        withSpacing(notification_toggle())
+                    },
+                    -- StatusBar._initRightWidgets(right_widgets, s)
                 },
             },
         },

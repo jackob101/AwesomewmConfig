@@ -1,30 +1,39 @@
---- @class NotificationToggle : BaseWidget
-local NotificationBoxToggle = {}
-NotificationBoxToggle.__index = NotificationBoxToggle
 
---- @param popup NotificationPopupWidget
---- @return NotificationToggle 
-function NotificationBoxToggle.new()
-    --- @type NotificationToggle 
-    local newInstance = {}
-    setmetatable(newInstance, NotificationBoxToggle)
+--- @type Utils
+local utils = require("utils")
 
-    local button = Wibox.widget({
-        widget = Wibox.container.background,
-        IconsHandler.icons.bell.widget(Beautiful.fg_normal)
+--- @type Gears
+local gears = require("gears")
+
+--- @type Awful
+local awful = require('awful')
+
+--- @type Beautiful
+local beautiful = require('beautiful')
+
+--- @type Wibox
+local wibox = require("wibox")
+
+--- @type Widgets
+local widgets  = require("widgets")
+
+local function create(callback)
+
+    local button = widgets.button({
+        text = "",
+        font_size = 14,
+        bg = beautiful.transparent,
+        border_color = beautiful.transparent,
+        on_click = function()
+            callback()
+        end,
+        -- IconsHandler.icons.bell.widget(beautiful.fg_normal)
     })
 
-    Utils.cursor_hover(button)
-    Utils.generate_tooltip(button, "Toggle notification center")
+    utils.cursor_hover(button)
+    utils.generate_tooltip(button, "Toggle notification center")
 
-    button:buttons(Gears.table.join(Awful.button({}, 1, function()
-        NotificationCenter.toggle_popup()
-    end)
-    ))
-
-    newInstance.widget = button
-
-    return newInstance
+    return button
 end
 
-return NotificationBoxToggle
+return create

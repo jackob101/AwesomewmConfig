@@ -1,56 +1,43 @@
---- @type NotificationPopupWidget
-local NotificationPopupWidget = require((...) .. ".popup")
---- @type NotificationToggle
-local NotificationToggle = require((...) .. ".widget")
+--- @type Gears
+local gears = require('gears')
 
---- @class NotificationCenterWidget
---- @field popups NotificationPopupWidget[]
-NotificationCenter = {
-    are_keybinds_initialized = false,
-    popups = {}
-}
-NotificationCenter.__index = NotificationCenter
+local notification_toggle = require((...) .. ".widget")
 
---- @param s Screen
-function NotificationCenter.new(s)
-    --- @type NotificationPopupWidget
-    NotificationCenter.popups[s.index] = NotificationPopupWidget.new(s)
+--- @type Awful
+local awful = require('awful')
 
-    if not NotificationCenter.are_keybinds_initialized then
-        NotificationCenter._init_keybinds()
-        NotificationCenter.are_keybinds_initialized = true
-    end
 
-    return NotificationCenter
-end
+local widgets = {}
 
---- @param s Screen
---- @return NotificationToggle
-function NotificationCenter.create_toggle_popup_widget(s)
-    return NotificationToggle.new()
-end
+awful.screen.connect_for_each_screen(function(s)
+    widgets[s.index] = require("ui.notificationCenter.popup")(s)
+end)
 
-function NotificationCenter.toggle_popup()
-    local current_screen_popup = NotificationCenter.popups[Awful.screen.focused().index]
+local function toggle_popup()
+    local current_screen_popup = widgets[awful.screen.focused().index]
     if current_screen_popup:isOpen() then
         current_screen_popup:close()
     else
         for v in screen do
-            NotificationCenter.popups[v.index]:close()
+            widgets[v.index]:close()
         end
         current_screen_popup:open()
     end
 end
 
-function NotificationCenter._init_keybinds()
-    Keybinds.connectForGlobal(Gears.table.join(
-        Awful.key(
-            { ModKey, "Shift", "Control" },
-            "c",
-            function()
-                NotificationCenter.toggle_popup()
-            end,
-            { description = "panel", group = "notification center" }
-        )))
-
+local function create_bar_widget()
+    return notification_toggle(toggle_popup)
 end
+
+Keybinds.connectForGlobal(gears.table.join(
+    Awful.key(
+        { ModKey, "Shift", "Control" },
+        "c",
+        function()
+            toggle_popup()
+        end,
+        { description = "panel", group = "notification center" }
+    )))
+
+
+return create_bar_widget

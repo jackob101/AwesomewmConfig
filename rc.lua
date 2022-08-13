@@ -34,3 +34,4 @@ Menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 
 
 VolumeService.update()
+

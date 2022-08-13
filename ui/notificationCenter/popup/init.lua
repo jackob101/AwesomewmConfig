@@ -7,9 +7,6 @@ local beautiful = require 'beautiful'
 --- @type Dpi
 local dpi = beautiful.xresources.apply_dpi
 
---- @type Gears
-local gears = require('gears')
-
 --- @type Awful
 local awful = require 'awful'
 
@@ -17,9 +14,6 @@ local awful = require 'awful'
 --- @field panel Widget
 
 local notification_scroller = require("ui.notificationCenter.popup.notification")
-
-local NotificationPopupWidget = {}
-NotificationPopupWidget.__index = NotificationPopupWidget
 
 local panels = wibox.widget {
     layout = Wibox.layout.ratio.vertical,
@@ -31,17 +25,8 @@ local panels = wibox.widget {
 panels:set_ratio(1, 0.35)
 panels:set_ratio(2, 0.65)
 
-
-
---- @param s Screen
---- @return NotificationPopupWidget
-function NotificationPopupWidget.new(s)
-    --- @type NotificationPopupWidget
-    local newInstance = {}
-    setmetatable(newInstance, NotificationPopupWidget)
-
-
-    newInstance.panel = Awful.popup({
+local function create(s)
+    local widget = awful.popup({
         widget = {
             widget = wibox.container.background,
             bg = beautiful.notification_center.bg,
@@ -49,7 +34,7 @@ function NotificationPopupWidget.new(s)
                 widget = wibox.container.margin,
                 margins = dpi(beautiful.notification_center.panel_margin),
                 forced_width = beautiful.notification_center.width,
-                forced_height = s.geometry.height - Beautiful.bar.barHeight,
+                forced_height = s.geometry.height - beautiful.bar.barHeight,
                 panels,
             }
         },
@@ -65,24 +50,23 @@ function NotificationPopupWidget.new(s)
         visible = false,
     })
 
+    function widget:close()
+        self.visible = false
+    end
 
-    return newInstance
+    function widget:open()
+        self.visible = true
+    end
+
+    function widget:isOpen()
+        return self.visible
+    end
+
+    function widget:toggle()
+        self.visible = not self.visible
+    end
+
+    return widget
 end
 
-function NotificationPopupWidget:close()
-    self.panel.visible = false
-end
-
-function NotificationPopupWidget:open()
-    self.panel.visible = true
-end
-
-function NotificationPopupWidget:isOpen()
-    return self.panel.visible
-end
-
-function NotificationPopupWidget:toggle()
-    self.panel.visible = not self.panel.visible
-end
-
-return NotificationPopupWidget
+return create
