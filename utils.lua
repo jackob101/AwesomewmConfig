@@ -1,10 +1,13 @@
 local wibox = require("wibox")
+
+--- @type Beautiful
 local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
 local gears = require("gears")
 local awful = require("awful")
 local theme = beautiful.tooltip
 
+--- @class Utils
 Utils = {}
 
 function Utils.create_stylesheet(class_name)

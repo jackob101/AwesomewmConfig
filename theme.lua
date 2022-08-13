@@ -20,7 +20,8 @@ local theme = {}
 
 --  Theme font
 theme.font_name = "Ubuntu "
-theme.font_size = 10 
+theme.font_size = 10
+theme.icons_font = "Material icons"
 theme.font = theme.font_name .. " " .. theme.font_size
 
 theme.corner_radius = 10
@@ -106,7 +107,7 @@ theme.taglist_bg_occupied = theme.bg_overlay_transparent
 theme.taglist_font = theme.font_name .. "14"
 theme.taglist_only_icons = true
 
-theme.calendar_font = theme.font_name .. theme.font_size 
+theme.calendar_font = theme.font_name .. theme.font_size
 
 ----    Tag
 
@@ -258,7 +259,7 @@ theme.notification_center = {
     calendar_current_day_fg = theme.accent,
     calendar_weekend_day_color = theme.light,
     calendar_normal_day = theme.light .. "CC",
-    calendar_weekday_header_fg = theme.light ,
+    calendar_weekday_header_fg = theme.light,
     calendar_header_fg = theme.orange,
 }
 
@@ -271,7 +272,7 @@ theme.transparent = "#FFFFFF00"
 
 theme.border_width = dpi(1)
 theme.border_normal = theme.gray or "#000000"
-theme.border_focus =  theme.accent or "#535d6c"
+theme.border_focus = theme.accent or "#535d6c"
 theme.border_marked = xrdb.color10 or "#91231c"
 
 theme.hotkeys_font = "Ubuntu 10"

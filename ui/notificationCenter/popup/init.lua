@@ -7,11 +7,17 @@ local beautiful = require 'beautiful'
 --- @type Dpi
 local dpi = beautiful.xresources.apply_dpi
 
+--- @type Gears
+local gears = require('gears')
+
 --- @type Awful
 local awful = require 'awful'
 
 --- @class NotificationPopupWidget
 --- @field panel Widget
+
+local notification_scroller = require("ui.notificationCenter.popup.notification")
+
 local NotificationPopupWidget = {}
 NotificationPopupWidget.__index = NotificationPopupWidget
 
@@ -19,7 +25,7 @@ local panels = wibox.widget {
     layout = Wibox.layout.ratio.vertical,
     spacing = dpi(beautiful.notification_center.panel_margin),
     require("ui.notificationCenter.popup.calendar")(),
-    require("ui.notificationCenter.popup.notification").get_widget(),
+    notification_scroller,
 }
 
 panels:set_ratio(1, 0.35)

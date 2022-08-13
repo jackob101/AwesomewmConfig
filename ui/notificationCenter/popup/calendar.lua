@@ -121,7 +121,6 @@ local function new()
 	gears.table.crush(ret, calendar, true)
 
 	ret.month = widgets.button({
-		color = beautiful.light,
 		bg = beautiful.transparent,
 		border_color = beautiful.transparent,
 		apply_hover = true,

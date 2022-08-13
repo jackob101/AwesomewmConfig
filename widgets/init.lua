@@ -1,5 +1,5 @@
 --- @class Widgets
---- @field text TextWidget 
+--- @field text fun(args:{}): TextWidget
 return {
     text = require(... .. '.text'),
     button = require(... .. ".button")

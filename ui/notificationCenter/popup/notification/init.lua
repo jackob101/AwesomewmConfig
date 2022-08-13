@@ -10,75 +10,138 @@ local dpi = beautiful.xresources.apply_dpi
 --- @type Naughty
 local naughty = require 'naughty'
 
---- @type Gears
-local gears = require 'gears'
+--- @type Widgets
+local widgets = require("widgets")
 
---- @type Awful
-local awful = require 'awful'
+local ui_helper = require("helpers.ui")
 
 --- @class NotificationListApi
-local api = {
-    is_list_empty = true
-}
+local api = {}
 
-local notification_creator = require 'ui.notificationCenter.popup.notification.notification_creator' (api)
-
---- @type Widget
-local empty_notification_list_widget = require("ui.notificationCenter.popup.notification.empty_notification_list_widget")
-
---- @type Header
-local header = require'ui.notificationCenter.popup.notification.header'
+local notification_creator = require 'ui.notificationCenter.popup.notification.notification_creator'
 
 
-local notification_list_layout = wibox.widget {
-    layout = wibox.layout.fixed.vertical,
+local counter = widgets.text({
+    text = "(0)",
+})
+
+-- The header part of notification scroller
+local header = wibox.widget({
+    layout = wibox.layout.fixed.horizontal,
     spacing = dpi(10),
-    empty_notification_list_widget,
+    widgets.text({
+        text = "Notification center",
+    }),
+    counter,
+})
+
+
+
+
+-- Widget that should be display when no notifications are present 
+local empty_notification_list_widget = wibox.widget({
+    layout = wibox.layout.align.vertical,
+    expand = "outside",
+    nil,
+    {
+        {
+            {
+                layout = wibox.layout.fixed.vertical,
+                spacing = dpi(5),
+                {
+                    widget = wibox.container.place,
+                    halign = "center",
+                    valign = "center",
+                    widgets.text({
+                        font = beautiful.icons_font,
+                        text = "",
+                        size = 30,
+                    }),
+                },
+                widgets.text({
+                    text = "Wow, such empty.",
+                    size = 14,
+                }),
+                {
+                    widget = wibox.container.place,
+                    halign = "center",
+                    valign = "center",
+                    widgets.text({
+                        text = "Come back later.",
+                        size = 12,
+                    }),
+                },
+            },
+            widget = wibox.container.place,
+            halign = "center",
+            valign = "center",
+        },
+        margins = dpi(20),
+        widget = wibox.container.margin,
+    },
+    nil,
+})
+
+
+-- Layout that contains all notifications
+local notification_list_layout = wibox.widget {
+    layout = require("modules.overflow").vertical,
+    step = 50,
+    spacing = dpi(10),
+    scrollbar_widget = {
+        widget = wibox.widget.separator,
+        shape = ui_helper.rrect(beautiful.corner_radius),
+    },
 }
 
 
-notification_list_layout:buttons(gears.table.join(
-    awful.button({}, 5, nil, function()
-        if #notification_list_layout.children == 1 then
-            return
-        end
-        notification_list_layout:insert(#notification_list_layout.children + 1, notification_list_layout.children[1])
-        notification_list_layout:remove(1)
-    end),
-    awful.button({}, 4, nil, function()
-        if #notification_list_layout.children == 1 then
-            return
-        end
-        notification_list_layout:insert(1, notification_list_layout.children[#notification_list_layout.children])
-        notification_list_layout:remove(#notification_list_layout.children)
-    end)
-))
 
-
-
+-- The main widgets 
 local body_template = wibox.widget {
     widget = wibox.container.background,
     bg = beautiful.notification_center.panel_bg,
+    shape = ui_helper.rrect(),
     {
         widget = wibox.container.margin,
         margins = dpi(20),
         {
-            layout = wibox.layout.fixed.vertical,
-            spacing = dpi(20),
-            header.widget,
-            notification_list_layout
+            layout = wibox.layout.align.vertical,
+            expand = "inside",
+            {
+                layout = wibox.layout.align.horizontal,
+                expand = "outside",
+                nil,
+                header,
+            },
+            {
+                widget = wibox.container.margin,
+                top = dpi(20),
+                {
+                    layout = wibox.layout.stack,
+                    notification_list_layout,
+                    empty_notification_list_widget,
+                }
+            }
         }
     }
 }
 
+
+
 function api.update()
-    header.update(api.get_list_size(), api.is_list_empty)
+    local amount = #notification_list_layout.children
+    if amount then
+        if empty_notification_list_widget.visible then
+            counter:set_text("(0)")
+        else
+            counter:set_text("(" .. amount .. ")")
+        end
+    end
 end
 
 function api.reset_list()
     notification_list_layout:reset()
-    api.is_list_empty = true
-    notification_list_layout:insert(1, empty_notification_list_widget)
+    empty_notification_list_widget.visible = true
     api.update()
 end
 
@@ -95,24 +158,19 @@ function api.remove_notification(notification, b)
     end
 end
 
-function api.connect_count(counter)
-    api.counter = counter
-end
 
-function api.get_widget()
-    return body_template
-end
 
 naughty.connect_signal("destroyed", function(n)
     if n._private.args.store == nil or n._private.args.store then
-        if #notification_list_layout.children == 1 and api.is_list_empty then
-            notification_list_layout:reset()
-            api.is_list_empty = false
+        if empty_notification_list_widget.visible then
+            empty_notification_list_widget.visible = false
         end
-        local new_notif = notification_creator(n)
+        local new_notif = notification_creator(n, api)
         notification_list_layout:insert(1, new_notif)
         api.update()
     end
 end)
 
-return api
+
+
+return body_template
