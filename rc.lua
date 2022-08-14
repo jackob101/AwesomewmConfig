@@ -15,7 +15,6 @@ IconsHandler.init()
 
 load_all("", {
     "configs",
-    "layout",
     "errors",
 })
 

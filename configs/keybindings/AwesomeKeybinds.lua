@@ -22,16 +22,8 @@ return function()
                     "l",
                     awesome.quit,
                     { description = "quit awesome", group = "awesome" }
-            ),
-
-            Awful.key(
-                    { ModKey },
-                    "c",
-                    function()
-                        Awful.screen.focused().central_panel:toggle()
-                    end,
-                    { description = "Toggle notification panel", group = "awesome" }
             )
+
     ))
 
 end
