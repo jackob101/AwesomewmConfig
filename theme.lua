@@ -19,7 +19,13 @@ awesome.set_preferred_icon_size(128)
 local theme = {}
 
 --  Theme font
-theme.font = "inter medium 9"
+theme.font_name = "Ubuntu "
+theme.font_size = 10
+theme.icons_font = "Material icons"
+theme.font = theme.font_name .. " " .. theme.font_size
+
+theme.corner_radius = 10
+
 
 theme.green = "#9ece6a"
 theme.red = "#f7768e"
@@ -30,6 +36,8 @@ theme.black = "#24283b"
 theme.gray = "#414868"
 theme.light_gray = "#565f89"
 theme.light = "#a9b1d6"
+
+theme.accent = theme.green
 
 -- General settings
 theme.color8 = xrdb.color8
@@ -47,6 +55,16 @@ theme.accent3 = xrdb.color12
 theme.accent4 = xrdb.color13
 theme.accent5 = xrdb.color14
 theme.accent6 = xrdb.color15
+
+-- Default values for button widgets
+theme.button_bg = theme.gray
+theme.button_fg = theme.light
+theme.button_border_width = dpi(1)
+theme.button_border_color = theme.light_gray
+theme.button_width = dpi(20)
+theme.button_height = dpi(20)
+theme.button_hover_fg = theme.black
+theme.button_hover_bg = theme.accent
 
 theme.useless_gap = dpi(5)
 theme.gap_single_client = false
@@ -86,8 +104,10 @@ theme.taglist_bg_urgent = xrdb.color9
 theme.taglist_bg_occupied = theme.bg_overlay_transparent
 -- theme.taglist_bg_occupied = xrdb.color12
 -- theme.taglist_fg_occupied = xrdb.background
-theme.taglist_font = "inter bold 12"
+theme.taglist_font = theme.font_name .. "14"
 theme.taglist_only_icons = true
+
+theme.calendar_font = theme.font_name .. theme.font_size
 
 ----    Tag
 
@@ -117,15 +137,15 @@ theme.volumeBarWidget = {
 }
 
 theme.volumePopupWidget = {
-    font = "Ubuntu 12",
+    font = theme.font_name .. "14",
     bg = theme.gray .. "AA",
     height = Dpi(120),
     width = Dpi(300),
     shape = Gears.shape.rect,
     sliderBarHeight = Dpi(4),
     sliderBarColor = theme.black .. "AA",
-    sliderBarActiveColor = theme.green,
-    sliderHandleColor = theme.green,
+    sliderBarActiveColor = theme.accent,
+    sliderHandleColor = theme.accent,
     sliderHandleWidth = Dpi(20),
     sliderHandleBorderColor = "#00000012",
     sliderHandleBorderWidth = dpi(1),
@@ -141,8 +161,8 @@ theme.volumePopupWidget = {
 --- @class ClickableContainerTheme
 theme.clickableContainer = {
     bg = theme.gray,
-    hoverBg = theme.green,
-    pressBg = theme.green .. "77",
+    hoverBg = theme.accent,
+    pressBg = theme.accent .. "77",
 
 }
 
@@ -226,14 +246,21 @@ theme.tooltip = {
 }
 
 theme.notification_center = {
-    bg = theme.black .. "AA",
-    width = dpi(350),
-    border_width = dpi(3),
+    bg = theme.black,
+    panel_bg = theme.gray .. "33",
+    panel_margin = dpi(10),
+    width = Dpi(400),
+    border_width = Dpi(3),
     border_color = theme.gray,
     notification_bg = theme.gray .. "44",
     notification_bg_hover = theme.gray .. "AA",
     bottomMargin = Dpi(10),
     rightMargin = Dpi(10),
+    calendar_current_day_fg = theme.accent,
+    calendar_weekend_day_color = theme.light,
+    calendar_normal_day = theme.light .. "CC",
+    calendar_weekday_header_fg = theme.light,
+    calendar_header_fg = theme.orange,
 }
 
 
@@ -244,8 +271,8 @@ theme.flash_focus_step = 0.02
 theme.transparent = "#FFFFFF00"
 
 theme.border_width = dpi(1)
-theme.border_normal = xrdb.color6 or "#000000"
-theme.border_focus = xrdb.color5 or "#535d6c"
+theme.border_normal = theme.gray or "#000000"
+theme.border_focus = theme.accent or "#535d6c"
 theme.border_marked = xrdb.color10 or "#91231c"
 
 theme.hotkeys_font = "Ubuntu 10"

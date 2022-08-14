@@ -1,14 +1,18 @@
 local wibox = require("wibox")
+--- @type Beautiful
 local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
-local icons = require("icons")
 local gears = require("gears")
 local awful = require("awful")
 local utils = require("utils")
 local naughty = require("naughty")
 local theme = beautiful.notification_center
+local ui_helper = require("helpers.ui")
 
-local notif_core = require("widgets.notif-center.notif-list")
+--- @type Widgets
+local widgets = require "widgets"
+
+
 
 local function create_actions(n)
 	local actions_template = wibox.widget({
@@ -22,7 +26,7 @@ local function create_actions(n)
 				{
 					{
 						id = "text_role",
-						font = "Inter Regular 10",
+						font = beautiful.font_name .. "10",
 						widget = wibox.widget.textbox,
 					},
 					widget = wibox.container.place,
@@ -57,53 +61,28 @@ local function create_icon(icon)
 end
 
 local function create_title(title)
-	return wibox.widget({
+	return widgets.text({
 		id = "title",
-		widget = wibox.widget.textbox,
 		valign = "left",
 		text = title,
-		font = "Inter medium 14",
+		size = 14,
+		bold = true,
 	})
 end
 
 local function create_appname(app)
-	return wibox.widget({
+	return widgets.text({
 		id = "title",
-		widget = wibox.widget.textbox,
 		valign = "left",
 		text = app,
-		font = "Inter bold 12",
+		size = 12,
 	})
-end
-
-local function create_dismiss()
-	local dismiss_icon = wibox.widget({
-		widget = wibox.widget.imagebox,
-		image = IconsHandler.icons.window_close.path,
-		forced_height = dpi(10),
-		forced_width = dpi(10),
-		resize = true,
-	})
-
-	local dismiss_button = wibox.widget({
-		visible = false,
-		widget = wibox.container.place,
-		valign = "center",
-		halign = "center",
-		{
-			widget = wibox.container.margin,
-			margins = dpi(5),
-			dismiss_icon,
-		},
-	})
-
-	return dismiss_button
 end
 
 local function create_message(message)
-	return wibox.widget({
-		widget = wibox.widget.textbox,
+	return widgets.text({
 		text = message,
+		size = 10,
 	})
 end
 
@@ -118,23 +97,19 @@ local return_date_time = function(format)
 	return os.date(format)
 end
 
-local function create(n)
-	local dismiss = create_dismiss()
+--- @param notif_core NotificationListApi
+local function create(n, notif_core)
 	local time_of_pop = return_date_time("%H:%M:%S")
 	local exact_time = return_date_time("%I:%M %p")
 	local exact_date_time = return_date_time("%b %d, %I:%M %p")
 
-	local notifbox_timepop = wibox.widget({
+	local notifbox_timepop = widgets.text({
 		id = "time_pop",
-		markup = nil,
-		font = "Inter Regular 10",
-		align = "left",
-		valign = "center",
-		visible = true,
-		widget = wibox.widget.textbox,
+		size = 10,
+		halign = "left",
 	})
 
-	local time_of_popup = gears.timer({
+	gears.timer({
 		timeout = 60,
 		call_now = true,
 		autostart = true,
@@ -145,14 +120,14 @@ local function create(n)
 			time_difference = tonumber(time_difference)
 
 			if time_difference < 60 then
-				notifbox_timepop:set_markup("now")
+				notifbox_timepop:set_text("now")
 			elseif time_difference >= 60 and time_difference < 3600 then
 				local time_in_minutes = math.floor(time_difference / 60)
-				notifbox_timepop:set_markup(time_in_minutes .. "m ago")
+				notifbox_timepop:set_text(time_in_minutes .. "m ago")
 			elseif time_difference >= 3600 and time_difference < 86400 then
-				notifbox_timepop:set_markup(exact_time)
+				notifbox_timepop:set_text(exact_time)
 			elseif time_difference >= 86400 then
-				notifbox_timepop:set_markup(exact_date_time)
+				notifbox_timepop:set_text(exact_date_time)
 				return false
 			end
 
@@ -162,11 +137,13 @@ local function create(n)
 
 	local notification = wibox.widget({
 		widget = wibox.container.background,
-		bg = theme.notification_bg,
+		forced_height = dpi(150),
+		shape = ui_helper.rrect(),
+		bg = beautiful.notification_center.panel_bg,
 		{
 			{
 				layout = wibox.layout.fixed.vertical,
-				spacing = dpi(5),
+				spacing = dpi(7),
 				{
 					expand = "none",
 					layout = wibox.layout.align.horizontal,
@@ -177,25 +154,35 @@ local function create(n)
 						create_appname(n.app_name),
 					},
 					nil,
-					{
-						notifbox_timepop,
-						dismiss,
-						layout = wibox.layout.fixed.horizontal,
-					},
+					notifbox_timepop,
+				},
+				{
+					widget = wibox.container.background,
+					bg = beautiful.light,
+					forced_height = dpi(3),
+					shape = ui_helper.rrect(),
 				},
 				{
 					layout = wibox.layout.fixed.vertical,
 					spacing = dpi(10),
 					{
-						create_title(n.title),
-						create_message(n.message),
+						{
+							widget = wibox.container.place,
+							halign = "center",
+							create_title(n.title),
+						},
+						{
+							widget = wibox.container.place,
+							halign = "center",
+							create_message(n.message),
+						},
 						layout = wibox.layout.fixed.vertical,
 						spacing = dpi(5),
 					},
 					create_actions(n),
 				},
 			},
-			margins = dpi(10),
+			margins = dpi(15),
 			widget = wibox.container.margin,
 		},
 	})
@@ -208,12 +195,12 @@ local function create(n)
 	})
 
 	local function notification_dismiss()
-		notif_core.notiflist_layout:remove_widgets(notification_spacing, true)
+		notif_core.remove_notification(notification_spacing, true)
 		notif_core.update()
 	end
 
 	notification:buttons(awful.util.table.join(awful.button({}, 1, function()
-		if #notif_core.notiflist_layout.children == 1 then
+		if notif_core.get_list_size == 1 then
 			notif_core.reset_list()
 		else
 			notification_dismiss()
@@ -225,12 +212,10 @@ local function create(n)
 
 	notification:connect_signal("mouse::enter", function()
 		notification.bg = theme.notification_bg_hover
-		dismiss.visible = true
 	end)
 
 	notification:connect_signal("mouse::leave", function()
-		notification.bg = theme.notification_bg
-		dismiss.visible = false
+		notification.bg = beautiful.notification_center.panel_bg
 	end)
 
 	collectgarbage("collect")

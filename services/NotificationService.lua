@@ -28,6 +28,7 @@ function NotificationService._setUpDND()
     end
 end
 
+
 function NotificationService._setUpRules()
     Ruled.notification.connect_signal("request::rules", function()
         Ruled.notification.append_rule({
@@ -41,7 +42,7 @@ function NotificationService._setUpRules()
         Ruled.notification.append_rule({
             rule = { urgency = "normal" },
             properties = {
-                timeout = 5,
+                timeout = 1,
                 implicit_timeout = 5,
                 border_color = Beautiful.notification.borderNormal
             },
@@ -49,7 +50,7 @@ function NotificationService._setUpRules()
         Ruled.notification.append_rule({
             rule = { urgency = "low" },
             properties = {
-                implicit_timeout = 5,
+                implicit_timeout = 1,
                 border_color = Beautiful.notification.borderNormal
             },
         })

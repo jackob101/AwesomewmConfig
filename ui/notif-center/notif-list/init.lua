@@ -2,8 +2,8 @@ local dpi = require("beautiful.xresources").apply_dpi
 local wibox = require("wibox")
 local naughty = require("naughty")
 
-local notiflist_scroller = require("widgets.notif-center.notif-list.notiflist_scroller")
-local empty_list = require("widgets.notif-center.notif-list.empty_list_widget")
+local notiflist_scroller = require("ui.notif-center.notif-list.notiflist_scroller")
+local empty_list = require("ui.notif-center.notif-list.empty_list_widget")
 
 local notif_core = {}
 
@@ -48,20 +48,20 @@ local function add_notification(n)
 	notif_core.notiflist_layout:insert(1, new_notif)
 end
 
-local notifbox_add_expired = function(n)
-	n:connect_signal("destroyed", function(_, reason)
-		if reason == 1 then
-			add_notification(n)
-			notif_core.update()
-		end
-	end)
-end
+-- local notifbox_add_expired = function(n)
+-- 	n:connect_signal("destroyed", function(_, reason)
+-- 		if reason == 1 then
+-- 			add_notification(n)
+-- 			notif_core.update()
+-- 		end
+-- 	end)
+-- end
 
-naughty.connect_signal("request::display", function(n)
-	if n._private.args.store == nil or n._private.args.store then
-		notifbox_add_expired(n)
-	end
-end)
+-- naughty.connect_signal("request::display", function(n)
+-- 	if n._private.args.store == nil or n._private.args.store then
+-- 		notifbox_add_expired(n)
+-- 	end
+-- end)
 
 notif_core.connect_count = function(counter)
 	notif_core.counter = counter

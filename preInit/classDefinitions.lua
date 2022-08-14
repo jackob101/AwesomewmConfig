@@ -2,11 +2,16 @@
 ---
 ---
 --- @class Wibox
+--- @field container table
+--- @field widget fun(table): Widget
 ---
 ---
 --- @class Awful
 --- @field screen Screen
---- @field key fun(): Key[]
+--- @field popup fun(x: table)
+--- @field placement table 
+--- @field key fun(table): Key[]
+--- @field button fun(table, number, fun, fun): table
 ---
 ---
 --- @class Naughty
@@ -28,10 +33,13 @@
 ---
 ---
 --- @class Screen
+--- @field index number
+--- @field focused fun()
 ---
 ---
 --- @class BaseWidget
 --- @field new fun(s: Screen)
+--- @field widget Widget
 ---
 --- @class Dpi
 ---

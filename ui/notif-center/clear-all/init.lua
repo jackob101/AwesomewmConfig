@@ -6,7 +6,7 @@ local awful = require("awful")
 local icons = require("icons")
 local utils = require("utils")
 
-local notif_core = require("widgets.notif-center.notif-list")
+local notif_core = require("ui.notif-center.notif-list")
 
 local stylesheet = "*{fill: " .. beautiful.fg_normal .. "; }"
 

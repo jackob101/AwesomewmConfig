@@ -22,7 +22,7 @@ load_all("", {
 require("services")
 
 
-require("widgets")
+require("ui")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
@@ -34,3 +34,4 @@ Menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 
 
 VolumeService.update()
+
