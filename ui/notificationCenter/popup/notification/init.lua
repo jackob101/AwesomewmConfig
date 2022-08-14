@@ -30,7 +30,7 @@ local header = wibox.widget({
     layout = wibox.layout.fixed.horizontal,
     spacing = dpi(10),
     widgets.text({
-        text = "Notification center",
+        text = "Notifications",
     }),
     counter,
 })

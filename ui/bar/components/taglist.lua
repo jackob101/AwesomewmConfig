@@ -1,41 +1,73 @@
---- @class TagListWidget : BaseWidget
---- @field _taglistButtons
-TagListWidget = {
-    _taglistButtons = {
-        Awful.button({}, 1, function(t)
-            t:view_only()
-        end),
-        Awful.button({ ModKey }, 1, function(t)
-            if client.focus then
-                client.focus:move_to_tag(t)
-            end
-        end),
-        Awful.button({}, 3, Awful.tag.viewtoggle),
-        Awful.button({ ModKey }, 3, function(t)
-            if client.focus then
-                client.focus:toggle_tag(t)
-            end
-        end),
-        Awful.button({}, 4, function(t)
-            Awful.tag.viewnext(t.screen)
-        end),
-        Awful.button({}, 5, function(t)
-            Awful.tag.viewprev(t.screen)
-        end)
+--- @type Awful
+local awful = require("awful")
 
-    },
+--- @type Wibox
+local wibox = require('wibox')
+
+--- @type Beautiful
+local beautiful = require("beautiful")
+
+
+local buttons = {
+    Awful.button({}, 1, function(t)
+        t:view_only()
+    end),
+    Awful.button({ ModKey }, 1, function(t)
+        if client.focus then
+            client.focus:move_to_tag(t)
+        end
+    end),
+    Awful.button({}, 3, Awful.tag.viewtoggle),
+    Awful.button({ ModKey }, 3, function(t)
+        if client.focus then
+            client.focus:toggle_tag(t)
+        end
+    end),
+    Awful.button({}, 4, function(t)
+        Awful.tag.viewnext(t.screen)
+    end),
+    Awful.button({}, 5, function(t)
+        Awful.tag.viewprev(t.screen)
+    end)
+
 }
-TagListWidget.__index = TagListWidget
 
---- @return TagListWidget
-function TagListWidget.new(s)
-    local newInstance = {}
-    setmetatable(newInstance, TagListWidget)
+local function update_callback(widget, t)
+    local clients = t:clients()
+    local task_list = widget:get_children_by_id("task_list")[1]
+    task_list:reset()
+    if #clients > 0 then
+        local tasks = Wibox.widget {
+            layout = wibox.layout.fixed.horizontal,
+            spacing = beautiful.tag.tasks_spacing,
+        }
 
-    newInstance.widget = Awful.widget.taglist({
+        for _, client in ipairs(clients) do
+            tasks:add(Wibox.widget({
+                widget = wibox.widget.imagebox,
+                image = client.icon,
+            }))
+        end
+
+        local task_list_container = Wibox.widget {
+            widget = wibox.container.margin,
+            top = beautiful.tag.tasks_top_margin or beautiful.tag.tasks_margins,
+            bottom = beautiful.tag.tasks_bottom_margin or beautiful.tag.tasks_margins,
+            right = beautiful.tag.tasks_right_margin or beautiful.tag.tasks_margins,
+           tasks, 
+        }
+
+        task_list:add(task_list_container)
+    end
+end
+
+--- @param s Screen
+local function create(s)
+
+    local widget = awful.widget.taglist({
         screen = s,
-        filter = Awful.widget.taglist.filter.noempty,
-        buttons = TagListWidget._taglistButtons,
+        filter = awful.widget.taglist.filter.noempty,
+        buttons = buttons,
         widget_template = {
             {
                 {
@@ -46,88 +78,52 @@ function TagListWidget.new(s)
                 },
                 {
                     {
-                        widget = Wibox.container.margin,
-                        margins = Beautiful.tag.label_margins,
+                        widget = wibox.container.margin,
+                        margins = beautiful.tag.label_margins,
                         {
-                            widget = Wibox.widget.textbox,
+                            widget = wibox.widget.textbox,
                             align = "center",
                             id = "text_role",
-                            forced_width = Beautiful.tag.label_forced_width,
+                            forced_width = beautiful.tag.label_forced_width,
                         },
                     },
                     {
                         id = "task_list",
-                        layout = Wibox.layout.fixed.horizontal,
+                        layout = wibox.layout.fixed.horizontal,
                     },
-                    layout = Wibox.layout.fixed.horizontal,
+                    layout = wibox.layout.fixed.horizontal,
                 },
                 {
-                    layout = Wibox.layout.align.vertical,
+                    layout = wibox.layout.align.vertical,
                     expand = "inside",
                     nil,
                     nil,
                     {
-                        widget = Wibox.container.background,
-                        forced_height = Beautiful.tag.underline_height,
+                        widget = wibox.container.background,
+                        forced_height = beautiful.tag.underline_height,
                         id = "background_role",
                     }
                 },
-                layout = Wibox.layout.stack,
+                layout = wibox.layout.stack,
             },
-            widget = Wibox.container.background,
-            update_callback = TagListWidget._update_callback,
+            widget = wibox.container.background,
+            update_callback = update_callback,
             create_callback = function(self, t)
                 local widget = self:get_children_by_id("hover_background")[1]
-                TagListWidget._connect_hover_effect(widget)
+                widget:connect_signal("mouse::enter", function(self)
+                    self.opacity = 1
+                end)
+
+                widget:connect_signal("mouse::leave", function(self)
+                    self.opacity = 0
+                end)
                 Utils.cursor_hover(widget)
-                TagListWidget._update_callback(self, t)
+                update_callback(self, t)
             end,
         },
     })
 
-    return newInstance
+    return widget
 end
 
-function TagListWidget._create_task_list(clients)
-
-    local task_list = Wibox.widget {
-        layout = Wibox.layout.fixed.horizontal,
-        spacing = Beautiful.tag.tasks_spacing,
-    }
-
-    for _, client in ipairs(clients) do
-        task_list:add(Wibox.widget({
-            widget = Wibox.widget.imagebox,
-            image = client.icon,
-        }))
-    end
-
-    return Wibox.widget {
-        widget = Wibox.container.margin,
-        top = Beautiful.tag.tasks_top_margin or Beautiful.tag.tasks_margins,
-        bottom = Beautiful.tag.tasks_bottom_margin or Beautiful.tag.tasks_margins,
-        right = Beautiful.tag.tasks_right_margin or Beautiful.tag.tasks_margins,
-        task_list
-    }
-end
-
---- @param widget Widget
-function TagListWidget._connect_hover_effect(widget)
-    widget:connect_signal("mouse::enter", function(self)
-        self.opacity = 1
-    end)
-
-    widget:connect_signal("mouse::leave", function(self)
-        self.opacity = 0
-    end)
-end
-
-
-function TagListWidget._update_callback(widget, t)
-    local clients = t:clients()
-    local task_list = widget:get_children_by_id("task_list")[1]
-    task_list:reset()
-    if #clients > 0 then
-        task_list:add(TagListWidget._create_task_list(clients))
-    end
-end
+return create

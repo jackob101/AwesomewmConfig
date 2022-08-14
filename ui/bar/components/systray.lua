@@ -1,21 +1,16 @@
---- @class Systray : BaseWidget
-Systray = {}
-Systray.__index = Systray
+--- @type Wibox
+local wibox = require("wibox")
 
---- @return Systray
-function Systray.new(s)
 
-    if s.index ~= 1 then
-        return nil
+local systray = wibox.widget({
+    widget = wibox.widget.systray,
+    screen = "primary",
+})
+
+
+--- @param s Screen
+return function(s)
+    if s.index == 1 then
+        return systray
     end
-
-    local newSystray = {}
-    setmetatable(newSystray, Systray)
-
-    newSystray.widget = Wibox.widget({
-        widget = Wibox.widget.systray,
-        screen = "primary",
-    })
-
-    return newSystray
 end

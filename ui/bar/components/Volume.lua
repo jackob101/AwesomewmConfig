@@ -1,91 +1,98 @@
+--- @type Utils
+local utils = require("utils")
 
---- @class VolumeBarWidget : VolumeUpdatableWidget
-VolumeBarWidget = {}
-VolumeBarWidget.__index = VolumeBarWidget
+--- @type Gears
+local gears = require("gears")
 
---- @return VolumeBarWidget
-function VolumeBarWidget.new()
-    --- @type VolumeBarWidget
-    local newVolumeBarWidget = {}
-    setmetatable(newVolumeBarWidget, VolumeBarWidget)
+--- @type Awful
+local awful = require('awful')
 
-    newVolumeBarWidget.icon_widget = Wibox.widget({
-        resize = true,
-        widget = Wibox.widget.imagebox,
-    })
+--- @type Beautiful
+local beautiful = require('beautiful')
 
-    newVolumeBarWidget.text_widget = Wibox.widget({
-        text = "",
-        widget = Wibox.widget.textbox,
-    })
+--- @type Wibox
+local wibox = require("wibox")
 
-    newVolumeBarWidget.widget = Wibox.widget({
+
+
+local icon_widget = wibox.widget({
+    resize = true,
+    widget = wibox.widget.imagebox,
+})
+
+local text_widget = wibox.widget({
+    text = "",
+    widget = wibox.widget.textbox,
+})
+
+local volume_widget = wibox.widget({
+    {
         {
-            {
-                newVolumeBarWidget.icon_widget,
-                widget = Wibox.container.margin,
-                margins = Beautiful.volumeBarWidget.barIconMargin
-            },
-            newVolumeBarWidget.text_widget,
-            layout = Wibox.layout.fixed.horizontal,
-            spacing = Beautiful.volumeBarWidget.barIconTextSpacing
+            icon_widget,
+            widget = wibox.container.margin,
+            margins = beautiful.volumeBarWidget.barIconMargin
         },
-        widget = Wibox.container.background,
-    })
+        text_widget,
+        layout = wibox.layout.fixed.horizontal,
+        spacing = beautiful.volumeBarWidget.barIconTextSpacing
+    },
+    widget = wibox.container.background,
+})
 
-    newVolumeBarWidget.tooltip = Utils.generate_tooltip(newVolumeBarWidget.widget, "Click to mute")
+local tooltip = utils.generate_tooltip(volume_widget, "Click to mute")
 
-    newVolumeBarWidget.widget:connect_signal("button::press", function(_, _, _, b)
-        if b == 1 then
-            VolumeService.toggle()
-        elseif b == 3 then
-            Awful.spawn("pavucontrol")
-        elseif b == 4 then
-            VolumeService.increase()
-        elseif b == 5 then
-            VolumeService.decrease()
-        end
-    end)
-
-    -- TODO Refactor after Utils are refactored
-    local old_cursor, old_wibox
-    newVolumeBarWidget.widget:connect_signal("mouse::enter", function()
-        local w = mouse.current_wibox
-        old_cursor, old_wibox = w.cursor, w
-        w.cursor = "hand1"
-    end)
-    newVolumeBarWidget.widget:connect_signal("mouse::leave", function()
-        if old_wibox then
-            old_wibox.cursor = old_cursor
-            old_wibox = nil
-        end
-    end)
-
-    VolumeService.connect(newVolumeBarWidget)
-    return newVolumeBarWidget
+local function setNewStyle(self, icon, color)
+    icon_widget.image = icon
+    icon_widget.stylesheet = "#image{fill: " .. color .. ";}"
+    volume_widget.fg = color
 end
 
---- @param color VolumeBarWidgetTheme
-function VolumeBarWidget:setNewStyle(icon, color)
-    self.icon_widget.image = icon
-    self.icon_widget.stylesheet = "#image{fill: " .. color .. ";}"
-    self.widget.fg = color
-end
-
-function VolumeBarWidget:update(newVolume, isMute)
+function volume_widget:update(newVolume, isMute)
     if isMute then
-        self:setNewStyle(IconsHandler.icons.volume_mute.path, Beautiful.volumeBarWidget.mutedFg)
-        self.tooltip.text = "Click to unmute"
-        self.text_widget.text = "Muted"
+        setNewStyle(self,IconsHandler.icons.volume_mute.path, beautiful.volumeBarWidget.mutedFg)
+        tooltip.text = "Click to unmute"
+        text_widget.text = "Muted"
     else
         if newVolume >= 75 then
-            self:setNewStyle(IconsHandler.icons.volume_high.path, Beautiful.volumeBarWidget.highFg)
+            setNewStyle(self,IconsHandler.icons.volume_high.path, beautiful.volumeBarWidget.highFg)
         elseif newVolume < 75 and newVolume >= 35 then
-            self:setNewStyle(IconsHandler.icons.volume_medium.path, Beautiful.volumeBarWidget.highFg)
+            setNewStyle(self,IconsHandler.icons.volume_medium.path, beautiful.volumeBarWidget.highFg)
         else
-            self:setNewStyle(IconsHandler.icons.volume_low.path, Beautiful.volumeBarWidget.highFg)
+            setNewStyle(self,IconsHandler.icons.volume_low.path, beautiful.volumeBarWidget.highFg)
         end
-        self.tooltip.text = "Click to mute"
-        self.text_widget.text = newVolume .. "%"
+        tooltip.text = "Click to mute"
+        text_widget.text = newVolume .. "%"
     end
+end
+
+volume_widget:connect_signal("button::press", function(_, _, _, b)
+    if b == 1 then
+        VolumeService.toggle()
+    elseif b == 3 then
+        awful.spawn("pavucontrol")
+    elseif b == 4 then
+        VolumeService.increase()
+    elseif b == 5 then
+        VolumeService.decrease()
+    end
+end)
+
+-- TODO Refactor after Utils are refactored
+local old_cursor, old_wibox
+volume_widget:connect_signal("mouse::enter", function()
+    local w = mouse.current_wibox
+    old_cursor, old_wibox = w.cursor, w
+    w.cursor = "hand1"
+end)
+volume_widget:connect_signal("mouse::leave", function()
+    if old_wibox then
+        old_wibox.cursor = old_cursor
+        old_wibox = nil
+    end
+end)
+
+VolumeService.connect(volume_widget)
+
+return function()
+    return volume_widget
 end

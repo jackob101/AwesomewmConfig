@@ -1,76 +1,29 @@
---- @class TilingStatusWidget : BaseWidget
-TilingStatusWidget = {
-    widgets = {}
-}
-TilingStatusWidget.__index = TilingStatusWidget
+--- @type Wibox
+local wibox = require 'wibox'
 
---- @return TilingStatusWidget
-function TilingStatusWidget.new(s)
-    --- @type TilingStatusWidget
-    local newTilingStatusWidget = {}
-    setmetatable(newTilingStatusWidget, TilingStatusWidget)
+--- @type Beautiful
+local beautiful = require 'beautiful'
+
+--- @type Awful
+local awful = require("awful")
 
 
-    tag.connect_signal("property::selected", TilingStatusWidget._updateFromTag)
-    tag.connect_signal("property::layout", TilingStatusWidget._updateFromTag)
 
-    client.connect_signal("property::floating", TilingStatusWidget._updateFromClient)
-    client.connect_signal("request::activate", TilingStatusWidget._updateFromClient)
+local widgets = {}
 
-    local tag_layout = {
-        widget = Wibox.widget.textbox,
-        font = Beautiful.font,
-        id = "tag_layout"
-    }
-
-    local client_layout = {
-        widget = Wibox.widget.textbox,
-        font = Beautiful.font,
-        id = "client_layout"
-    }
-
-    local widget = Wibox.widget {
-        widget = Wibox.container.background,
-        bg = Beautiful.tilingStatus.bg,
-        fg = Beautiful.tilingStatus.fg,
-        {
-            widget = Wibox.container.margin,
-            left = Beautiful.tilingStatus.leftMargin,
-            right = Beautiful.tilingStatus.rightMargin,
-            {
-                layout = Wibox.layout.fixed.horizontal,
-                tag_layout,
-                client_layout
-            }
-        }
-    }
-
-    if TilingStatusWidget.widgets == nil then
-        TilingStatusWidget.widgets = setmetatable({}, { __mode = "kv" })
-    end
-
-    TilingStatusWidget.widgets[s.index] = widget
-
-    TilingStatusWidget._updateFromTag(s.selected_tag)
-
-    newTilingStatusWidget.widget = widget
-
-    return newTilingStatusWidget
-end
-
-function TilingStatusWidget._updateFromTag(t)
+local function update_from_tag(t)
     local s = t.screen
-    local w = TilingStatusWidget.widgets[s.index]
+    local w = widgets[s.index]
     if w then
-        local tag_layout = Awful.layout.getname(Awful.layout.get(s))
+        local tag_layout = awful.layout.getname(awful.layout.get(s))
         w:get_children_by_id("tag_layout")[1].text = firstToUpper(tag_layout)
     end
 end
 
-function TilingStatusWidget._updateFromClient()
+local function update_from_client()
     local c = client.focus
     if c then
-        local w = TilingStatusWidget.widgets[c.screen.index]
+        local w = widgets[c.screen.index]
         if w then
             local client_layout = w:get_children_by_id("client_layout")[1]
             if c.floating then
@@ -81,3 +34,55 @@ function TilingStatusWidget._updateFromClient()
         end
     end
 end
+
+
+
+local function create(s)
+
+    tag.connect_signal("property::selected", update_from_tag)
+    tag.connect_signal("property::layout", update_from_tag)
+
+    client.connect_signal("property::floating", update_from_client)
+    client.connect_signal("request::activate", update_from_client)
+
+    local tag_layout = {
+        widget = wibox.widget.textbox,
+        font = beautiful.font,
+        id = "tag_layout"
+    }
+
+    local client_layout = {
+        widget = wibox.widget.textbox,
+        font = beautiful.font,
+        id = "client_layout"
+    }
+
+    local widget = wibox.widget {
+        widget = wibox.container.background,
+        bg = beautiful.tilingStatus.bg,
+        fg = beautiful.tilingStatus.fg,
+        {
+            widget = wibox.container.margin,
+            left = beautiful.tilingStatus.leftMargin,
+            right = beautiful.tilingStatus.rightMargin,
+            {
+                layout = wibox.layout.fixed.horizontal,
+                tag_layout,
+                client_layout
+            }
+        }
+    }
+
+    if widgets == nil then
+        widgets = setmetatable({}, { __mode = "kv" })
+    end
+
+    widgets[s.index] = widget
+
+    update_from_tag(s.selected_tag)
+
+    return widget
+end
+
+
+return create

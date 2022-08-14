@@ -1,85 +1,106 @@
 --- @type Wibox
 local wibox = require('wibox')
 
+--- @type Awful
+local awful = require('awful')
+
+--- @type Beautiful
+local beautiful = require('beautiful')
+
 local notification_toggle = require("ui.notificationCenter")
 -- Load widget classes into scope
-load_all("ui.bar.components", {
-    "Volume",
-    "NotificationBoxToggle",
-    "DateBarWidget",
-    "systray",
-    "taglist",
-    "tasklist",
-    "TilingStatus",
-    "TimeBarWidget",
-    "MacroBarIndicatorWidget"
-})
+-- load_all("ui.bar.components", {
+--     "Volume",
+--     "DateBarWidget",
+--     "systray",
+--     "taglist",
+--     "tasklist",
+--     "TilingStatus",
+--     "TimeBarWidget",
+--     "MacroBarIndicatorWidget"
+-- })
+
+local tilign_status = require(... .. ".components.TilingStatus")
+local taglist = require(... .. ".components.taglist")
+
+local tasklist = require(... .. ".components.tasklist")
+
+local macro_indicator = require(... .. ".components.MacroBarIndicatorWidget")
+local volume = require(... .. ".components.Volume")
+local time = require(... .. ".components.TimeBarWidget")
+local date = require(... .. ".components.DateBarWidget")
+local systray = require((...) .. ".components.systray")
+local notification_center_toggle = require("ui.notificationCenter")
+
+
 
 ----------------------------------------
 -- What widgets are present on bar
 ----------------------------------------
-
---- @class StatusBar : BaseWidget
-StatusBar = {}
-StatusBar.__index = StatusBar
-
---- @param widget  Widget
-local function withSpacing(widget)
-
-    if not widget then
-       return 
-    end
+local function add_widgets_with_space_before(widgets)
+    local layout = wibox.widget({
+        layout = Wibox.layout.fixed.horizontal,
+    })
 
     local spacing = Wibox.widget({
         widget = Wibox.container.background,
         forced_width = Beautiful.bar.rightPanelChildSpacing,
     })
 
+    for i, v in pairs(widgets) do
+        if v then
+            if i == 1 then
+                layout:add(v)
+            else
+                layout:add(spacing)
+                layout:add(v)
+            end
+        end
+    end
 
-    return {
-        layout = wibox.layout.fixed.horizontal,
-        spacing,
-        widget
-    }
+    return layout
 end
 
---- @type Screen
---- @return StatusBar
-function StatusBar.new(s)
-    --- @type StatusBar
-    local newInstance = {}
-    setmetatable(newInstance, StatusBar)
+--- @param list_of_widgets BaseWidget[]
+local function initWidgets(list_of_widgets, s, parent_widget)
 
-    local left_widgets = {
-        TilingStatusWidget.new(s),
-        TagListWidget.new(s),
-    }
+    if parent_widget == nil then
+        parent_widget = wibox.widget({
+            layout = wibox.layout.fixed.horizontal,
+            widget = wibox.container.background,
+        })
+    end
 
-    local middle_widgets = {
-        TaskListWidget.new(s),
-    }
+    for _, entry in ipairs(list_of_widgets) do
+        if type(entry) == "function" then
+            parent_widget:add(entry(s))
+        else
+            parent_widget:add(entry)
+        end
+    end
 
-    local right_widgets = {
-        MacroBarIndicator.new(),
-        VolumeBarWidget.new(),
-        TimeBarWidget.new(),
-        DateBarWidget.new(),
-        Systray.new(s),
-        notification_toggle()
-    }
+    return parent_widget
+end
 
+--- @param s Screen
+local function create(s)
 
+    local spacing = wibox.widget({
+        widget = wibox.container.background,
+        forced_width = beautiful.bar.rightPanelChildSpacing
+    })
 
     -- Create the wibar
-    newInstance.widget = Awful.wibar({
+    local widget = Awful.wibar({
         position = "bottom",
         screen = s,
         height = Beautiful.bar.barHeight,
         bg = Beautiful.black .. Beautiful.bar_opacity,
     })
-local systray = Systray.new(s)
+
+
     -- Add widgets to the wibox
-    newInstance.widget:setup({
+    widget:setup({
         layout = Wibox.layout.stack,
         {
             layout = Wibox.layout.align.horizontal,
@@ -92,23 +113,27 @@ local systray = Systray.new(s)
                     widget = Wibox.container.margin,
                     margins = Beautiful.bar.leftPanelMargins,
                     layout = Wibox.layout.fixed.horizontal,
-                    StatusBar._initWidgets(left_widgets, s),
+                    tilign_status(s),
+                    taglist(s),
                 },
                 nil,
                 {
                     widget = Wibox.container.margin,
                     margins = Beautiful.bar.rightPanelMargins,
                     {
-                        layout = Wibox.layout.fixed.horizontal,
-                        -- statusbar._initrightwidgets(right_widgets, s),
-                        MacroBarIndicator.new(),
-                        withSpacing(VolumeBarWidget.new().widget),
-                        withSpacing(TimeBarWidget.new().widget),
-                        withSpacing(DateBarWidget.new().widget),
-                        withSpacing(systray and systray.widget),
-                        withSpacing(notification_toggle())
+                        layout = wibox.layout.fixed.horizontal,
+                        macro_indicator(s),
+                        spacing,
+                        volume(s),
+                        spacing,
+                        time(s),
+                        spacing,
+                        date(s),
+                        spacing,
+                        systray(s),
+                        spacing,
+                        notification_center_toggle(s)
                     },
-                    -- StatusBar._initRightWidgets(right_widgets, s)
                 },
             },
         },
@@ -116,46 +141,12 @@ local systray = Systray.new(s)
             layout = Wibox.layout.align.horizontal,
             expand = "outside",
             nil,
-            StatusBar._initWidgets(middle_widgets, s),
+            tasklist(s)
         }
     })
 
-    return newInstance
 end
 
-function StatusBar._initRightWidgets(listOfWidgets, s)
-    local container = Wibox.widget({
-        layout = Wibox.layout.fixed.horizontal,
-    })
-
-    local spacing = Wibox.widget({
-        widget = Wibox.container.background,
-        forced_width = Beautiful.bar.rightPanelChildSpacing,
-    })
-
-    for _, v in pairs(listOfWidgets) do
-        if v and v.widget then
-            container:add(spacing)
-            container:add(v.widget)
-        end
-    end
-
-    return container
-end
-
---- @param list_of_widgets BaseWidget[]
-function StatusBar._initWidgets(list_of_widgets, s, parent_widget)
-
-    if parent_widget == nil then
-        parent_widget = Wibox.widget({
-            layout = Wibox.layout.fixed.horizontal,
-            widget = Wibox.container.background,
-        })
-    end
-
-    for _, entry in ipairs(list_of_widgets) do
-        parent_widget:add(entry.widget)
-    end
-
-    return parent_widget
-end
+awful.screen.connect_for_each_screen(function(s)
+    create(s)
+end)

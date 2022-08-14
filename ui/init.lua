@@ -9,7 +9,7 @@ load_all("ui", {
 
 --- @type BaseWidget[]
 local widgetsForEachScreen = {
-    StatusBar,
+    -- StatusBar,
     VolumePopupWidget,
 }
 

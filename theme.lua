@@ -247,8 +247,8 @@ theme.tooltip = {
 
 theme.notification_center = {
     bg = theme.black,
-    panel_bg = theme.gray .. "99",
-    panel_margin = dpi(20),
+    panel_bg = theme.gray .. "33",
+    panel_margin = dpi(10),
     width = Dpi(400),
     border_width = Dpi(3),
     border_color = theme.gray,

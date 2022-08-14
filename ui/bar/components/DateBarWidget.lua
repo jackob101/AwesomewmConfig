@@ -1,25 +1,27 @@
+--- @type Wibox
+local wibox = require("wibox")
 
---- @class DateBarWidget
-DateBarWidget = {}
-DateBarWidget.__index = DateBarWidget
+--- @type Beautiful
+local beautiful = require 'beautiful'
 
---- @return DateBarWidget
-function DateBarWidget.new()
-    local newDateWidget = {}
-    setmetatable(newDateWidget, DateBarWidget)
 
-    local calendar = Wibox.widget({
-        widget = Wibox.widget.textclock,
-        format = "%a %b %d",
-        font = Beautiful.bar.font,
-    })
 
-    newDateWidget.widget = Wibox.widget({
-        IconsHandler.icons.calendar.widget(),
-        calendar,
-        layout = Wibox.layout.fixed.horizontal,
-        spacing = Beautiful.bar.barIconTextSpacing,
-    })
+local calendar = wibox.widget({
+    widget = wibox.widget.textclock,
+    format = "%a %b %d",
+    font = beautiful.bar.font,
+})
 
-    return newDateWidget
+local widget = wibox.widget({
+    IconsHandler.icons.calendar.widget(),
+    calendar,
+    layout = wibox.layout.fixed.horizontal,
+    spacing = beautiful.bar.barIconTextSpacing,
+})
+
+local function create()
+    return widget
 end
+
+
+return create 
