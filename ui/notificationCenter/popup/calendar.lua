@@ -16,9 +16,6 @@ local naughty = require 'naughty'
 --- @type Gears
 local gears = require 'gears'
 
---- @type Awful
-local awful = require 'awful'
-
 --- @type Widgets
 local widgets = require 'widgets'
 

@@ -11,9 +11,6 @@ local awful = require('awful')
 --- @type Beautiful
 local beautiful = require('beautiful')
 
---- @type Wibox
-local wibox = require("wibox")
-
 --- @type Widgets
 local widgets  = require("widgets")
 
