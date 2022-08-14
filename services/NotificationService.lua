@@ -42,7 +42,7 @@ function NotificationService._setUpRules()
         Ruled.notification.append_rule({
             rule = { urgency = "normal" },
             properties = {
-                timeout = 1,
+                timeout = 5,
                 implicit_timeout = 5,
                 border_color = Beautiful.notification.borderNormal
             },
@@ -50,7 +50,7 @@ function NotificationService._setUpRules()
         Ruled.notification.append_rule({
             rule = { urgency = "low" },
             properties = {
-                implicit_timeout = 1,
+                implicit_timeout = 5,
                 border_color = Beautiful.notification.borderNormal
             },
         })

@@ -5,6 +5,8 @@ require("awful.autofocus")
 
 require("preInit")
 
+Signals = require("signals")
+
 require("utils")
 
 require("configs.keybindings")
@@ -32,5 +34,5 @@ Menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 
 
 
-VolumeService.update()
+awesome.emit_signal(Signals.volume_update)
 
