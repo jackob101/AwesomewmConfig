@@ -7,18 +7,6 @@ local awful = require('awful')
 --- @type Beautiful
 local beautiful = require('beautiful')
 
-local notification_toggle = require("ui.notificationCenter")
--- Load widget classes into scope
--- load_all("ui.bar.components", {
---     "Volume",
---     "DateBarWidget",
---     "systray",
---     "taglist",
---     "tasklist",
---     "TilingStatus",
---     "TimeBarWidget",
---     "MacroBarIndicatorWidget"
--- })
 
 local tilign_status = require(... .. ".components.TilingStatus")
 local taglist = require(... .. ".components.taglist")
@@ -34,54 +22,6 @@ local notification_center_toggle = require("ui.notificationCenter")
 
 
 
-----------------------------------------
--- What widgets are present on bar
-----------------------------------------
-local function add_widgets_with_space_before(widgets)
-    local layout = wibox.widget({
-        layout = Wibox.layout.fixed.horizontal,
-    })
-
-    local spacing = Wibox.widget({
-        widget = Wibox.container.background,
-        forced_width = Beautiful.bar.rightPanelChildSpacing,
-    })
-
-    for i, v in pairs(widgets) do
-        if v then
-            if i == 1 then
-                layout:add(v)
-            else
-                layout:add(spacing)
-                layout:add(v)
-            end
-        end
-    end
-
-    return layout
-end
-
---- @param list_of_widgets BaseWidget[]
-local function initWidgets(list_of_widgets, s, parent_widget)
-
-    if parent_widget == nil then
-        parent_widget = wibox.widget({
-            layout = wibox.layout.fixed.horizontal,
-            widget = wibox.container.background,
-        })
-    end
-
-    for _, entry in ipairs(list_of_widgets) do
-        if type(entry) == "function" then
-            parent_widget:add(entry(s))
-        else
-            parent_widget:add(entry)
-        end
-    end
-
-    return parent_widget
-end
-
 --- @param s Screen
 local function create(s)
 
@@ -91,35 +31,35 @@ local function create(s)
     })
 
     -- Create the wibar
-    local widget = Awful.wibar({
+    local widget = awful.wibar({
         position = "bottom",
         screen = s,
-        height = Beautiful.bar.barHeight,
-        bg = Beautiful.black .. Beautiful.bar_opacity,
+        height = beautiful.bar.barHeight,
+        bg = beautiful.black .. beautiful.bar_opacity,
     })
 
 
     -- Add widgets to the wibox
     widget:setup({
-        layout = Wibox.layout.stack,
+        layout = wibox.layout.stack,
         {
-            layout = Wibox.layout.align.horizontal,
+            layout = wibox.layout.align.horizontal,
             expand = "outside",
-            widget = Wibox.container.background,
+            widget = wibox.container.background,
             {
-                layout = Wibox.layout.align.horizontal,
+                layout = wibox.layout.align.horizontal,
                 expand = "inside",
                 {
-                    widget = Wibox.container.margin,
-                    margins = Beautiful.bar.leftPanelMargins,
-                    layout = Wibox.layout.fixed.horizontal,
+                    widget = wibox.container.margin,
+                    margins = beautiful.bar.leftPanelMargins,
+                    layout = wibox.layout.fixed.horizontal,
                     tilign_status(s),
                     taglist(s),
                 },
                 nil,
                 {
-                    widget = Wibox.container.margin,
-                    margins = Beautiful.bar.rightPanelMargins,
+                    widget = wibox.container.margin,
+                    margins = beautiful.bar.rightPanelMargins,
                     {
                         layout = wibox.layout.fixed.horizontal,
                         macro_indicator(s),
@@ -138,7 +78,7 @@ local function create(s)
             },
         },
         {
-            layout = Wibox.layout.align.horizontal,
+            layout = wibox.layout.align.horizontal,
             expand = "outside",
             nil,
             tasklist(s)
