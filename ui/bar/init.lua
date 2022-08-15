@@ -14,7 +14,7 @@ local taglist = require(... .. ".components.taglist")
 local tasklist = require(... .. ".components.tasklist")
 
 local volume = require(... .. ".components.Volume")
-local time = require(... .. ".components.TimeBarWidget")
+local time = require(... .. ".components.clock")
 local date = require(... .. ".components.DateBarWidget")
 local systray = require((...) .. ".components.systray")
 local notification_center_toggle = require("ui.notificationCenter")

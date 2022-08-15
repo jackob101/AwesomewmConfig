@@ -36,6 +36,7 @@ local build_power_button = function(name, icon, callback)
         widgets.button({
             text = icon,
             font_size = 60,
+            font = beautiful.icons_font,
             width = dpi(120),
             height = dpi(120),
             shape = helpers.ui.rrect(),

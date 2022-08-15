@@ -47,6 +47,11 @@ theme.corner_radius = 10
 theme.border_width = dpi(3)
 theme.border_color = theme.gray
 
+theme.bar_font_size = 10
+theme.bar_icons_size = 14
+theme.bar_icon_text_spacing = dpi(3)
+
+
 -- General settings
 theme.color8 = xrdb.color8
 theme.color9 = "#f7768e"
@@ -97,7 +102,6 @@ theme.fg_minimize = xrdb.foreground or "#D8DEE9"
 -- Status bar
 theme.bar_height = dpi(32)
 theme.bar_opacity = "FF"
-theme.bar_icon_text_spacing = dpi(5)
 theme.bar_icon_margin = dpi(2)
 
 theme.groups_bg = xrdb.color2 .. "77"
@@ -105,15 +109,14 @@ theme.groups_bg = xrdb.color2 .. "77"
 -- Generate taglist squares:
 theme.taglist_squares_sel = theme_assets.taglist_squares_sel(dpi(0), theme.fg_focus)
 theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(dpi(0), theme.fg_normal)
-theme.taglist_fg_focus = theme.fg_normal
+theme.taglist_fg_focus = theme.foreground
 theme.taglist_fg_urgent = theme.fg_normal
 theme.taglist_bg_focus = theme.color10
 theme.taglist_bg_urgent = xrdb.color9
 theme.taglist_bg_occupied = theme.bg_overlay_transparent
 -- theme.taglist_bg_occupied = xrdb.color12
--- theme.taglist_fg_occupied = xrdb.background
-theme.taglist_font = theme.font_name .. "14"
-theme.taglist_only_icons = true
+theme.taglist_fg_occupied = theme.foreground
+theme.taglist_font = theme.font_name .. "13"
 
 theme.calendar_font = theme.font_name .. theme.font_size
 
@@ -127,7 +130,7 @@ theme.calendar_font = theme.font_name .. theme.font_size
 theme.bar = {
     font = theme.font,
     barHeight = theme.bar_height,
-    rightPanelMargins = (theme.bar_height - (theme.bar_height * 0.5)) / 2,
+    rightPanelMargins = (theme.bar_height - (theme.bar_height * 0.5)) / 3,
     rightPanelChildSpacing = dpi(15),
     leftPanelMargins = (theme.bar_height - (theme.bar_height * 1)) / 2,
     barIconTextSpacing = dpi(5),

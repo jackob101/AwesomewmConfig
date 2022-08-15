@@ -19,6 +19,8 @@ local gears = require('gears')
 --- @type Menubar
 local menubar = require("menubar")
 
+local dpi = beautiful.xresources.apply_dpi
+
 local isDndOn = false
 
 local function toggle()

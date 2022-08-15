@@ -18,7 +18,7 @@ local function create(callback)
 
     local button = widgets.button({
         text = "",
-        font_size = 14,
+        font_size = beautiful.bar_icons_size,
         bg = beautiful.transparent,
         border_color = beautiful.transparent,
         on_click = function()
