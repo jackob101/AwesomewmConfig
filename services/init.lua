@@ -4,14 +4,12 @@ load_all("services", {
     "VolumeService",
     "ClientMoverService",
     "PostureCheckNotificator",
-    -- "MacroService",
 })
 
 
 -- DO NOT EDIT! To disable service remove it from 'load_all' function above
 --- @type Initializable[]
 local services = {
-    -- MacroService,
     ClientMoverService,
 }
 

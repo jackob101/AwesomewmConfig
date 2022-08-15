@@ -13,7 +13,6 @@ local taglist = require(... .. ".components.taglist")
 
 local tasklist = require(... .. ".components.tasklist")
 
-local macro_indicator = require(... .. ".components.MacroBarIndicatorWidget")
 local volume = require(... .. ".components.Volume")
 local time = require(... .. ".components.TimeBarWidget")
 local date = require(... .. ".components.DateBarWidget")
@@ -62,8 +61,6 @@ local function create(s)
                     margins = beautiful.bar.rightPanelMargins,
                     {
                         layout = wibox.layout.fixed.horizontal,
-                        macro_indicator(s),
-                        spacing,
                         volume(s),
                         spacing,
                         time(s),
