@@ -45,15 +45,14 @@ end)
 -- ╚███╔███╔╝██║  ██║███████╗███████╗██║     ██║  ██║██║     ███████╗██║  ██║
 --  ╚══╝╚══╝ ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝     ╚═╝  ╚═╝╚═╝     ╚══════╝╚═╝  ╚═╝
 
-local wallpaper_folder = os.getenv("HOME") .. "/Wallpapers"
-local wallpaper = gears.filesystem.get_random_file_from_dir(wallpaper_folder)
+local wallpaper = gears.filesystem.get_random_file_from_dir(CONFIG.wallpaper_folder)
 -- Create a wibox for each screen and add it
 local function set_wallpaper(s)
 	-- Wallpaper
 	awful.wallpaper({
 		screen = s,
 		widget = {
-			image = wallpaper_folder .. "/" .. wallpaper,
+			image = CONFIG.wallpaper_folder .. "/" .. wallpaper,
 			resize = true,
 			horizontal_fit_policy = "fit",
 			vertical_fit_policy = "fit",
