@@ -13,16 +13,17 @@ local beautiful = require('beautiful')
 --- @type Wibox
 local wibox = require("wibox")
 
+--- @type Widgets
+local widgets = require("widgets")
 
 
-local icon_widget = wibox.widget({
-    resize = true,
-    widget = wibox.widget.imagebox,
+local icon_widget = widgets.text({
+    size = beautiful.bar_icons_size,
 })
 
-local text_widget = wibox.widget({
+local text_widget = widgets.text({
+    size = beautiful.bar_font_size,
     text = "",
-    widget = wibox.widget.textbox,
 })
 
 local volume_widget = wibox.widget({
@@ -41,10 +42,8 @@ local volume_widget = wibox.widget({
 
 local tooltip = utils.generate_tooltip(volume_widget, "Click to mute")
 
-local function setNewStyle(icon, color)
-    icon_widget.image = icon
-    icon_widget.stylesheet = "#image{fill: " .. color .. ";}"
-    volume_widget.fg = color
+local function setNewStyle(icon)
+    icon_widget:set_text(icon)
 end
 
 volume_widget:connect_signal("button::press", function(_, _, _, b)
@@ -75,16 +74,16 @@ end)
 
 awesome.connect_signal(Signals.volume_update_widgets, function(newVolume, isMute, _)
     if isMute then
-        setNewStyle(IconsHandler.icons.volume_mute.path, beautiful.volumeBarWidget.mutedFg)
+        setNewStyle("")
         tooltip.text = "Click to unmute"
         text_widget.text = "Muted"
     else
-        if newVolume >= 75 then
-            setNewStyle(IconsHandler.icons.volume_high.path, beautiful.volumeBarWidget.highFg)
-        elseif newVolume < 75 and newVolume >= 35 then
-            setNewStyle(IconsHandler.icons.volume_medium.path, beautiful.volumeBarWidget.highFg)
+        if newVolume >= 50 then
+            setNewStyle("")
+        elseif newVolume < 50 and newVolume > 0 then
+            setNewStyle("")
         else
-            setNewStyle(IconsHandler.icons.volume_low.path, beautiful.volumeBarWidget.highFg)
+            setNewStyle("")
         end
         tooltip.text = "Click to mute"
         text_widget.text = newVolume .. "%"
