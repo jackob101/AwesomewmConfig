@@ -1,18 +1,21 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
-local clientbuttons = require("configs.client.buttons")
 
 local twoScreens = screen:count() == 2
 
-client.connect_signal('request::manage', function(c)
-    -- Center dialogs over parent
-    if c.transient_for then
-        awful.placement.centered(c, {
-            parent = c.transient_for
-        })
-        awful.placement.no_offscreen(c)
-    end
-end)
+local clientbuttons = Gears.table.join(
+	Awful.button({}, 1, function(c)
+		c:emit_signal("request::activate", "mouse_click", { raise = true })
+	end),
+	Awful.button({ ModKey }, 1, function(c)
+		c:emit_signal("request::activate", "mouse_click", { raise = true })
+		Awful.mouse.client.move(c)
+	end),
+	Awful.button({ ModKey }, 3, function(c)
+		c:emit_signal("request::activate", "mouse_click", { raise = true })
+		Awful.mouse.client.resize(c)
+	end)
+)
 
 awful.rules.rules = {
     {
