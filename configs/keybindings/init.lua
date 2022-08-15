@@ -1,55 +1,9 @@
---- @class Keybinds
---- @field global Key[]
---- @field client Key[]
-Keybinds = {
-    global = {},
-    client = {},
-    macros = {},
-    isInitialized = false
-}
+--- @type Awful
+local awful = require('awful')
 
-function Keybinds.init()
 
-    if Keybinds.isInitialized then
-        return
-    end
+local global_keybinds = require("configs.keybindings.GlobalKeybinds")
+local client_keybinds = require("configs.keybindings.ClientKeybinds")
 
-    local keybindsToInit = {
-        "AwesomeKeybinds",
-        "ClientKeybinds",
-        "LauncherKeybinds",
-        "LayoutKeybinds",
-        "TagsKeybinds",
-        "ScreenKeybinds",
-    }
-
-    for _, v in ipairs(keybindsToInit) do
-        require("configs.keybindings." .. v)()
-    end
-
-    root.keys(Keybinds.global)
-
-    Keybinds.isInitialized = true
-end
-
---- @param joinMacros boolean
-function Keybinds.refresh(joinMacros)
-    if joinMacros then
-        root.keys(Gears.table.join(Keybinds.global, Keybinds.macros))
-    else
-        root.keys(Keybinds.global)
-    end
-end
-
-function Keybinds.connectForGlobal(keybinds)
-    table.merge(Keybinds.global, keybinds)
-    Keybinds.refresh(false)
-end
-
-function Keybinds.connectForClient(keybinds)
-    table.merge(Keybinds.client, keybinds)
-end
-
-function Keybinds.connectForMacro(keybinds)
-    table.merge(Keybinds.macros, keybinds)
-end
+awful.keyboard.append_global_keybindings(global_keybinds)
+awful.keyboard.append_client_keybindings(client_keybinds)

@@ -8,7 +8,9 @@ local signals = {
     volume_set = "volume::set", --- newValue: number, shouldDisplayPopup: boolean
     dnd_toggle = "dnd::toggle", --- \
     dnd_update = "dnd::update", --- isOn: boolean \
-    client_mover_start = "client:mover::start" --- client: Client \
+    client_mover_start = "client:mover::start", --- client: Client \
+    macros_toggle = "macros::toggle", --- \
+    notification_panel_toggle = "notification:panel::toggle", --- \
 }
 
 return signals

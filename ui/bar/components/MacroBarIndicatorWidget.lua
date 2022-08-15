@@ -16,7 +16,6 @@ function widget:update(isOn)
     end
 end
 
-MacroService.connect(widget)
 
 return function()
     return widget

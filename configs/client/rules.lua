@@ -4,6 +4,16 @@ local clientbuttons = require("configs.client.buttons")
 
 local twoScreens = screen:count() == 2
 
+client.connect_signal('request::manage', function(c)
+    -- Center dialogs over parent
+    if c.transient_for then
+        awful.placement.centered(c, {
+            parent = c.transient_for
+        })
+        awful.placement.no_offscreen(c)
+    end
+end)
+
 awful.rules.rules = {
     {
         rule = {},
@@ -12,7 +22,6 @@ awful.rules.rules = {
             border_color = beautiful.border_normal,
             focus = awful.client.focus.filter,
             raise = true,
-            keys = Keybinds.client,
             buttons = clientbuttons,
             titlebars_enabled = false,
             screen = awful.screen.preferred,
@@ -95,6 +104,7 @@ awful.rules.rules = {
         properties = {
             tag = "9",
             screen = twoScreens and 2 or 1,
+            floating = false,
         },
     },
     {

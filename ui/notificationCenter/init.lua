@@ -1,6 +1,3 @@
---- @type Gears
-local gears = require('gears')
-
 local notification_toggle = require((...) .. ".widget")
 
 --- @type Awful
@@ -28,21 +25,10 @@ local function toggle_popup()
 end
 
 
-Keybinds.connectForGlobal(gears.table.join(
-    Awful.key(
-        { ModKey },
-        "c",
-        function()
-            toggle_popup()
-        end,
-        { description = "panel", group = "notification center" }
-    )))
-
-
-
-
 local function create_bar_widget()
     return notification_toggle(toggle_popup)
 end
+
+awesome.connect_signal(Signals.notification_panel_toggle, toggle_popup)
 
 return create_bar_widget

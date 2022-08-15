@@ -66,49 +66,17 @@ end
 
 function MacroService._initKeybinds()
     Keybinds.connectForGlobal(Gears.table.join(
-            Awful.key(
-                    { ModKey, "Shift", "Control" },
-                    "m",
-                    function()
-                        MacroService.toggle()
-                    end,
-                    { description = "Toggle macros", group = "Macros" }
-            )))
+        Awful.key(
+            { ModKey, "Shift", "Control" },
+            "m",
+            function()
+                MacroService.toggle()
+            end,
+            { description = "Toggle macros", group = "Macros" }
+        )))
 
     Keybinds.connectForMacro(Gears.table.join(
-            Awful.key(
-                    {},
-                    "`",
-                    function()
-                        MacroService._mouseButtonClick(1)
-                    end,
-                    { description = "Spam click LMB", group = "Macros" }
-            ),
-            Awful.key(
-                    { "Shift" },
-                    "`",
-                    function()
-                        root.fake_input("key_press", "Shift_L")
-                        MacroService._mouseButtonClick(1)
-                    end,
-                    function()
-                        root.fake_input("key_release", "Shift_L")
-                    end,
-                    { description = "Spam click Shift + LMB", group = "Macros" }
-            ),
-            Awful.key(
-                    { "Ctrl" },
-                    "`",
-                    function()
-                        root.fake_input("key_press", "Control_L")
-                        MacroService._mouseButtonClick(1)
-                    end,
-                    function()
-                        root.fake_input("key_release", "Control_L")
-                    end,
-                    { description = "Spam click Control + LMB", group = "Macros" }
-            )
-
+     
     ))
 
 end

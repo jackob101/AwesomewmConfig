@@ -2,7 +2,6 @@
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
 require("awful.autofocus")
-
 require("preInit")
 
 Signals = require("signals")
@@ -10,7 +9,6 @@ Signals = require("signals")
 require("utils")
 
 require("configs.keybindings")
-Keybinds.init()
 
 require("icons")
 IconsHandler.init()
