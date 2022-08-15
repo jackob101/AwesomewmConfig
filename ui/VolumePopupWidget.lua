@@ -35,11 +35,9 @@ VolumePopupWidget = {
 }
 VolumePopupWidget.__index = VolumePopupWidget
 
+
 --- @return VolumePopupWidget
 function VolumePopupWidget.new(s)
-    if not VolumeService and not VolumeService.isInitialized then
-        return
-    end
 
     --- @type VolumePopupWidget
     local newInstance = {}
@@ -58,7 +56,9 @@ function VolumePopupWidget.new(s)
         end,
     })
 
-    VolumeService.connect(newInstance)
+    awesome.connect_signal(Signals.volume_update_widgets, function(newVolume, isMute, shouldDisplay)
+        newInstance:update(newVolume, isMute, shouldDisplay)
+    end)
     return newInstance
 end
 
@@ -149,7 +149,6 @@ function VolumePopupWidget:_setUpSignals()
     end)
 
     VolumePopupWidget.volumeSlider:connect_signal("property::value", function(_, newValue)
-        VolumeService.set(newValue, false)
+        awesome.emit_signal(Signals.volume_set, newValue, false)
     end)
 end
-

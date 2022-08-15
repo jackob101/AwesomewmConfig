@@ -1,31 +1,13 @@
 local icons = require("icons")
 
---- @class PostureCheckNotificator : Initializable
-PostureCheckNotificator = {
-    isInitialized = false,
-    isOn = false,
-}
+--- @type Naughty
+local naughty = require('naughty')
 
---- @return PostureCheckNotificator
-function PostureCheckNotificator.init()
+--- @type Gears
+local gears = require('gears')
 
-    if PostureCheckNotificator.isInitialized then
-        return PostureCheckNotificator
-    end
-
-    PostureCheckNotificator.timer = Gears.timer {
-        timeout = 1800,
-        autostart = true,
-        call_now = false,
-        callback = PostureCheckNotificator.createNotification,
-    }
-
-    PostureCheckNotificator.isInitialized = true
-    PostureCheckNotificator.isOn = true
-end
-
-function PostureCheckNotificator.createNotification()
-    Naughty.notification({
+local function createNotification()
+    naughty.notification({
         title = "Posture check",
         message = "Are you sitting properly?",
         icon = IconsHandler.icons.posture.path,
@@ -34,22 +16,10 @@ function PostureCheckNotificator.createNotification()
     })
 end
 
-function PostureCheckNotificator.start()
+gears.timer {
+    timeout = 1800,
+    autostart = true,
+    call_now = false,
+    callback = createNotification,
+}
 
-    if not PostureCheckNotificator.isInitialized then
-        PostureCheckNotificator.new()
-    end
-
-    PostureCheckNotificator.isOn = true
-    PostureCheckNotificator.timer:start()
-end
-
-function PostureCheckNotificator.stop()
-
-    if not PostureCheckNotificator.isInitialized then
-        PostureCheckNotificator.new()
-    end
-
-    PostureCheckNotificator.isOn = false
-    PostureCheckNotificator.timer:stop()
-end

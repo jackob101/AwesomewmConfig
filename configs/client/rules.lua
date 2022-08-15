@@ -1,8 +1,21 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
-local clientbuttons = require("configs.client.buttons")
 
 local twoScreens = screen:count() == 2
+
+local clientbuttons = Gears.table.join(
+	Awful.button({}, 1, function(c)
+		c:emit_signal("request::activate", "mouse_click", { raise = true })
+	end),
+	Awful.button({ ModKey }, 1, function(c)
+		c:emit_signal("request::activate", "mouse_click", { raise = true })
+		Awful.mouse.client.move(c)
+	end),
+	Awful.button({ ModKey }, 3, function(c)
+		c:emit_signal("request::activate", "mouse_click", { raise = true })
+		Awful.mouse.client.resize(c)
+	end)
+)
 
 awful.rules.rules = {
     {
@@ -12,7 +25,6 @@ awful.rules.rules = {
             border_color = beautiful.border_normal,
             focus = awful.client.focus.filter,
             raise = true,
-            keys = Keybinds.client,
             buttons = clientbuttons,
             titlebars_enabled = false,
             screen = awful.screen.preferred,
@@ -95,6 +107,7 @@ awful.rules.rules = {
         properties = {
             tag = "9",
             screen = twoScreens and 2 or 1,
+            floating = false,
         },
     },
     {

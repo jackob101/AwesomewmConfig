@@ -13,7 +13,6 @@ local taglist = require(... .. ".components.taglist")
 
 local tasklist = require(... .. ".components.tasklist")
 
-local macro_indicator = require(... .. ".components.MacroBarIndicatorWidget")
 local volume = require(... .. ".components.Volume")
 local time = require(... .. ".components.TimeBarWidget")
 local date = require(... .. ".components.DateBarWidget")
@@ -24,11 +23,6 @@ local notification_center_toggle = require("ui.notificationCenter")
 
 --- @param s Screen
 local function create(s)
-
-    local spacing = wibox.widget({
-        widget = wibox.container.background,
-        forced_width = beautiful.bar.rightPanelChildSpacing
-    })
 
     -- Create the wibar
     local widget = awful.wibar({
@@ -62,16 +56,11 @@ local function create(s)
                     margins = beautiful.bar.rightPanelMargins,
                     {
                         layout = wibox.layout.fixed.horizontal,
-                        macro_indicator(s),
-                        spacing,
+                        spacing = beautiful.bar.rightPanelChildSpacing,
                         volume(s),
-                        spacing,
                         time(s),
-                        spacing,
                         date(s),
-                        spacing,
                         systray(s),
-                        spacing,
                         notification_center_toggle(s)
                     },
                 },

@@ -1,90 +1,56 @@
+--- @type Gears
+local gears = require("gears")
+
+--- @type Awful
+local awful = require('awful')
+
+-- This is soo stupid but it works
+local canServe = true
+
+
 local INC_VOLUME_CMD = "amixer -D pulse sset Master 5%+"
 local DEC_VOLUME_CMD = "amixer -D pulse sset Master 5%-"
 local TOG_VOLUME_CMD = "amixer -D pulse sset Master toggle"
-local UPDATE_SIGNAL = "module::volume::widgets:update"
 
---- @class VolumeUpdatableWidget : BaseWidget
---- @field update fun(self: Widget, newVolume: number, isMute:boolean, shouldDisplay: boolean)
-
-
---- @class VolumeService : Initializable This class is a singletoon responsible for all things about handling Volume
---- @field toUpdate VolumeUpdatableWidget[]
---- @field canServe boolean Indicates if service can handle another request
-VolumeService = {
-    isInitialized = false,
-    toUpdate = {},
-    canServe = true,
-}
-
---- @return VolumeService
-function VolumeService.init()
-
-    if VolumeService.isInitialized then
-        return
-    end
-
-    Gears.timer {
-        timeout = 5,
-        autostart = true,
-        call_now = true,
-        callback = function()
-            VolumeService.update(false)
-        end
-
-    }
-
-    VolumeService._initKeybinds()
-
-    VolumeService.isInitialized = true
-end
-
---- @param widget VolumeUpdatableWidget
-function VolumeService.connect(widget)
-    table.insert(VolumeService.toUpdate, widget)
-end
-
-function VolumeService.update(shouldDisplay)
-    Awful.spawn.easy_async_with_shell("amixer -D pulse sget Master", function(out)
-        local isMute = string.match(out, "%[(o%D%D?)%]") == "off"  -- \[(o\D\D?)\] - [on] or [off]
+local function update(shouldDisplay)
+    awful.spawn.easy_async_with_shell("amixer -D pulse sget Master", function(out)
+        local isMute = string.match(out, "%[(o%D%D?)%]") == "off" -- \[(o\D\D?)\] - [on] or [off]
         local newVolume = tonumber(string.match(out, "(%d?%d?%d)%%"))
+        local shouldDisplay = shouldDisplay or false
 
-        for _, w in ipairs(VolumeService.toUpdate) do
-            if shouldDisplay == nil then
-                shouldDisplay = false
-            end
-            w:update(newVolume, isMute, shouldDisplay)
-        end
+        awesome.emit_signal(Signals.volume_update_widgets, newVolume, isMute, shouldDisplay)
+
         canServe = true;
     end)
 end
-
-function VolumeService.increase(shouldDisplay)
+ 
+local function increase(shouldDisplay)
     if canServe then
         canServe = false
-        Awful.spawn.easy_async_with_shell(INC_VOLUME_CMD, function()
-            VolumeService.update(shouldDisplay)
+        awful.spawn.easy_async_with_shell(INC_VOLUME_CMD, function()
+            update(shouldDisplay)
         end)
         return true
     end
     return false
 end
 
-function VolumeService.decrease(shouldDisplay)
+local function decrease(shouldDisplay)
     if canServe then
         canServe = false
-        Awful.spawn.easy_async_with_shell(DEC_VOLUME_CMD, function()
-            VolumeService.update(shouldDisplay)
+        awful.spawn.easy_async_with_shell(DEC_VOLUME_CMD, function()
+            update(shouldDisplay)
         end)
         return true
     end
     return false
 end
 
-function VolumeService.toggle(shouldDisplay)
+local function toggle(shouldDisplay)
     if canServe then
         canServe = false
-        Awful.spawn.easy_async_with_shell(TOG_VOLUME_CMD, function()
-            VolumeService.update(shouldDisplay)
+        awful.spawn.easy_async_with_shell(TOG_VOLUME_CMD, function()
+            update(shouldDisplay)
         end)
         return true
     end
@@ -92,13 +58,13 @@ function VolumeService.toggle(shouldDisplay)
 end
 
 --- @param amount number Amount to set volume to
-function VolumeService.set(amount, shouldDisplay)
+local function set(amount, shouldDisplay)
     if canServe then
         if amount and type(amount) == "number" then
             if amount >= 0 and amount <= 100 then
                 canServe = false
-                Awful.spawn.easy_async_with_shell("amixer -D pulse sset Master " .. amount .. "%", function()
-                    VolumeService.update(shouldDisplay)
+                awful.spawn.easy_async_with_shell("amixer -D pulse sset Master " .. amount .. "%", function()
+                    update(shouldDisplay)
                 end)
                 return true
             end
@@ -107,34 +73,19 @@ function VolumeService.set(amount, shouldDisplay)
     return false
 end
 
-function VolumeService._initKeybinds()
-    Keybinds.connectForGlobal(Gears.table.join(
-            Awful.key(
-                    {  },
-                    "XF86AudioRaiseVolume",
-                    function()
-                        VolumeService.increase(true)
-                    end,
-                    { description = "Increase volume", group = "audio" }
-            ),
 
-            Awful.key(
-                    {  },
-                    "XF86AudioLowerVolume",
-                    function()
-                        VolumeService.decrease(true)
-                    end,
-                    { description = "Decrease volume", group = "audio" }
-            ),
+awesome.connect_signal(Signals.volume_decrease, decrease)
+awesome.connect_signal(Signals.volume_increase, increase)
+awesome.connect_signal(Signals.volume_toggle, toggle)
+awesome.connect_signal(Signals.volume_update, update)
+awesome.connect_signal(Signals.volume_set, set)
 
-            Awful.key(
-                    {  },
-                    "XF86AudioMute",
-                    function()
-                        VolumeService.toggle(false)
-                    end,
-                    { description = "Mute audio", group = "audio" }
-            )
-    ))
-end
 
+gears.timer {
+    timeout = 5,
+    autostart = true,
+    call_now = true,
+    callback = function()
+        update(false)
+    end
+}
