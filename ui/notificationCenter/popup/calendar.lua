@@ -119,6 +119,7 @@ local function new()
 
 	ret.month = widgets.button({
 		bg = beautiful.transparent,
+		font_size = 20,
 		border_color = beautiful.transparent,
 		apply_hover = true,
 		fg_hover = beautiful.accent,
@@ -133,8 +134,8 @@ local function new()
 		widgets.button({
 			font = "Material Icons",
 			text = "",
-			font_size = 25,
-			width = dpi(33),
+			font_size = 23,
+			width = dpi(40),
 			bg = beautiful.transparent,
 			border_color = beautiful.transparent,
 			apply_hover = true,
@@ -149,12 +150,13 @@ local function new()
 			valign = "center",
 			halign = "center",
 			ret.month,
-		},
+		}
+		,
 		widgets.button({
 			font = "Material Icons",
 			text = "",
-			font_size = 25,
-			width = dpi(33),
+			font_size = 23,
+			width = dpi(40),
 			bg = beautiful.transparent,
 			border_color = beautiful.transparent,
 			apply_hover = true,
@@ -177,7 +179,7 @@ local function new()
 	local widget = wibox.widget({
 		widget = wibox.container.background,
 		bg = beautiful.notification_center.panel_bg,
-		shape = function (cr, width, height)
+		shape = function(cr, width, height)
 			return gears.shape.rounded_rect(cr, width, height, beautiful.corner_radius)
 		end,
 		{
