@@ -6,6 +6,9 @@ local signals = {
     volume_update = "volume::update", ---  \ Needed to update volume service
     volume_update_widgets = "volume::update_widget", --- newVolume: number, isMute boolean, shoulDisplayPopup boolean \
     volume_set = "volume::set", --- newValue: number, shouldDisplayPopup: boolean
+    dnd_toggle = "dnd::toggle", --- \
+    dnd_update = "dnd::update", --- isOn: boolean \
+    client_mover_start = "client:mover::start" --- client: Client \
 }
 
 return signals

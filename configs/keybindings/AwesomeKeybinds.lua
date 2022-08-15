@@ -55,7 +55,24 @@ return function()
                                 awesome.emit_signal(Signals.volume_toggle, false)
                         end,
                         { description = "Mute audio", group = "audio" }
+                ),
+
+
+
+
+
+                Awful.key(
+                        { ModKey, "Shift" },
+                        "t",
+                        function()
+                                awesome.emit_signal(Signals.dnd_toggle)
+                        end,
+                        { description = "Toggle DND mode", group = "DND" }
                 )
+
+              
+
+
 
         ))
 

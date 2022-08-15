@@ -1,6 +1,5 @@
 
 load_all("services", {
-    "DoNotDisturbService",
     "NotificationService",
     "VolumeService",
     "ClientMoverService",
@@ -13,11 +12,7 @@ load_all("services", {
 --- @type Initializable[]
 local services = {
     MacroService,
-    DoNotDisturbService,
-    NotificationService,
-    VolumeService,
     ClientMoverService,
-    PostureCheckNotificator,
 }
 
 for i, service in pairs(services) do
