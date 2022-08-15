@@ -110,8 +110,5 @@ function Utils.hover_effect(widget)
     Utils.background_hover(widget)
 end
 
--- Global utils
-function firstToUpper(str)
-    return (str:gsub("^%l", string.upper))
-end
+
 return Utils

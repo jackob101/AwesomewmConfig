@@ -7,7 +7,8 @@ local beautiful = require 'beautiful'
 --- @type Awful
 local awful = require("awful")
 
-
+--- @type Helpers
+local helpers = require("helpers")
 
 local widgets = {}
 
@@ -16,7 +17,7 @@ local function update_from_tag(t)
     local w = widgets[s.index]
     if w then
         local tag_layout = awful.layout.getname(awful.layout.get(s))
-        w:get_children_by_id("tag_layout")[1].text = firstToUpper(tag_layout)
+        w:get_children_by_id("tag_layout")[1].text = helpers.text.first_to_upper(tag_layout)
     end
 end
 

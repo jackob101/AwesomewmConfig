@@ -55,10 +55,10 @@ end
 function IconsHandler.addIcon(fileName)
 	return {
 		widget = function(color)
-			local icon_color = color or Beautiful.fg_normal
+			local icon_color = color or beautiful.fg_normal
 			local stylesheet = "*{fill: " .. icon_color .. " ;}"
-			return Wibox.widget({
-				widget = Wibox.widget.imagebox,
+			return wibox.widget({
+				widget = wibox.widget.imagebox,
 				image = dir .. fileName,
 				stylesheet = stylesheet,
 			})

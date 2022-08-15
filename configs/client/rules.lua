@@ -1,20 +1,24 @@
-local awful = require("awful")
 local beautiful = require("beautiful")
+--- @type Awful
+local awful = require('awful')
+
+--- @type Gears
+local gears = require('gears')
 
 local twoScreens = screen:count() == 2
 
-local clientbuttons = Gears.table.join(
-	Awful.button({}, 1, function(c)
-		c:emit_signal("request::activate", "mouse_click", { raise = true })
-	end),
-	Awful.button({ ModKey }, 1, function(c)
-		c:emit_signal("request::activate", "mouse_click", { raise = true })
-		Awful.mouse.client.move(c)
-	end),
-	Awful.button({ ModKey }, 3, function(c)
-		c:emit_signal("request::activate", "mouse_click", { raise = true })
-		Awful.mouse.client.resize(c)
-	end)
+local clientbuttons = gears.table.join(
+    awful.button({}, 1, function(c)
+        c:emit_signal("request::activate", "mouse_click", { raise = true })
+    end),
+    awful.button({ CONFIG.modkey }, 1, function(c)
+        c:emit_signal("request::activate", "mouse_click", { raise = true })
+        awful.mouse.client.move(c)
+    end),
+    awful.button({ CONFIG.modkey }, 3, function(c)
+        c:emit_signal("request::activate", "mouse_click", { raise = true })
+        awful.mouse.client.resize(c)
+    end)
 )
 
 awful.rules.rules = {
@@ -70,7 +74,7 @@ awful.rules.rules = {
     },
     {
         rule_any = {
-            class ={
+            class = {
                 "Pavucontrol",
             }
         },

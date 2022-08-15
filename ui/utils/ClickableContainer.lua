@@ -1,3 +1,10 @@
+--- @type Beautiful
+local beautiful = require('beautiful')
+
+--- @type Wibox
+local wibox = require('wibox')
+
+
 --- @class ClickableContainer
 --- @field widget Widget
 --- @field callback function
@@ -12,10 +19,10 @@ function ClickableContainer.new(widget, callback)
     local newClickableContainer = {}
     setmetatable(newClickableContainer, ClickableContainer)
 
-	newClickableContainer.widget = Wibox.widget({
-		widget,
-		widget = Wibox.container.background,
-	})
+    newClickableContainer.widget = wibox.widget({
+        widget,
+        widget = wibox.container.background,
+    })
 
     newClickableContainer.callback = callback
 
@@ -28,7 +35,7 @@ function ClickableContainer.new(widget, callback)
 end
 
 function ClickableContainer:mouseEnter()
-    self.widget.bg = Beautiful.clickableContainer.hoverBg
+    self.widget.bg = beautiful.clickableContainer.hoverBg
 
     -- Hm, no idea how to get the wibox from this signal's arguments...
     local w = mouse.current_wibox
@@ -39,7 +46,7 @@ function ClickableContainer:mouseEnter()
 end
 
 function ClickableContainer:mouseLeave()
-    self.widget.bg = Beautiful.clickableContainer.bg
+    self.widget.bg = beautiful.clickableContainer.bg
     if self._old_wibox then
         self._old_wibox.cursor = self._old_cursor
         self._old_wibox = nil
@@ -47,10 +54,10 @@ function ClickableContainer:mouseLeave()
 end
 
 function ClickableContainer:mousePress()
-    self.widget.bg = Beautiful.clickableContainer.pressBg
+    self.widget.bg = beautiful.clickableContainer.pressBg
 end
 
 function ClickableContainer:mouseRelease()
-    self.widget.bg = Beautiful.clickableContainer.hoverBg
+    self.widget.bg = beautiful.clickableContainer.hoverBg
     self.callback()
 end

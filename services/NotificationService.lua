@@ -16,6 +16,8 @@ local awful = require("awful")
 --- @type Gears
 local gears = require('gears')
 
+--- @type Menubar
+local menubar = require("menubar")
 
 local isDndOn = false
 
@@ -44,13 +46,12 @@ local function toggle()
     awesome.emit_signal(Signals.dnd_update)
 end
 
-
 ruled.notification.connect_signal("request::rules", function()
     ruled.notification.append_rule({
         rule = { urgency = "critical" },
         properties = {
             timeout = 0,
-            border_color = Beautiful.notification.borderUrgent
+            border_color = beautiful.notification.borderUrgent
         },
     })
 
@@ -59,14 +60,14 @@ ruled.notification.connect_signal("request::rules", function()
         properties = {
             timeout = 5,
             implicit_timeout = 5,
-            border_color = Beautiful.notification.borderNormal
+            border_color = beautiful.notification.borderNormal
         },
     })
     ruled.notification.append_rule({
         rule = { urgency = "low" },
         properties = {
             implicit_timeout = 5,
-            border_color = Beautiful.notification.borderNormal
+            border_color = beautiful.notification.borderNormal
         },
     })
 end)
@@ -77,7 +78,7 @@ naughty.connect_signal("request::icon", function(n, context, hints)
         return
     end
 
-    local path = Menubar.utils.lookup_icon(hints.app_icon) or Menubar.utils.lookup_icon(hints.app_icon:lower())
+    local path = menubar.utils.lookup_icon(hints.app_icon) or Menubar.utils.lookup_icon(hints.app_icon:lower())
 
     if path then
         n.icon = path
@@ -92,7 +93,7 @@ naughty.connect_signal("request::display", function(n)
         local action_buttons = wibox.widget({
             notification = n,
             base_layout = wibox.widget({
-                spacing = Dpi(0),
+                spacing = dpi(0),
                 layout = wibox.layout.flex.horizontal,
             }),
             widget_template = {
@@ -110,15 +111,15 @@ naughty.connect_signal("request::display", function(n)
                     },
                     bg = beautiful.groups_bg,
                     shape = gears.shape.rounded_rect,
-                    forced_height = Dpi(30),
+                    forced_height = dpi(30),
                     widget = wibox.container.background,
                 },
-                margins = Dpi(4),
+                margins = dpi(4),
                 widget = wibox.container.margin,
             },
             style = { underline_normal = false, underline_selected = true },
             widget = naughty.list.actions,
-        }) 
+        })
 
         local iconWidget = wibox.widget({
             widget = wibox.container.margin,

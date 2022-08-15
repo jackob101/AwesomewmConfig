@@ -49,13 +49,13 @@ end
 
 volume_widget:connect_signal("button::press", function(_, _, _, b)
     if b == 1 then
-        VolumeService.toggle()
+        awesome.emit_signal(Signals.volume_toggle, false)
     elseif b == 3 then
         awful.spawn("pavucontrol")
     elseif b == 4 then
-        VolumeService.increase()
+        awesome.emit_signal(Signals.volume_increase, false)
     elseif b == 5 then
-        VolumeService.decrease()
+        awesome.emit_signal(Signals.volume_decrease, false)
     end
 end)
 

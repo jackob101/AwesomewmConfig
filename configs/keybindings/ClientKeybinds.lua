@@ -1,12 +1,8 @@
 --- @type Awful
 local awful = require('awful')
 
---- @type Gears
-local gears = require('gears')
-
-
-local keybinds = { 
-    awful.key({ ModKey },
+local keybinds = {
+    awful.key({ CONFIG.modkey },
         "f",
         function(c)
             c.fullscreen = not c.fullscreen
@@ -15,7 +11,7 @@ local keybinds = {
         { description = "toggle fullscreen", group = "client" }
     ),
 
-    awful.key({ ModKey, "Shift" },
+    awful.key({ CONFIG.modkey, "Shift" },
         "q",
         function(c)
             c:kill()
@@ -24,13 +20,13 @@ local keybinds = {
     ),
 
     awful.key(
-        { ModKey, "Control" },
+        { CONFIG.modkey, "Control" },
         "space",
         awful.client.floating.toggle,
         { description = "toggle floating", group = "client" }
     ),
 
-    awful.key({ ModKey, "Control" },
+    awful.key({ CONFIG.modkey, "Control" },
         "Return",
         function(c)
             c:swap(awful.client.getmaster())
@@ -38,7 +34,7 @@ local keybinds = {
         { description = "move to master", group = "client" }
     ),
 
-    awful.key({ ModKey },
+    awful.key({ CONFIG.modkey },
         "s",
         function()
             local focused_screen = awful.screen.focused()
@@ -59,14 +55,14 @@ local keybinds = {
         { description = "Switch currently focused clients between screens", group = "client" }
     ),
 
-    awful.key({ ModKey },
+    awful.key({ CONFIG.modkey },
         "t",
         function(c)
             c.ontop = not c.ontop
         end,
         { description = "toggle keep on top", group = "client" }
     ),
-    awful.key({ ModKey },
+    awful.key({ CONFIG.modkey },
         "n",
         function(c)
             c.minimized = true
@@ -74,7 +70,7 @@ local keybinds = {
         { description = "minimize", group = "client" }
     ),
 
-    awful.key({ ModKey },
+    awful.key({ CONFIG.modkey },
         "m",
         function(c)
             c:maximize()
@@ -83,12 +79,13 @@ local keybinds = {
     ),
 
     awful.key(
-        { ModKey },
+        { CONFIG.modkey },
         "o",
         function(c)
             awesome.emit_signal(Signals.client_mover_start, c)
         end,
         { description = "Move client", group = "client" }
-    )}
+    )
+}
 
 return keybinds

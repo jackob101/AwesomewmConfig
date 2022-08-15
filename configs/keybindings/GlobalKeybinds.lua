@@ -10,33 +10,33 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- require("awful.hotkeys_popup.keys")
 
 
-local keybinds ={ 
+local keybinds = {
 
---  █████╗ ██╗    ██╗███████╗███████╗ ██████╗ ███╗   ███╗███████╗
--- ██╔══██╗██║    ██║██╔════╝██╔════╝██╔═══██╗████╗ ████║██╔════╝
--- ███████║██║ █╗ ██║█████╗  ███████╗██║   ██║██╔████╔██║█████╗
--- ██╔══██║██║███╗██║██╔══╝  ╚════██║██║   ██║██║╚██╔╝██║██╔══╝
--- ██║  ██║╚███╔███╔╝███████╗███████║╚██████╔╝██║ ╚═╝ ██║███████╗
--- ╚═╝  ╚═╝ ╚══╝╚══╝ ╚══════╝╚══════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝
+    --  █████╗ ██╗    ██╗███████╗███████╗ ██████╗ ███╗   ███╗███████╗
+    -- ██╔══██╗██║    ██║██╔════╝██╔════╝██╔═══██╗████╗ ████║██╔════╝
+    -- ███████║██║ █╗ ██║█████╗  ███████╗██║   ██║██╔████╔██║█████╗
+    -- ██╔══██║██║███╗██║██╔══╝  ╚════██║██║   ██║██║╚██╔╝██║██╔══╝
+    -- ██║  ██║╚███╔███╔╝███████╗███████║╚██████╔╝██║ ╚═╝ ██║███████╗
+    -- ╚═╝  ╚═╝ ╚══╝╚══╝ ╚══════╝╚══════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝
 
     awful.key(
-        { ModKey },
+        { CONFIG.modkey },
         "F1",
         function()
-        hotkeys_popup.show_help(nil, awful.screen.focused())
+            hotkeys_popup.show_help(nil, awful.screen.focused())
         end,
         { description = "show help", group = "awesome" }
     ),
 
     awful.key(
-        { ModKey, "Shift" },
+        { CONFIG.modkey, "Shift" },
         "r",
         awesome.restart,
         { description = "reload awesome", group = "awesome" }
     ),
 
     awful.key(
-        { ModKey, "Shift", "Control" },
+        { CONFIG.modkey, "Shift", "Control" },
         "l",
         awesome.quit,
         { description = "quit awesome", group = "awesome" }
@@ -84,7 +84,7 @@ local keybinds ={
     -- ╚═════╝ ╚═╝  ╚═══╝╚═════╝
 
     awful.key(
-        { ModKey, "Shift" },
+        { CONFIG.modkey, "Shift" },
         "t",
         function()
             awesome.emit_signal(Signals.dnd_toggle)
@@ -100,7 +100,7 @@ local keybinds ={
     -- ╚██████╗███████╗██║███████╗██║ ╚████║   ██║
     --  ╚═════╝╚══════╝╚═╝╚══════╝╚═╝  ╚═══╝   ╚═╝
 
-    awful.key({ ModKey },
+    awful.key({ CONFIG.modkey },
         "k",
         function()
             awful.client.focus.byidx(1)
@@ -108,7 +108,7 @@ local keybinds ={
         { description = "focus next by index", group = "client" }
     ),
 
-    awful.key({ ModKey },
+    awful.key({ CONFIG.modkey },
         "j",
         function()
             awful.client.focus.byidx(-1)
@@ -116,7 +116,7 @@ local keybinds ={
         { description = "focus previous by index", group = "client" }
     ),
 
-    awful.key({ ModKey, "Shift" },
+    awful.key({ CONFIG.modkey, "Shift" },
         "k",
         function()
             awful.client.swap.byidx(1)
@@ -124,7 +124,7 @@ local keybinds ={
         { description = "swap with next client by index", group = "client" }
     ),
 
-    awful.key({ ModKey, "Shift" },
+    awful.key({ CONFIG.modkey, "Shift" },
         "j",
         function()
             awful.client.swap.byidx(-1)
@@ -133,13 +133,13 @@ local keybinds ={
     ),
 
     awful.key(
-        { ModKey },
+        { CONFIG.modkey },
         "u",
         awful.client.urgent.jumpto,
         { description = "jump to urgent client", group = "client" }
     ),
 
-    awful.key({ ModKey },
+    awful.key({ CONFIG.modkey },
         "Tab",
         function()
             awful.client.focus.history.previous()
@@ -150,7 +150,7 @@ local keybinds ={
         { description = "go back", group = "client" }
     ),
 
-    awful.key({ ModKey, "Shift" },
+    awful.key({ CONFIG.modkey, "Shift" },
         "n",
         function()
             local c = awful.client.restore()
@@ -170,14 +170,14 @@ local keybinds ={
     -- ╚══════╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═══╝
 
     awful.key(
-        { ModKey, "Control" },
+        { CONFIG.modkey, "Control" },
         "j",
         function() awful.screen.focus_relative(1) end,
         { description = "focus the next screen", group = "screen", }
     ),
 
     awful.key(
-        { ModKey, "Control" },
+        { CONFIG.modkey, "Control" },
         "k",
         function() awful.screen.focus_relative(-1) end,
         { description = "focus the previous screen", group = "screen", }
@@ -199,33 +199,33 @@ local keybinds ={
 
 
     awful.key(
-        { ModKey },
+        { CONFIG.modkey },
         "Left",
         awful.tag.viewprev,
         { description = "view previous", group = "Tag" }
     ),
 
     awful.key(
-        { ModKey },
+        { CONFIG.modkey },
         "Right",
         awful.tag.viewnext,
         { description = "view next", group = "Tag" }
     ),
 
     awful.key(
-        { ModKey },
+        { CONFIG.modkey },
         "Escape",
         awful.tag.history.restore,
         { description = "go back", group = "Tag" }
     ),
     awful.key {
-        modifiers   = { ModKey },
+        modifiers   = { CONFIG.modkey },
         keygroup    = "numrow",
         description = "only view tag",
         group       = "Tag",
-        on_press    = function (index)
+        on_press    = function(index)
             if index == 0 then
-               index = 10 
+                index = 10
             end
             local screen = awful.screen.focused()
             local tag = screen.tags[index]
@@ -235,13 +235,13 @@ local keybinds ={
         end,
     },
     awful.key {
-        modifiers   = { ModKey, "Control" },
+        modifiers   = { CONFIG.modkey, "Control" },
         keygroup    = "numrow",
         description = "toggle tag",
         group       = "Tag",
-        on_press    = function (index)
+        on_press    = function(index)
             if index == 0 then
-               index = 10 
+                index = 10
             end
             local screen = awful.screen.focused()
             local tag = screen.tags[index]
@@ -251,11 +251,11 @@ local keybinds ={
         end,
     },
     awful.key {
-        modifiers = { ModKey, "Shift" },
+        modifiers   = { CONFIG.modkey, "Shift" },
         keygroup    = "numrow",
         description = "move focused client to tag",
         group       = "Tag",
-        on_press    = function (index)
+        on_press    = function(index)
             if client.focus then
                 local tag = client.focus.screen.tags[index]
                 if tag then
@@ -265,11 +265,11 @@ local keybinds ={
         end,
     },
     awful.key {
-        modifiers   = { ModKey, "Control", "Shift" },
+        modifiers   = { CONFIG.modkey, "Control", "Shift" },
         keygroup    = "numrow",
         description = "toggle focused client on tag",
         group       = "Tag",
-        on_press    = function (index)
+        on_press    = function(index)
             if client.focus then
                 local tag = client.focus.screen.tags[index]
                 if tag then
@@ -287,49 +287,49 @@ local keybinds ={
 
 
     awful.key(
-        { ModKey },
+        { CONFIG.modkey },
         "l",
         function() awful.tag.incmwfact(0.05) end,
         { description = "increase master width factor", group = "layout", }
     ),
 
     awful.key(
-        { ModKey },
+        { CONFIG.modkey },
         "h",
         function() awful.tag.incmwfact(-0.05) end,
         { description = "decrease master width factor", group = "layout", }
     ),
 
     awful.key(
-        { ModKey, "Shift" },
+        { CONFIG.modkey, "Shift" },
         "h",
         function() awful.tag.incnmaster(1, nil, true) end,
         { description = "increase the number of master clients", group = "layout", }
     ),
 
     awful.key(
-        { ModKey, "Shift" },
+        { CONFIG.modkey, "Shift" },
         "l",
         function() awful.tag.incnmaster(-1, nil, true) end,
         { description = "decrease the number of master clients", group = "layout", }
     ),
 
     awful.key(
-        { ModKey, "Control" },
+        { CONFIG.modkey, "Control" },
         "h",
         function() awful.tag.incncol(1, nil, true) end,
         { description = "increase the number of columns", group = "layout", }
     ),
 
     awful.key(
-        { ModKey, "Control" },
+        { CONFIG.modkey, "Control" },
         "l",
         function() awful.tag.incncol(-1, nil, true) end,
         { description = "decrease the number of columns", group = "layout", }
     ),
 
     awful.key(
-        { ModKey },
+        { CONFIG.modkey },
         "space",
         function()
             awful.layout.inc(1)
@@ -338,7 +338,7 @@ local keybinds ={
     ),
 
     awful.key(
-        { ModKey, "Shift" },
+        { CONFIG.modkey, "Shift" },
         "space",
         function() awful.layout.inc(-1) end,
         { description = "select previous", group = "layout", }
@@ -351,7 +351,7 @@ local keybinds ={
     -- ███████╗██║  ██║╚██████╔╝██║ ╚████║╚██████╗██║  ██║███████╗██║  ██║
     -- ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
 
-    awful.key({ ModKey },
+    awful.key({ CONFIG.modkey },
         "Return",
         function()
             awful.spawn(terminal)
@@ -359,7 +359,7 @@ local keybinds ={
         { description = "open a terminal", group = "launcher" }
     ),
 
-    awful.key({ ModKey },
+    awful.key({ CONFIG.modkey },
         "r",
         function()
             awful.screen.focused().mypromptbox:run()
@@ -367,7 +367,7 @@ local keybinds ={
         { description = "run prompt", group = "launcher" }
     ),
 
-    awful.key({ ModKey },
+    awful.key({ CONFIG.modkey },
         "d",
         function()
             awful.spawn(os.getenv("HOME") .. "/.config/rofi/launcher.sh")
@@ -375,7 +375,7 @@ local keybinds ={
         { description = "Run rofi", group = "launcher" }
     ),
 
-    awful.key({ ModKey, "Shift" },
+    awful.key({ CONFIG.modkey, "Shift" },
         "e",
         function()
             awesome.emit_signal("module::exit_screen:show")
@@ -383,7 +383,7 @@ local keybinds ={
         { description = "Run power menu", group = "launcher" }
     ),
 
-    awful.key({ ModKey, "Shift" },
+    awful.key({ CONFIG.modkey, "Shift" },
         "c",
         function()
             awful.spawn(
@@ -395,7 +395,7 @@ local keybinds ={
         { description = "Spawn calculator", group = "launcher" }
     ),
 
-    awful.key({ ModKey },
+    awful.key({ CONFIG.modkey },
         "e",
         function()
             awful.spawn("emacsclient -c -a 'emacs'")
@@ -409,9 +409,9 @@ local keybinds ={
     -- ██╔═══╝ ██╔══██║██║╚██╗██║██╔══╝  ██║     ╚════██║
     -- ██║     ██║  ██║██║ ╚████║███████╗███████╗███████║
     -- ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚══════╝╚══════╝
-    
+
     awful.key(
-        { ModKey },
+        { CONFIG.modkey },
         "c",
         function()
             awesome.emit_signal(Signals.notification_panel_toggle)
@@ -421,4 +421,3 @@ local keybinds ={
 }
 
 return keybinds
-

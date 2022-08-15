@@ -20,7 +20,7 @@ local calendar = require("ui.notificationCenter.popup.calendar")()
 local helpers = require("helpers")
 
 local panels = wibox.widget {
-    layout = Wibox.layout.fixed.vertical,
+    layout = wibox.layout.fixed.vertical,
     fill_space = true,
     spacing = beautiful.notification_center.panel_margin,
     expand = "inside",

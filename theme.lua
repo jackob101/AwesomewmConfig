@@ -7,6 +7,9 @@ local xresources = require("beautiful.xresources")
 local xrdb = xresources.get_current_theme()
 local dpi = xresources.apply_dpi
 
+--- @type Gears
+local gears = require('gears')
+
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
 
@@ -24,8 +27,6 @@ theme.font_size = 10
 theme.icons_font = "Material icons"
 theme.font = theme.font_name .. " " .. theme.font_size
 
-theme.corner_radius = 10
-
 
 theme.green = "#9ece6a"
 theme.red = "#f7768e"
@@ -37,7 +38,14 @@ theme.gray = "#414868"
 theme.light_gray = "#565f89"
 theme.light = "#a9b1d6"
 
+-- Default values
+
 theme.accent = theme.green
+theme.background = theme.black
+theme.foreground = theme.light
+theme.corner_radius = 10
+theme.border_width = dpi(3)
+theme.border_color = theme.gray
 
 -- General settings
 theme.color8 = xrdb.color8
@@ -136,28 +144,6 @@ theme.volumeBarWidget = {
     barIconMargin = theme.bar.barIconMargin,
 }
 
-theme.volumePopupWidget = {
-    font = theme.font_name .. "14",
-    bg = theme.gray .. "AA",
-    height = Dpi(120),
-    width = Dpi(300),
-    shape = Gears.shape.rect,
-    sliderBarHeight = Dpi(4),
-    sliderBarColor = theme.black .. "AA",
-    sliderBarActiveColor = theme.accent,
-    sliderHandleColor = theme.accent,
-    sliderHandleWidth = Dpi(20),
-    sliderHandleBorderColor = "#00000012",
-    sliderHandleBorderWidth = dpi(1),
-    leftBorderMargin = Dpi(24),
-    rightBorderMargin = Dpi(24),
-    topBorderMargin = Dpi(24),
-    bottomBorderMargin = Dpi(0),
-    spaceAround = dpi(20),
-    boxBorderWidth = dpi(2),
-    boxBorderColor = theme.light_gray
-}
-
 --- @class ClickableContainerTheme
 theme.clickableContainer = {
     bg = theme.gray,
@@ -249,13 +235,13 @@ theme.notification_center = {
     bg = theme.black,
     panel_bg = theme.gray .. "33",
     panel_margin = dpi(10),
-    width = Dpi(400),
-    border_width = Dpi(3),
+    width = dpi(400),
+    border_width = dpi(3),
     border_color = theme.gray,
     notification_bg = theme.gray .. "44",
     notification_bg_hover = theme.gray .. "AA",
-    bottomMargin = Dpi(10),
-    rightMargin = Dpi(10),
+    bottomMargin = dpi(10),
+    rightMargin = dpi(10),
     calendar_current_day_fg = theme.accent,
     calendar_weekend_day_color = theme.light,
     calendar_normal_day = theme.light .. "CC",
@@ -270,7 +256,6 @@ theme.flash_focus_step = 0.02
 
 theme.transparent = "#FFFFFF00"
 
-theme.border_width = dpi(1)
 theme.border_normal = theme.gray or "#000000"
 theme.border_focus = theme.accent or "#535d6c"
 theme.border_marked = xrdb.color10 or "#91231c"

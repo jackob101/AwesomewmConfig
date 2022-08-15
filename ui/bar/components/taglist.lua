@@ -9,25 +9,25 @@ local beautiful = require("beautiful")
 
 
 local buttons = {
-    Awful.button({}, 1, function(t)
+    awful.button({}, 1, function(t)
         t:view_only()
     end),
-    Awful.button({ ModKey }, 1, function(t)
+    awful.button({ CONFIG.modkey }, 1, function(t)
         if client.focus then
             client.focus:move_to_tag(t)
         end
     end),
-    Awful.button({}, 3, Awful.tag.viewtoggle),
-    Awful.button({ ModKey }, 3, function(t)
+    awful.button({}, 3, awful.tag.viewtoggle),
+    awful.button({ CONFIG.modkey }, 3, function(t)
         if client.focus then
             client.focus:toggle_tag(t)
         end
     end),
-    Awful.button({}, 4, function(t)
-        Awful.tag.viewnext(t.screen)
+    awful.button({}, 4, function(t)
+        awful.tag.viewnext(t.screen)
     end),
-    Awful.button({}, 5, function(t)
-        Awful.tag.viewprev(t.screen)
+    awful.button({}, 5, function(t)
+        awful.tag.viewprev(t.screen)
     end)
 
 }
@@ -37,24 +37,24 @@ local function update_callback(widget, t)
     local task_list = widget:get_children_by_id("task_list")[1]
     task_list:reset()
     if #clients > 0 then
-        local tasks = Wibox.widget {
+        local tasks = wibox.widget {
             layout = wibox.layout.fixed.horizontal,
             spacing = beautiful.tag.tasks_spacing,
         }
 
         for _, client in ipairs(clients) do
-            tasks:add(Wibox.widget({
+            tasks:add(wibox.widget({
                 widget = wibox.widget.imagebox,
                 image = client.icon,
             }))
         end
 
-        local task_list_container = Wibox.widget {
+        local task_list_container = wibox.widget {
             widget = wibox.container.margin,
             top = beautiful.tag.tasks_top_margin or beautiful.tag.tasks_margins,
             bottom = beautiful.tag.tasks_bottom_margin or beautiful.tag.tasks_margins,
             right = beautiful.tag.tasks_right_margin or beautiful.tag.tasks_margins,
-           tasks, 
+            tasks,
         }
 
         task_list:add(task_list_container)
@@ -71,10 +71,10 @@ local function create(s)
         widget_template = {
             {
                 {
-                    widget = Wibox.container.background,
+                    widget = wibox.container.background,
                     opacity = 0,
                     id = "hover_background",
-                    bg = Beautiful.tag.hover_color
+                    bg = beautiful.tag.hover_color
                 },
                 {
                     {
