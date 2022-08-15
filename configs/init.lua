@@ -72,9 +72,4 @@ end)
 ----------------------------------------
 -- Initialize basic configs
 ----------------------------------------
-load_all("configs", { "client", "Autostart"})
-----------------------------------"titlebar"------
-
--- Initialize keybinds
-----------------------------------------
---require("awful.hotkeys_popup.keys")
+load_all("configs", { "client", "Autostart", "keybindings"})

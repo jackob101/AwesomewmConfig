@@ -24,11 +24,6 @@ local notification_center_toggle = require("ui.notificationCenter")
 --- @param s Screen
 local function create(s)
 
-    local spacing = wibox.widget({
-        widget = wibox.container.background,
-        forced_width = beautiful.bar.rightPanelChildSpacing
-    })
-
     -- Create the wibar
     local widget = awful.wibar({
         position = "bottom",
@@ -61,14 +56,11 @@ local function create(s)
                     margins = beautiful.bar.rightPanelMargins,
                     {
                         layout = wibox.layout.fixed.horizontal,
+                        spacing = beautiful.bar.rightPanelChildSpacing,
                         volume(s),
-                        spacing,
                         time(s),
-                        spacing,
                         date(s),
-                        spacing,
                         systray(s),
-                        spacing,
                         notification_center_toggle(s)
                     },
                 },

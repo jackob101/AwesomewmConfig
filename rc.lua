@@ -14,8 +14,6 @@ Signals = require("signals")
 
 require("utils")
 
-require("configs.keybindings")
-
 require("icons")
 IconsHandler.init()
 

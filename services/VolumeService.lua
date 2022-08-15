@@ -4,7 +4,7 @@ local gears = require("gears")
 --- @type Awful
 local awful = require('awful')
 
-
+-- This is soo stupid but it works
 local canServe = true
 
 
