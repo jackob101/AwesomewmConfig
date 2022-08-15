@@ -21,11 +21,12 @@ local function create(args)
     args.text = args.text or ""
     args.forced_height = args.height or beautiful.button_height
     args.forced_width = args.width or beautiful.button_width
-    args.border_color = args.border_color or beautiful.button_border_color
-    args.border_width = args.border_width or beautiful.button_border_width
+    args.border_color = args.border_color or beautiful.border_color
+    args.border_width = args.border_width or beautiful.border_width
     args.apply_hover = args.apply_hover or false
     args.on_click = args.on_click or function() end
     args.on_release = args.on_release or function() end
+    args.shape = args.shape or nil
 
 
     local text = text_widget({
@@ -45,7 +46,12 @@ local function create(args)
         bg = args.bg,
         border_color = args.border_color,
         border_width = args.border_width,
-        text,
+        shape = args.shape,
+        {
+            widget = wibox.container.margin,
+            margins = 3,
+            text,
+        }
     })
 
     container:connect_signal("button::press", args.on_click)
