@@ -56,7 +56,7 @@ awful.rules.rules = {
                 "Wpa_gui",
                 "veromix",
                 "xtightvncviewer",
-                --"awakened-poe-trade",
+                "awakened-poe-trade",
                 "Thunar",
                 "Xsane",
             },
@@ -71,6 +71,21 @@ awful.rules.rules = {
             },
         },
         properties = { floating = true, placement = awful.placement.centered },
+    },
+
+    {
+        rule_any = {
+            class = {
+                "awakened-poe-trade"
+            },
+        },
+        properties = {
+            floating = false,
+            ontop = true,
+            border_width = 0,
+            -- height = 1000,
+            type = "dialog",
+        }
     },
     {
         rule_any = {

@@ -8,7 +8,7 @@ local xrdb = xresources.get_current_theme()
 local dpi = xresources.apply_dpi
 
 --- @type Gears
-local gears = require('gears')
+local gears = require("gears")
 
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
@@ -27,7 +27,6 @@ theme.font_size = 10
 theme.icons_font = "Material icons"
 theme.font = theme.font_name .. " " .. theme.font_size
 
-
 theme.green = "#9ece6a"
 theme.red = "#f7768e"
 theme.aqua = "#73daca"
@@ -44,13 +43,12 @@ theme.accent = theme.green
 theme.background = theme.black
 theme.foreground = theme.light
 theme.corner_radius = 10
-theme.border_width = dpi(3)
+theme.border_width = dpi(1)
 theme.border_color = theme.gray
 
 theme.bar_font_size = 10
 theme.bar_icons_size = 14
 theme.bar_icon_text_spacing = dpi(3)
-
 
 -- General settings
 theme.color8 = xrdb.color8
@@ -80,7 +78,7 @@ theme.button_hover_fg = theme.black
 theme.button_hover_bg = theme.accent
 
 theme.useless_gap = dpi(5)
-theme.gap_single_client = false
+theme.gap_single_client = true
 
 theme.bg_normal = theme.black
 
@@ -97,7 +95,6 @@ theme.fg_normal = xrdb.foreground or "#8DEE9"
 theme.fg_focus = xrdb.foreground or "#ECEFF4"
 theme.fg_urgent = xrdb.color9 or "#D08770"
 theme.fg_minimize = xrdb.foreground or "#D8DEE9"
-
 
 -- Status bar
 theme.bar_height = dpi(32)
@@ -152,13 +149,12 @@ theme.clickableContainer = {
     bg = theme.gray,
     hoverBg = theme.accent,
     pressBg = theme.accent .. "77",
-
 }
 
 theme.exit_screen = {
     bg = theme.black .. "CC",
     fg = theme.light,
-    groups_bg = theme.gray
+    groups_bg = theme.gray,
 }
 
 --- @class TagTheme
@@ -171,7 +167,7 @@ theme.tag = {
     tasks_right_margin = dpi(9),
 
     underline_height = dpi(3),
-    hover_color = "#FFFFFF15"
+    hover_color = "#FFFFFF15",
 }
 
 theme.titlebar = {
@@ -200,9 +196,7 @@ theme.task = {
     right_margin = dpi(8),
 }
 
-theme.dashboard = {
-
-}
+theme.dashboard = {}
 
 theme.tilingStatus = {
     bg = theme.color10,
@@ -231,7 +225,7 @@ theme.tooltip = {
     margins = dpi(10),
     font = "Inter 10",
     border_width = dpi(1),
-    border_color = theme.light_gray
+    border_color = theme.light_gray,
 }
 
 theme.notification_center = {
@@ -251,7 +245,6 @@ theme.notification_center = {
     calendar_weekday_header_fg = theme.light,
     calendar_header_fg = theme.orange,
 }
-
 
 -- Bling configs
 theme.flash_focus_start_opacity = 0.7
