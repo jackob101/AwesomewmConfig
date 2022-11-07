@@ -24,7 +24,7 @@ local theme = {}
 --  Theme font
 theme.font_name = "Ubuntu "
 theme.font_size = 10
-theme.icons_font = "Material icons"
+theme.icons_font = "Material icons "
 theme.font = theme.font_name .. " " .. theme.font_size
 
 theme.green = "#9ece6a"

@@ -10,7 +10,7 @@ local beautiful = require("beautiful")
 --- @type Wibox
 local wibox = require("wibox")
 
---- @type Tasklist_styles
+--- @type TasklistStyles
 local styles = require(... .. ".styles")
 
 local buttons = {

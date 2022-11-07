@@ -7,16 +7,13 @@ local awful = require("awful")
 --- @type Beautiful
 local beautiful = require("beautiful")
 
+--- @type BarStyles
+local styles = require(... .. ".styles")
+
 local tilign_status = require(... .. ".components.TilingStatus")
 local taglist = require(... .. ".components.taglist")
-
 local tasklist = require(... .. ".components.tasklist")
-
-local volume = require(... .. ".components.Volume")
-local time = require(... .. ".components.clock")
-local date = require(... .. ".components.DateBarWidget")
-local systray = require((...) .. ".components.systray")
-local notification_center_toggle = require("ui.notificationCenter")
+local status_widgets = require(... .. ".components.status_widgets")
 
 --- @param s Screen
 local function create(s)
@@ -49,15 +46,7 @@ local function create(s)
         {
           widget = wibox.container.margin,
           margins = beautiful.bar.rightPanelMargins,
-          {
-            layout = wibox.layout.fixed.horizontal,
-            spacing = beautiful.bar.rightPanelChildSpacing,
-            volume(s),
-            time(s),
-            date(s),
-            systray(s),
-            notification_center_toggle(s),
-          },
+          status_widgets,
         },
       },
     },

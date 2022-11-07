@@ -4,7 +4,7 @@ local beautiful = require("beautiful")
 --- @type Dpi
 local dpi = beautiful.xresources.apply_dpi
 
---- @class Tasklist_styles
+--- @class TasklistStyles
 local styles = {
   text_size_limiter = {
     strategy = "max",

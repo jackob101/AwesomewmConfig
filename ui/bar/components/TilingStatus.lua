@@ -10,9 +10,6 @@ local awful = require("awful")
 --- @type Helpers
 local helpers = require("helpers")
 
---- @type Widgets
-local widgets = require("widgets")
-
 local components = {}
 
 local function update_from_tag(t)
@@ -86,4 +83,3 @@ local function create(s)
 end
 
 return create
-
