@@ -42,12 +42,8 @@ local function create(s)
             widget = wibox.container.constraint,
             class = styles.text_size_limiter,
             {
-              widget = wibox.container.background,
-              class = styles.text_container,
-              {
-                id = "text_role",
-                widget = wibox.widget.textbox,
-              },
+              id = "text_role",
+              widget = wibox.widget.textbox,
             },
           },
           { -- Used to display some symbol when client is floating.

@@ -7,8 +7,7 @@ local dpi = beautiful.xresources.apply_dpi
 --- @class TilingStatusStyles
 local styles = {
   background = {
-    bg = beautiful.tilingStatus.bg,
-    fg = beautiful.tilingStatus.fg,
+    bg = beautiful.accent,
   },
   margin = {
     left = dpi(10),

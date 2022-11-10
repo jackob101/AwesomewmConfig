@@ -14,9 +14,6 @@ awesome.set_preferred_icon_size(128)
 
 --- @class Beautiful
 --- @field xresources Xresources
---- @field bar BarTheme
---- @field tag TagTheme
---- @field clickableContainer ClickableContainerTheme
 local theme = {}
 
 --  Theme font
@@ -44,26 +41,10 @@ theme.corner_radius = 10
 theme.border_width = dpi(1)
 theme.border_color = theme.gray
 
+-- Status bar
 theme.bar_font_size = 10
 theme.bar_icons_size = 14
-theme.bar_icon_text_spacing = dpi(3)
-
--- General settings
-theme.color8 = xrdb.color8
-theme.color9 = "#f7768e"
-theme.color10 = "#9ece6a"
-theme.color11 = xrdb.color11
-theme.color12 = xrdb.color12
-theme.color13 = xrdb.color13
-theme.color14 = xrdb.color14
-theme.color15 = xrdb.color15
-
-theme.accent1 = xrdb.color10
-theme.accent2 = xrdb.color11
-theme.accent3 = xrdb.color12
-theme.accent4 = xrdb.color13
-theme.accent5 = xrdb.color14
-theme.accent6 = xrdb.color15
+theme.bar_height = dpi(32)
 
 -- Default values for button widgets
 theme.button_bg = theme.gray
@@ -94,11 +75,6 @@ theme.fg_focus = xrdb.foreground or "#ECEFF4"
 theme.fg_urgent = xrdb.color9 or "#D08770"
 theme.fg_minimize = xrdb.foreground or "#D8DEE9"
 
--- Status bar
-theme.bar_height = dpi(32)
-theme.bar_opacity = "FF"
-theme.bar_icon_margin = dpi(2)
-
 theme.groups_bg = xrdb.color2 .. "77"
 
 -- Generate taglist squares:
@@ -106,102 +82,18 @@ theme.taglist_squares_sel = theme_assets.taglist_squares_sel(dpi(0), theme.fg_fo
 theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(dpi(0), theme.fg_normal)
 theme.taglist_fg_focus = theme.foreground
 theme.taglist_fg_urgent = theme.fg_normal
-theme.taglist_bg_focus = theme.color10
-theme.taglist_bg_urgent = xrdb.color9
+theme.taglist_bg_focus = theme.accent
+theme.taglist_bg_urgent = theme.red
 theme.taglist_bg_occupied = theme.bg_overlay_transparent
--- theme.taglist_bg_occupied = xrdb.color12
 theme.taglist_fg_occupied = theme.foreground
 theme.taglist_font = theme.font_name .. "13"
 
 theme.calendar_font = theme.font_name .. theme.font_size
 
-----    Tag
-
---- @class BarTheme
---- @field barHeight number Height of the wibar
---- @field rightPanelMargins number
---- @field rightPanelChildSpacing number
---- @field leftPanelMargins number
-theme.bar = {
-    font = theme.font,
-    barHeight = theme.bar_height,
-    rightPanelMargins = (theme.bar_height - (theme.bar_height * 0.5)) / 3,
-    rightPanelChildSpacing = dpi(15),
-    leftPanelMargins = (theme.bar_height - (theme.bar_height * 1)) / 2,
-    barIconTextSpacing = dpi(5),
-    barIconMargin = dpi(2),
-}
-
---- @class VolumeBarWidgetTheme
-theme.volumeBarWidget = {
-    highFg = theme.fg_normal,
-    mediumFg = theme.fg_normal,
-    lowFg = theme.fg_normal,
-    mutedFg = theme.fg_normal,
-    barIconTextSpacing = theme.bar.barIconTextSpacing,
-    barIconMargin = theme.bar.barIconMargin,
-}
-
---- @class ClickableContainerTheme
-theme.clickableContainer = {
-    bg = theme.gray,
-    hoverBg = theme.accent,
-    pressBg = theme.accent .. "77",
-}
-
 theme.exit_screen = {
     bg = theme.black .. "CC",
     fg = theme.light,
     groups_bg = theme.gray,
-}
-
---- @class TagTheme
-theme.tag = {
-    label_margins = dpi(5),
-    label_forced_width = dpi(25),
-
-    tasks_margins = dpi(6),
-    tasks_spacing = dpi(7),
-    tasks_right_margin = dpi(9),
-
-    underline_height = dpi(3),
-    hover_color = "#FFFFFF15",
-}
-
-theme.titlebar = {
-    control_button_width = dpi(40),
-    control_button_margins = dpi(6),
-    control_button_hover_color = "#FFFFFF22",
-
-    floating_symbol = "✈",
-    floating_font = "inter medium 11",
-
-    icon_padding = dpi(3),
-
-    left_components_spacing = dpi(5),
-
-    close_color = theme.color9,
-    maximize_color = theme.color10,
-    minimize_color = theme.color11,
-}
-
-theme.task = {
-    task_spacing = dpi(5),
-
-    top_margin = dpi(4),
-    bottom_margin = dpi(4),
-    left_margin = dpi(8),
-    right_margin = dpi(8),
-}
-
-theme.dashboard = {}
-
-theme.tilingStatus = {
-    bg = theme.color10,
-    leftMargin = dpi(8),
-    rightMargin = dpi(8),
-    fg = theme.black,
-    font = "inter medium 10",
 }
 
 theme.notification = {
@@ -256,14 +148,17 @@ theme.border_marked = xrdb.color10 or "#91231c"
 
 theme.hotkeys_font = "Ubuntu 10"
 theme.hotkeys_description_font = "Ubuntu 10"
-theme.hotkeys_border_color = xrdb.color5
-theme.hotkeys_modifiers_fg = xrdb.color11
-theme.hotkeys_label_bg = xrdb.color10
+theme.hotkeys_border_color = theme.border_color
+theme.hotkeys_modifiers_fg = theme.orange
+theme.hotkeys_label_bg = theme.aqua
 
 theme.tooltip_font = theme.tooltip.font
 theme.tooltip_border_width = theme.tooltip.border_width
 theme.tooltip_border_color = theme.tooltip.border_color
 
+theme.tasklist_fg_normal = theme.foreground
+theme.tasklist_fg_focus = theme.foreground
+theme.tasklist_fg_urgent = theme.background
 theme.tasklist_bg_focus = theme.bg_focus
 theme.tasklist_black = theme.transparent
 theme.tasklist_disable_task_name = false

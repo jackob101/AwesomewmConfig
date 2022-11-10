@@ -4,6 +4,8 @@ local beautiful = require("beautiful")
 --- @type Dpi
 local dpi = beautiful.xresources.apply_dpi
 
+local bar_icon_text_spacing = dpi(3)
+
 --- @class StatusWidgetsStyles
 local styles = {
   clock = {
@@ -11,7 +13,7 @@ local styles = {
       fg = beautiful.foreground,
     },
     layout = {
-      spacing = beautiful.bar_icon_text_spacing,
+      spacing = bar_icon_text_spacing,
     },
     icon = {
       text = "",
@@ -27,7 +29,7 @@ local styles = {
       fg = beautiful.foreground,
     },
     layout = {
-      spacing = beautiful.bar_icon_text_spacing,
+      spacing = bar_icon_text_spacing,
     },
     icon = {
       text = "",
@@ -43,7 +45,7 @@ local styles = {
       fg = beautiful.foreground,
     },
     layout = {
-      spacing = beautiful.bar_icon_text_spacing,
+      spacing = bar_icon_text_spacing,
     },
     icon = {
       font = beautiful.icons_font .. beautiful.bar_icons_size,
@@ -53,7 +55,7 @@ local styles = {
     },
   },
   container = {
-    spacing = beautiful.bar.rightPanelChildSpacing,
+    spacing = dpi(10),
   },
 }
 

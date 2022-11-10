@@ -18,15 +18,14 @@ local status_widgets = require(... .. ".components.status_widgets")
 --- @param s Screen
 local function create(s)
   -- Create the wibar
-  local widget = awful.wibar({
+  local widget = awful.wibar(Apply_styles({
     position = "bottom",
     screen = s,
-    height = beautiful.bar.barHeight,
-    bg = beautiful.black .. beautiful.bar_opacity,
-  })
+    class = styles.bar,
+  }))
 
   -- Add widgets to the wibox
-  widget:setup({
+  widget:setup(Apply_styles({
     layout = wibox.layout.stack,
     {
       layout = wibox.layout.align.horizontal,
@@ -36,8 +35,6 @@ local function create(s)
         layout = wibox.layout.align.horizontal,
         expand = "inside",
         {
-          widget = wibox.container.margin,
-          margins = beautiful.bar.leftPanelMargins,
           layout = wibox.layout.fixed.horizontal,
           tilign_status(s),
           taglist(s),
@@ -45,7 +42,7 @@ local function create(s)
         nil,
         {
           widget = wibox.container.margin,
-          margins = beautiful.bar.rightPanelMargins,
+          class = styles.status_widgets_margin_container,
           status_widgets,
         },
       },
@@ -56,7 +53,7 @@ local function create(s)
       nil,
       tasklist(s),
     },
-  })
+  }))
 end
 
 awful.screen.connect_for_each_screen(function(s)

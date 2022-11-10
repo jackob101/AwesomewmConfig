@@ -11,16 +11,13 @@ local styles = {
     width = dpi(160),
   },
   task_margins = {
-    top = beautiful.task.top_margin,
-    bottom = beautiful.task.bottom_margin,
-    left = beautiful.task.left_margin,
-    right = beautiful.task.right_margin,
+    top = dpi(4),
+    bottom = dpi(4),
+    left = dpi(8),
+    right = dpi(8),
   },
   layout = {
     spacing = dpi(10),
-  },
-  text_container = {
-    fg = beautiful.black,
   },
   icon = {
     scaling_quality = "good",

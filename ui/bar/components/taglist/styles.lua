@@ -1,29 +1,32 @@
 --- @type Beautiful
 local beautiful = require("beautiful")
 
+--- @type Dpi
+local dpi = beautiful.xresources.apply_dpi
+
 --- @class TaglistStyles
 local M = {
   hover_container = {
     opacity = 0,
-    bg = beautiful.tag.hover_color,
+    bg = beautiful.foreground .. "33",
   },
   text_margin = {
-    margins = beautiful.tag.label_margins,
+    margins = dpi(5),
   },
   text = {
     align = "center",
-    forced_width = beautiful.tag.label_forced_width,
+    forced_width = dpi(25),
   },
   tasks_margin = {
-    top = beautiful.tag.tasks_top_margin or beautiful.tag.tasks_margins,
-    bottom = beautiful.tag.tasks_bottom_margin or beautiful.tag.tasks_margins,
-    right = beautiful.tag.tasks_right_margin or beautiful.tag.tasks_margins,
+    top = dpi(7),
+    bottom = dpi(7),
+    right = dpi(7),
   },
   tasks_layout = {
-    spacing = beautiful.tag.tasks_spacing,
+    spacing = dpi(7),
   },
   underline_background = {
-    forced_height = beautiful.tag.underline_height,
+    forced_height = dpi(3),
   },
 }
 
