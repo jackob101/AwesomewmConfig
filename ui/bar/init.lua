@@ -10,7 +10,7 @@ local beautiful = require("beautiful")
 --- @type BarStyles
 local styles = require(... .. ".styles")
 
-local tilign_status = require(... .. ".components.TilingStatus")
+local tilign_status = require(... .. ".components.tiling_status")
 local taglist = require(... .. ".components.taglist")
 local tasklist = require(... .. ".components.tasklist")
 local status_widgets = require(... .. ".components.status_widgets")

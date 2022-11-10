@@ -32,6 +32,16 @@ local buttons = {
   end),
 }
 
+--- @param task_widget Widget
+--- @param c Client
+local function update_symbol(task_widget, c)
+  if c and c.floating then
+    task_widget:get_children_by_id("symbols_role")[1].text = "✈"
+  else
+    task_widget:get_children_by_id("symbols_role")[1].text = ""
+  end
+end
+
 local function create(s)
   local widget = awful.widget.tasklist({
     screen = s,
@@ -45,7 +55,7 @@ local function create(s)
       widget = wibox.container.background,
       {
         widget = wibox.container.margin,
-        class = styles.box_margin,
+        class = styles.task_margins,
         {
           layout = wibox.layout.fixed.horizontal,
           class = styles.layout,
@@ -66,11 +76,20 @@ local function create(s)
               },
             },
           },
+          { -- Used to display some symbol when client is floating.
+            widget = wibox.widget.textbox,
+            class = styles.symbols,
+            id = "symbols_role",
+          },
         },
       },
       create_callback = function(self, c)
         utils.hover_effect(self)
         utils.generate_tooltip(self, c.class)
+        c:connect_signal("property::floating", function(client_lambda)
+          update_symbol(self, client_lambda)
+        end)
+        update_symbol(self, c)
       end,
     }, styles),
     buttons = buttons,
