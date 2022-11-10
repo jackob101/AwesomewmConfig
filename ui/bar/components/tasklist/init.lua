@@ -13,34 +13,8 @@ local wibox = require("wibox")
 --- @type TasklistStyles
 local styles = require(... .. ".styles")
 
-local buttons = {
-  awful.button({}, 1, function(c)
-    if c == client.focus then
-      c.minimized = true
-    else
-      c:emit_signal("request::activate", "tasklist", { raise = true })
-    end
-  end),
-  awful.button({}, 2, function(c)
-    c:kill()
-  end),
-  awful.button({}, 4, function()
-    awful.client.focus.byidx(1)
-  end),
-  awful.button({}, 5, function()
-    awful.client.focus.byidx(-1)
-  end),
-}
-
---- @param task_widget Widget
---- @param c Client
-local function update_symbol(task_widget, c)
-  if c and c.floating then
-    task_widget:get_children_by_id("symbols_role")[1].text = "✈"
-  else
-    task_widget:get_children_by_id("symbols_role")[1].text = ""
-  end
-end
+--- @type TasklistLogic
+local logic = require(... .. ".logic")
 
 local function create(s)
   local widget = awful.widget.tasklist({
@@ -87,12 +61,12 @@ local function create(s)
         utils.hover_effect(self)
         utils.generate_tooltip(self, c.class)
         c:connect_signal("property::floating", function(client_lambda)
-          update_symbol(self, client_lambda)
+          logic.update_symbol(self, client_lambda)
         end)
-        update_symbol(self, c)
+        logic.update_symbol(self, c)
       end,
     }, styles),
-    buttons = buttons,
+    buttons = logic.buttons,
   })
 
   return widget
