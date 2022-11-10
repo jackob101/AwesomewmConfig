@@ -55,12 +55,10 @@ local M = {
     bottom = dpi(0),
   },
   placement_margins = {
-    {
-      right = dpi(10),
-      bottom = dpi(10),
-      top = 0,
-      left = 0,
-    },
+    right = dpi(10),
+    bottom = dpi(10),
+    top = 0,
+    left = 0,
   },
 }
 
