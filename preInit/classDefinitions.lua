@@ -12,7 +12,7 @@
 ---
 --- @class Awful
 --- @field screen Screen
---- @field popup fun(x: table)
+--- @field popup fun(x: ?table)
 --- @field placement table
 --- @field key fun(table, string, fun, table ): Key[]
 --- @field button fun(table, number, fun, fun): table
@@ -64,4 +64,3 @@
 --- @field init fun()
 
 --- @class Key
-
