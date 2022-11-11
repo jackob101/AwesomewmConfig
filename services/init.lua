@@ -1,6 +1,4 @@
-load_all("services", {
-    "NotificationService",
-    "VolumeService",
-    "ClientMoverService",
-    "PostureCheckNotificator",
-})
+require(... .. ".NotificationService")
+require(... .. ".VolumeService")
+require(... .. ".ClientMoverService")
+require(... .. ".PostureCheckNotificator")

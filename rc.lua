@@ -6,7 +6,7 @@ pcall(require, "luarocks.loader")
 local naughty = require("naughty")
 
 require("awful.autofocus")
-require("preInit")
+require("class_definitions")
 
 -- Helper function to load modules
 function load_all(path_to_folder, file_names)

@@ -12,6 +12,7 @@ local helpers = require("helpers")
 --- @type Widgets
 local widgets = require("widgets")
 
+-- TODO: Find idea for better power screen
 local greeter_message = widgets.text({
   text = "",
   size = 48,
